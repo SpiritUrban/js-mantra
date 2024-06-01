@@ -1,31 +1,39 @@
 import Image from "next/image";
+import Button from "react-bootstrap/Button";
+import NavBarPanel from "./NavBarPanel";
+import {Container} from "react-bootstrap";
+
 
 export default function Home() {
   return (
-    <main 
-    className=""
-    style={{
-      minHeight: '100vh',
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center"
-    }}
-    >
 
-      <Image
-        src="/logo.webp"
-        alt="JS Mantra"
-        className="test"
-        width={1000}
-        height={1000}
-        priority
+
+    <Container  fluid className="bg-dark text-white min-vh-100">
+<NavBarPanel/>
+      <main
+        className=""
         style={{
-          filter: "invert(100%)",
-          borderRadius: "20rem"
+          minHeight: "100vh",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
         }}
-      />
-
-    </main>
+      >
+        <Image
+          src="/logo.webp"
+          alt="JS Mantra"
+          className="test"
+          width={1000}
+          height={1000}
+          priority
+          style={{
+            filter: "invert(100%)",
+            borderRadius: "20rem",
+          }}
+        />
+        <Button variant="primary">Primary</Button>{" "}
+      </main>
+    </Container>
   );
 }
 

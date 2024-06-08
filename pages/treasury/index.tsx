@@ -1,3 +1,10 @@
+import Layout from "@/layauts/default";
+
 export default function Treasury() {
-    return <div>treasury</div>
-  }
+  return (
+
+    <Layout >
+      xasas
+    </Layout>
+  )
+}

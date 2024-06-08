@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Button from "react-bootstrap/Button";
-import NavBarPanel from "./NavBarPanel";
+import NavBarPanel from "./components/organisms/NavBarPanel";
 import {Container} from "react-bootstrap";
 
 

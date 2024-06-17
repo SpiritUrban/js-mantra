@@ -1,15 +1,16 @@
 import Image from "next/image";
 import Button from "react-bootstrap/Button";
 import NavBarPanel from "./NavBarPanel";
-import {Container} from "react-bootstrap";
+import { Container } from "react-bootstrap";
+import Counter from "@/Counter";
 
 
 export default function Home() {
   return (
 
 
-    <Container  fluid className="bg-dark text-white min-vh-100">
-<NavBarPanel/>
+    <Container fluid className="bg-dark text-white min-vh-100">
+      <NavBarPanel />
       <main
         className=""
         style={{
@@ -19,6 +20,10 @@ export default function Home() {
           alignItems: "center",
         }}
       >
+
+        <Counter />
+
+
         <Image
           src="/logo.webp"
           alt="JS Mantra"

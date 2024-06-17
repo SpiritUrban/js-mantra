@@ -1,8 +1,7 @@
-// components/Provider.tsx
 "use client";
 
 import { Provider } from "react-redux";
-import store from "@/lib/redux/store"; // Убедитесь, что путь к файлу store.ts верный
+import store from "@/lib/redux/store";
 import React from "react";
 
 const ReduxProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {

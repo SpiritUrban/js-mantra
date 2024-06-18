@@ -3,16 +3,21 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface CounterState {
   value: number;
+  color:string;
 }
 
 const initialState: CounterState = {
   value: 0,
+  color:"green",
 };
 
 const counterSlice = createSlice({
   name: 'counter',
   initialState,
   reducers: {
+    makeRed:(state)=> {
+      state.color = "red"
+    },
     increment: (state) => {
       state.value += 1;
     },
@@ -25,6 +30,6 @@ const counterSlice = createSlice({
   },
 });
 
-export const { increment, decrement, incrementByAmount } = counterSlice.actions;
+export const { increment, decrement, incrementByAmount,makeRed } = counterSlice.actions;
 
 export default counterSlice.reducer;

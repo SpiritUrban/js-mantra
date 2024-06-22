@@ -3,12 +3,10 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { addTodo, toggleTodo } from "@/lib/RTK/slices/todosSlice";
-import { increment } from "@/lib/RTK/slices/counterSlice";
 import { RootState } from "@/lib/RTK/store";
+import { Counter } from "@/components/organisms/Counter";
 
 const Home: React.FC = () => {
-  const counterValue = useSelector((state: RootState) => state.counter.value);
-
   const [text, setText] = useState("");
   const todos = useSelector((state: RootState) => state.todos);
   const dispatch = useDispatch();
@@ -26,9 +24,7 @@ const Home: React.FC = () => {
 
   return (
     <div>
-      <h1>Counter: {counterValue}</h1>
-
-      <button onClick={() => dispatch(increment())}>Counter </button>
+      <Counter />
 
       <h1>Todo List</h1>
       <input

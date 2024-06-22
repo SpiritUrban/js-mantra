@@ -16,10 +16,20 @@ const counterSlice = createSlice({
   reducers: {
     increment: (state) => {
         state.value++
+
     },
+    decrement:(state)=> {
+      state.value--
+    },
+    setColor:(state,action:PayloadAction<string>)=>{
+      state.color=action.payload
+    }
+
+
   },
 });
 
-export const { increment } = counterSlice.actions;
+export const { increment,decrement,setColor } = counterSlice.actions;
 export default counterSlice.reducer;
+
 

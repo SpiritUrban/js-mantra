@@ -1,6 +1,6 @@
 'use client';
 import type { AppProps } from 'next/app';
-import { wrapper } from '@/lib/redux/store';
+import { wrapper } from '@/lib/RTK/store';
 import '@/styles/globals.css'; 
 import Layout from '@/components/layouts/Layout';
 

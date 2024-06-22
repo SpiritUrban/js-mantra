@@ -1,13 +1,19 @@
 import { configureStore } from '@reduxjs/toolkit';
-import counterReducer from './slices/counterReducer';
+import { createWrapper } from 'next-redux-wrapper';
+import todosReducer from './slices/todosSlice';
 
-const store = configureStore({
+export const makeStore = () => configureStore({
   reducer: {
-    counter: counterReducer,
+    todos: todosReducer,
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }),
 });
 
-export type AppDispatch = typeof store.dispatch;
-export type RootState = ReturnType<typeof store.getState>;
+export type AppStore = ReturnType<typeof makeStore>;
+export type RootState = ReturnType<AppStore['getState']>;
+export type AppDispatch = AppStore['dispatch'];
 
-export default store;
+export const wrapper = createWrapper<AppStore>(makeStore);

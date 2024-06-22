@@ -1,15 +1,11 @@
+
 import Image from "next/image";
 import Button from "react-bootstrap/Button";
-import Counter from "@/Counter";
-import NavBarPanel from "@/components/organisms/NavBarPanel";
 import { Container } from "react-bootstrap";
-import Layout from "@/layauts/default";
 
 export default function Home() {
   return (
-    <Layout>
       <Container fluid className="bg-dark text-white min-vh-100">
-      <NavBarPanel />
 
         <main
           className=""
@@ -35,8 +31,6 @@ export default function Home() {
           <Button variant="primary">Primary</Button>{" "}
         </main>
       </Container>
-    </Layout>
   );
 }
 
-// priority пред загрузка

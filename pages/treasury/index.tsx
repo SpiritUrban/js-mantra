@@ -1,4 +1,4 @@
-import Layout from "@/layauts/default";
+import Layout from "@/components/layouts/Default"
 
 export default function Treasury() {
   return (

@@ -27,6 +27,7 @@ function NavBarPanel() {
           >
             <Nav.Link href="/">Home</Nav.Link>
             <Nav.Link href="/members">Members</Nav.Link>
+            <Nav.Link href="/codepen-src">Codepen</Nav.Link>
             <Nav.Link href="treasury">Treasury</Nav.Link>
             <NavDropdown title="Link" id="navbarScrollingDropdown">
               <NavDropdown.Item href="#action3">Action</NavDropdown.Item>

@@ -20,15 +20,11 @@ export const members: Member[] = [
     contacts: [
       {
         type: "Telegram",
-        link: "",
+        link: "https://t.me/mmpryshchepa",
       },
       {
-        type: "Viber",
-        link: "",
-      },
-      {
-        type: "Instagram",
-        link: "",
+        type: "Mail",
+        link: "mmpryshchepa@gmail.com",
       },
     ],
     status: "source community developer",
@@ -47,6 +43,10 @@ export const members: Member[] = [
       },
       {
         type: "Twitter",
+        link: "",
+      },
+      {
+        type: "Viber",
         link: "",
       },
       {

@@ -1,6 +1,11 @@
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import Button from "react-bootstrap/Button";
 import { Container } from "react-bootstrap";
+
+const CodePenFrame = dynamic(() => import('../components/organisms/CodePenFrame'), {
+  ssr: false
+});
 
 export default function Home() {
   return (
@@ -14,6 +19,10 @@ export default function Home() {
           alignItems: "center",
         }}
       >
+
+
+
+       
         <Image
           src="/logo.webp"
           alt="JS Mantra"

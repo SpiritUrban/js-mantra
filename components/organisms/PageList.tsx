@@ -36,7 +36,7 @@ const PageList = () => {
 
   return (
     <List>
-      {pages.map((page, index) => (
+      {pages && pages.map((page, index) => (
         <ListItem key={index}>
           <NextLink href={`/source/${page.replace(/\.(js|jsx|ts|tsx)$/, '')}`} passHref>
             <Link>{page}</Link>

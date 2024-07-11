@@ -10,6 +10,22 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import Link from 'next/link';
 import A from '@/components/atoms/A';
 
+interface LinkItem {
+  name: string;
+  href?: string;
+  disabled?: boolean;
+}
+
+interface GroupLinkItem {
+  groupeName: string;
+  links: LinkItem[];
+}
+
+type NavLinkItem = LinkItem | GroupLinkItem;
+
+function isGroupLinkItem(item: NavLinkItem): item is GroupLinkItem {
+  return (item as GroupLinkItem).groupeName !== undefined;
+}
 
 function NavBarPanel() {
   const [expanded, setExpanded] = useState(false);
@@ -19,7 +35,7 @@ function NavBarPanel() {
 
   const toggleRef = useRef<HTMLButtonElement>(null);
 
-  const links = [
+  const links: NavLinkItem[] = [
     { name: 'Home', href: '/' },
     { name: 'Members', href: '/members' },
     { name: 'Codepen', href: '/codepen-src' },
@@ -47,11 +63,11 @@ function NavBarPanel() {
             navbarScroll
           >
             {links.map((link, index) => (
-              link.groupeName ? (
+              isGroupLinkItem(link) ? (
                 <NavDropdown key={index} title={link.groupeName} id={`navbarScrollingDropdown${index}`}>
                   {link.links.map((sublink, subindex) => (
                     <NavDropdown.Item key={subindex} as="div">
-                      <Link href={sublink.href} passHref legacyBehavior>
+                      <Link href={sublink.href!} passHref legacyBehavior>
                         <A onClick={handleClose}>{sublink.name}</A>
                       </Link>
                     </NavDropdown.Item>
@@ -59,17 +75,17 @@ function NavBarPanel() {
                   <NavDropdown.Divider />
                 </NavDropdown>
               ) : (
-                <Nav.Link key={index} as="div" disabled={link.disabled}>
-                  <Link href={link.href} passHref legacyBehavior>
-                    <A onClick={handleClose}>{link.name}</A>
-                  </Link>
-                </Nav.Link>
-
-
+                link.href && (
+                  <Nav.Link key={index} as="div" disabled={link.disabled}>
+                    <Link href={link.href} passHref legacyBehavior>
+                      <A onClick={handleClose}>{link.name}</A>
+                    </Link>
+                  </Nav.Link>
+                )
               )
             ))}
 
-          
+
           </Nav>
           <Form className="d-flex">
             <Form.Control

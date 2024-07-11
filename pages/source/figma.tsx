@@ -1,4 +1,3 @@
-import Card from 'react-bootstrap/Card';
 import styled from 'styled-components';
 
 const Container = styled.div`
@@ -58,11 +57,9 @@ export default function Figma() {
 
     return (
         <Container>
-            <h1>Figma</h1>
+            <h1>Figma sources</h1>
 
-            <Card data-bs-theme="dark">
-                <Card.Body>This is some text within a card body.</Card.Body>
-            </Card>
+
 
             <Section>
                 <Illustration $backgroundImage={imageUrl} />

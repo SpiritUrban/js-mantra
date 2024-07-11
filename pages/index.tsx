@@ -3,6 +3,8 @@ import Image from "next/image";
 import Button from "react-bootstrap/Button";
 import { Container } from "react-bootstrap";
 import PageList from "@/components/organisms/PageList";
+import Card from 'react-bootstrap/Card';
+
 
 const CodePenFrame = dynamic(() => import('../components/organisms/CodePenFrame'), {
   ssr: false
@@ -10,7 +12,7 @@ const CodePenFrame = dynamic(() => import('../components/organisms/CodePenFrame'
 
 export default function Home() {
   return (
-    <Container fluid className="bg-dark text-white min-vh-100">
+  <Container fluid className="bg-dark text-white min-vh-100">
       <main
         className=""
         style={{
@@ -18,6 +20,8 @@ export default function Home() {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
+          flexDirection: "column",
+          gap: "1rem",
         }}
       >
 
@@ -25,7 +29,7 @@ export default function Home() {
 
 
 
-       
+
         <Image
           src="/logo.webp"
           alt="JS Mantra"
@@ -38,6 +42,11 @@ export default function Home() {
             borderRadius: "20rem",
           }}
         />
+
+        <Card data-bs-theme="dark">
+          <Card.Body>This is some text within a card body.</Card.Body>
+        </Card>
+
         <Button variant="primary">Primary</Button>{" "}
       </main>
     </Container>

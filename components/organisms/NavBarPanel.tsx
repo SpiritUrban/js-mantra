@@ -1,47 +1,75 @@
-"use client";
+'use client';
 
-import React from "react";
-import Button from "react-bootstrap/Button";
-import Container from "react-bootstrap/Container";
-import Form from "react-bootstrap/Form";
-import Nav from "react-bootstrap/Nav";
-import Navbar from "react-bootstrap/Navbar";
-import NavDropdown from "react-bootstrap/NavDropdown";
+import React, { useRef, useState } from 'react';
+import Button from 'react-bootstrap/Button';
+import Container from 'react-bootstrap/Container';
+import Form from 'react-bootstrap/Form';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
+import NavDropdown from 'react-bootstrap/NavDropdown';
+import Link from 'next/link';
+import A from '@/components/atoms/A';
 
-
-// import Counter from "@/Counter";
 
 function NavBarPanel() {
-  return (
-    <Navbar data-bs-theme="dark" expand="lg" className="bg-body-tertiary">
-      <Container fluid>
-        <Navbar.Brand href="#">Navbar scroll</Navbar.Brand>
-       
+  const [expanded, setExpanded] = useState(false);
 
-        <Navbar.Toggle aria-controls="navbarScroll" />
+  const handleToggle = () => setExpanded(!expanded);
+  const handleClose = () => setExpanded(false);
+
+  const toggleRef = useRef<HTMLButtonElement>(null);
+
+  const links = [
+    { name: 'Home', href: '/' },
+    { name: 'Members', href: '/members' },
+    { name: 'Codepen', href: '/codepen-src' },
+    { name: 'Treasury', href: '/treasury' },
+    {
+      groupeName: 'Link', links: [
+        { name: 'Action', href: '#' },
+        { name: 'Another action', href: '#' },
+        { name: 'Something else here', href: '#' },
+      ]
+    },
+    { name: 'Link', href: '/about', disabled: true }
+  ];
+
+
+  return (
+    <Navbar data-bs-theme="dark" expanded={expanded} expand="lg" className="bg-body-tertiary">
+      <Container fluid>
+        <Navbar.Brand href="#">js-mantra</Navbar.Brand>
+        <Navbar.Toggle ref={toggleRef} aria-controls="navbarScroll" onClick={handleToggle} />
         <Navbar.Collapse id="navbarScroll">
           <Nav
             className="me-auto my-2 my-lg-0"
-            style={{ maxHeight: "100px" }}
+            style={{ maxHeight: '100px' }}
             navbarScroll
           >
-            <Nav.Link href="/">Home</Nav.Link>
-            <Nav.Link href="/members">Members</Nav.Link>
-            <Nav.Link href="/codepen-src">Codepen</Nav.Link>
-            <Nav.Link href="treasury">Treasury</Nav.Link>
-            <NavDropdown title="Link" id="navbarScrollingDropdown">
-              <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
-              <NavDropdown.Item href="#action4">
-                Another action
-              </NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item href="#action5">
-                Something else here
-              </NavDropdown.Item>
-            </NavDropdown>
-            <Nav.Link href="#" disabled>
-              Link
-            </Nav.Link>
+            {links.map((link, index) => (
+              link.groupeName ? (
+                <NavDropdown key={index} title={link.groupeName} id={`navbarScrollingDropdown${index}`}>
+                  {link.links.map((sublink, subindex) => (
+                    <NavDropdown.Item key={subindex} as="div">
+                      <Link href={sublink.href} passHref legacyBehavior>
+                        <A onClick={handleClose}>{sublink.name}</A>
+                      </Link>
+                    </NavDropdown.Item>
+                  ))}
+                  <NavDropdown.Divider />
+                </NavDropdown>
+              ) : (
+                <Nav.Link key={index} as="div" disabled={link.disabled}>
+                  <Link href={link.href} passHref legacyBehavior>
+                    <A onClick={handleClose}>{link.name}</A>
+                  </Link>
+                </Nav.Link>
+
+
+              )
+            ))}
+
+          
           </Nav>
           <Form className="d-flex">
             <Form.Control

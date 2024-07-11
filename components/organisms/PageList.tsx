@@ -1,6 +1,6 @@
-// components/PageList.tsx
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import NextLink from 'next/link';
 
 type PageListResponse = {
   files: string[];
@@ -38,7 +38,9 @@ const PageList = () => {
     <List>
       {pages.map((page, index) => (
         <ListItem key={index}>
-          <Link href={`/source/${page.replace(/\.(js|jsx|ts|tsx)$/, '')}`}>{page}</Link>
+          <NextLink href={`/source/${page.replace(/\.(js|jsx|ts|tsx)$/, '')}`} passHref>
+            <Link>{page}</Link>
+          </NextLink>
         </ListItem>
       ))}
     </List>

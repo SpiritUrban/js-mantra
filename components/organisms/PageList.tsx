@@ -1,9 +1,28 @@
 // components/PageList.tsx
 import { useEffect, useState } from 'react';
+import styled from 'styled-components';
 
 type PageListResponse = {
   files: string[];
 };
+
+const List = styled.ul`
+  list-style: none;
+  padding: 0;
+`;
+
+const ListItem = styled.li`
+  margin: 5px 0;
+`;
+
+const Link = styled.a`
+  text-decoration: none;
+  color: #0070f3;
+
+  &:hover {
+    text-decoration: underline;
+  }
+`;
 
 const PageList = () => {
   const [pages, setPages] = useState<string[]>([]);
@@ -16,13 +35,13 @@ const PageList = () => {
   }, []);
 
   return (
-    <ul>
+    <List>
       {pages.map((page, index) => (
-        <li key={index}>
-          <a href={`/source/${page.replace(/\.(js|jsx|ts|tsx)$/, '')}`}>{page}</a>
-        </li>
+        <ListItem key={index}>
+          <Link href={`/source/${page.replace(/\.(js|jsx|ts|tsx)$/, '')}`}>{page}</Link>
+        </ListItem>
       ))}
-    </ul>
+    </List>
   );
 };
 

@@ -6,7 +6,7 @@ export default function CodepenSrc() {
   return (
     <div>
       {codepenSrc.map((item, index) => (
-        <div key={index + "condepenSrc"}>
+        <div key={index + "codepenSrc"}>
           <CodePenFrame
             height="300"
             style={{ width: "100%" }}
@@ -21,10 +21,9 @@ export default function CodepenSrc() {
           scrolling="no"
           title="CSS Only Shimmer Button"
           src="https://codepen.io/Maks-Mm/embed/JjQPQXR?default-tab=ResultCresult"
-          frameborder="no"
+          frameBorder="no"
           loading="lazy"
-          allowtransparency="true"
-          allowfullscreen="true"
+          allowFullScreen={true}
         />
       </div>
     </div>

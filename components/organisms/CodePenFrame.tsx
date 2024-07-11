@@ -1,20 +1,38 @@
-// components/CodePenFrame.tsx
-import { useEffect, useState } from 'react';
+import React from "react";
 
-interface CodePenFrameProps extends React.IframeHTMLAttributes<HTMLIFrameElement> {}
+interface CodePenFrameProps {
+  height: string;
+  style: React.CSSProperties;
+  scrolling?: string;
+  title?: string;
+  src: string;
+  frameBorder?: string;
+  loading?: "eager" | "lazy";
+  allowFullScreen?: boolean;
+}
 
-const CodePenFrame: React.FC<CodePenFrameProps> = (props) => {
-  const [isClient, setIsClient] = useState(false);
-
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
-
-  if (!isClient) {
-    return null;
-  }
-
-  return <iframe {...props} />;
+const CodePenFrame: React.FC<CodePenFrameProps> = ({
+  height,
+  style,
+  scrolling,
+  title,
+  src,
+  frameBorder,
+  loading,
+  allowFullScreen
+}) => {
+  return (
+    <iframe
+      height={height}
+      style={style}
+      scrolling={scrolling}
+      title={title}
+      src={src}
+      frameBorder={frameBorder}
+      loading={loading}
+      allowFullScreen={allowFullScreen}
+    />
+  );
 };
 
 export default CodePenFrame;

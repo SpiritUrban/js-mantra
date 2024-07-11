@@ -2,6 +2,7 @@ import dynamic from "next/dynamic";
 import Image from "next/image";
 import Button from "react-bootstrap/Button";
 import { Container } from "react-bootstrap";
+import PageList from "@/components/organisms/PageList";
 
 const CodePenFrame = dynamic(() => import('../components/organisms/CodePenFrame'), {
   ssr: false
@@ -19,6 +20,8 @@ export default function Home() {
           alignItems: "center",
         }}
       >
+
+        <PageList />
 
 
 

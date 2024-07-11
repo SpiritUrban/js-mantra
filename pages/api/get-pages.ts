@@ -1,19 +1,12 @@
 // pages/api/get-pages.ts
 import { NextApiRequest, NextApiResponse } from 'next';
-import fs from 'fs';
 import path from 'path';
+import fs from 'fs';
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
-  const directoryPath = path.join(process.cwd(), 'pages/source');
-  
-  fs.readdir(directoryPath, (err, files) => {
-    if (err) {
-      return res.status(500).json({ error: 'Failed to read directory' });
-    }
+  const filePath = path.join(process.cwd(), 'pages/api/pages-list.json');
+  const fileContents = fs.readFileSync(filePath, 'utf8');
+  const pages = JSON.parse(fileContents);
 
-    // Filter out non-JavaScript/TypeScript files and nextjs default files
-    const pageFiles = files.filter(file => file.endsWith('.js') || file.endsWith('.jsx') || file.endsWith('.ts') || file.endsWith('.tsx'));
-    
-    res.status(200).json({ files: pageFiles });
-  });
+  res.status(200).json(pages);
 }

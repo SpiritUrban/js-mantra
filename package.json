@@ -4,7 +4,9 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+
+    "generate-pages-list": "node scripts/generate-pages-list.js",
+    "build": "npm run generate-pages-list && next build",
     "start": "next start",
     "lint": "next lint"
   },

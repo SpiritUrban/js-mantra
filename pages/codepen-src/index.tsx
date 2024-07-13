@@ -1,6 +1,6 @@
 import React from "react";
 import CodePenFrame from "@/components/organisms/CodePenFrame";
-import { Src, codepenSrc } from "@/data/codepenSrc";
+import { Src, codepenSrc,defaultTab } from "@/data/codepenSrc";
 
 export default function CodepenSrc() {
   return (
@@ -10,7 +10,7 @@ export default function CodepenSrc() {
           <CodePenFrame
             height="300"
             style={{ width: "100%" }}
-            src={`https://codepen.io/Maks-Mm/embed/${item.id}?default-tab=${item.defaultTab}`}
+            src={`https://codepen.io/Maks-Mm/embed/${item.id}?default-tab=${defaultTab(item)}`}
           />
         </div>
       ))}

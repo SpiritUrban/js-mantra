@@ -1,29 +1,25 @@
 export interface Src {
   id: string;
-  defaultTab:string;
+  segments: string;
 }
 
+export const defaultTab = (item: Src) => item.segments.split(" ").join("%2C");
+
 export const codepenSrc: Src[] = [
-
-  
   {
-    id:"JjQPQXR",
-    defaultTab:"result"
+    id: "JjQPQXR",
+    segments: "result",
   },
   {
-    id:"JjQPQXR",
-    defaultTab:"js%2Cresult"
+    id: "JjQPQXR",
+    segments: "js result",
   },
   {
-    id:"JjQPQXR",
-    defaultTab:"css%2Cresult"
+    id: "JjQPQXR",
+    segments: "css result",
   },
   {
-    id:"JjQPQXR",
-    defaultTab:"html%2Cresult"
+    id: "JjQPQXR",
+    segments: "html result",
   },
-  
-  
 ];
-
-

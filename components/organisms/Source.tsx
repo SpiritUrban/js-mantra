@@ -16,7 +16,7 @@ const Section = styled.section`
 `;
 
 const Illustration = styled.div<IllustrationProps>`
-    flex: 15;
+        width: 10rem;
     height: 10rem;
     border-radius: 2rem;
     background-image: url(${props => props.$backgroundImage});
@@ -35,7 +35,7 @@ const Illustration = styled.div<IllustrationProps>`
 `;
 
 const ImageSourceContainer = styled.div`
-    flex: 15;
+        width: 10rem;
      height: 10rem;
     border-radius: 2rem;
      margin-top: 1rem;

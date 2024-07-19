@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import Source from '@/components/organisms/Source';
 import SourceCard from '@/components/organisms/SourceCard';
+import { ISource, ISourceCard } from '@/interfaces/index';
 
 const Container = styled.div`
     display: flex;
@@ -22,15 +23,7 @@ const Container2 = styled.div`
 
 export default function GameUi() {
 
-    interface Sourcs {
-        title: string;
-        imageUrl?: string;
-        imageSource?: string;
-        sourceLink?: string;
-        description?: string;
-    };
-
-    const data: Sourcs[] = [{
+    const data: ISource[] = [{
         title: "Free Game Ui Images",
         imageUrl: "https://img.freepik.com/premium-vector/monster-battle-gui-icon-cartoon-stylized-illustration-with-text-button-game-name_284645-1046.jpg?size=626&ext=jpg",
         // imageSource: `<img src="https://justpaste.it/static/img/jp_logo_v3.svg" alt="" />`,
@@ -38,30 +31,14 @@ export default function GameUi() {
         description: ""
     }];
 
-    const data2: Sourcs[] = [
-        {
-            title: "Free Game Ui Images",
-            imageUrl: "https://img.freepik.com/premium-vector/monster-battle-gui-icon-cartoon-stylized-illustration-with-text-button-game-name_284645-1046.jpg?size=626&ext=jpg",
-        },
-        {
-            title: "Free Game Ui Images",
-            imageUrl: "https://img.freepik.com/premium-vector/monster-battle-gui-icon-cartoon-stylized-illustration-with-text-button-game-name_284645-1046.jpg?size=626&ext=jpg",
-        }, {
-            title: "Free Game Ui Images",
-            imageUrl: "https://img.freepik.com/premium-vector/monster-battle-gui-icon-cartoon-stylized-illustration-with-text-button-game-name_284645-1046.jpg?size=626&ext=jpg",
-        },
-        {
-            title: "Free Game Ui Images",
-            imageUrl: "https://img.freepik.com/premium-vector/monster-battle-gui-icon-cartoon-stylized-illustration-with-text-button-game-name_284645-1046.jpg?size=626&ext=jpg",
-        },
-        {
-            title: "Free Game Ui Images",
-            imageUrl: "https://img.freepik.com/premium-vector/monster-battle-gui-icon-cartoon-stylized-illustration-with-text-button-game-name_284645-1046.jpg?size=626&ext=jpg",
-        }, {
-            title: "Free Game Ui Images",
-            imageUrl: "https://img.freepik.com/premium-vector/monster-battle-gui-icon-cartoon-stylized-illustration-with-text-button-game-name_284645-1046.jpg?size=626&ext=jpg",
-        },
-    ];
+    const data2: ISourceCard[] = [
+        "https://img.freepik.com/premium-vector/monster-battle-gui-icon-cartoon-stylized-illustration-with-text-button-game-name_284645-1046.jpg?size=626&ext=jpg",
+        "https://img.freepik.com/premium-vector/monster-battle-gui-icon-cartoon-stylized-illustration-with-text-button-game-name_284645-1046.jpg?size=626&ext=jpg",
+        "https://img.freepik.com/premium-vector/monster-battle-gui-icon-cartoon-stylized-illustration-with-text-button-game-name_284645-1046.jpg?size=626&ext=jpg",
+        "https://img.freepik.com/premium-vector/monster-battle-gui-icon-cartoon-stylized-illustration-with-text-button-game-name_284645-1046.jpg?size=626&ext=jpg",
+        "https://img.freepik.com/premium-vector/monster-battle-gui-icon-cartoon-stylized-illustration-with-text-button-game-name_284645-1046.jpg?size=626&ext=jpg",
+        "https://img.freepik.com/premium-vector/monster-battle-gui-icon-cartoon-stylized-illustration-with-text-button-game-name_284645-1046.jpg?size=626&ext=jpg",
+    ].map(item => ({ imageUrl: item }));
 
     return (
         <div>

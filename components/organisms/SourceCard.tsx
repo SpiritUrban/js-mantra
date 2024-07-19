@@ -93,10 +93,10 @@ const SourceCard: React.FC<SourceProps> = ({ title, description, imageUrl, image
         <Section>
             {imageUrl && (<Illustration $backgroundImage={imageUrl} />)}
             {imageSource && (<ImageSourceContainer dangerouslySetInnerHTML={{ __html: imageSource }} />)}
-            <Content>
+            { title && description && (<Content>
                 <h1>{title}</h1>
                 <p>{description}</p>
-            </Content>
+            </Content>)}
             <LinkContainer>
                 <a target="_blank" href={sourceLink || imageUrl || imageSource}>Link</a>
             </LinkContainer>

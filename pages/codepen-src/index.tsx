@@ -19,9 +19,9 @@ export default function CodepenSrc() {
         <CodePenFrame
           key={index + "codepenSrc"}
           style={{ 
-            maxWidth: item.category == "tool" ? "80rem" : "40rem", 
-            width: item.category == "tool" ? "80rem" : "40rem",  
-            height: item.category == "tool" ? "40rem" : "20rem",
+            maxWidth: item.size == "80x40" ? "80rem" : "40rem", 
+            width: item.size == "80x40" ? "80rem" : "40rem",  
+            height: item.size == "80x40" ? "40rem" : "20rem",
           }}
           src={`https://codepen.io/Maks-Mm/embed/${item.id}?default-tab=${defaultTab(item)}`}
           scrolling="no"

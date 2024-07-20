@@ -1,6 +1,10 @@
 export enum Category {
   BUTTON = "button",
+  CARD = "card",
+  FORM = "form",
   SLIDER = "slider",
+  GALLERY = "gallery",
+  SECTION = "section",
   PAGE = "page",
   TOOL = "tool",
 }
@@ -12,10 +16,13 @@ export enum Segments {
   HTML_RESULT = "html result"
 }
 
+
+
 export interface Src {
   id: string;
   segments: Segments;
   category: Category;
+  size?: string;
 }
 
 export const defaultTab = (item: Src) => item.segments.split(" ").join("%2C");
@@ -31,14 +38,72 @@ export const buttonsSrc: Src[] = [
   category: Category.BUTTON
 }));
 
+export const formsSrc: Src[] = [...[
+  // 'MWMyvNN',
+].map((id) => ({
+  id,
+  segments: Segments.RESULT,
+  category: Category.FORM
+})), ...[
+  {
+    id: 'gOqVqBx',
+    segments: Segments.RESULT,
+    category: Category.FORM,
+    size: "80x40", // or "40x20"
+  },
+]];
+
+export const slidersSrc: Src[] = [
+  'JjqNEbZ'
+].map((id) => ({
+  id,
+  segments: Segments.RESULT,
+  category: Category.SLIDER
+}));
+
+export const galerysSrc: Src[] = [...[
+  // 'MWMyvNN',
+  'WNqwXEG',
+].map((id) => ({
+  id,
+  segments: Segments.RESULT,
+  category: Category.GALLERY
+})), ...[
+  {
+    id: 'rNEeYYJ',
+    segments: Segments.RESULT,
+    category: Category.GALLERY,
+    size: "80x40", // or "40x20"
+  },
+]];
+
+export const sectionsSrc: Src[] = [
+  'PovJqWm',
+].map((id) => ({
+  id,
+  segments: Segments.RESULT,
+  category: Category.SECTION,
+  size: "80x40", // or "40x20"
+}));
+
+
+
+export const toolsSrc: Src[] = [
+  'vYqBbgL',
+].map((id) => ({
+  id,
+  segments: Segments.RESULT,
+  category: Category.TOOL,
+  size: "80x40", // or "40x20"
+}));
+
 export const codepenSrc: Src[] = [
   ...buttonsSrc,
-  {
-    id: "vYqBbgL",
-    segments: Segments.RESULT,
-    category: Category.TOOL,
-  },
-
+  ...slidersSrc,
+  ...galerysSrc,
+  ...formsSrc,
+  ...toolsSrc,
+  ...sectionsSrc,
 ];
 
 

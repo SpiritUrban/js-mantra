@@ -23,7 +23,8 @@ export const defaultTab = (item: Src) => item.segments.split(" ").join("%2C");
 export const buttonsSrc: Src[] = [
   'MWMyvNN',
   'eYaBKGG',
-  'JjQPQXR'
+  'JjQPQXR',
+  'WNqwZXq',
 ].map((id) => ({
   id,
   segments: Segments.RESULT,

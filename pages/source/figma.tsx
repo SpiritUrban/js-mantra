@@ -1,5 +1,9 @@
+"use client";
+
 import styled from 'styled-components';
 import Source from '@/components/organisms/Source';
+import FigmaFrame from '@/components/organisms/FigmaFrame';
+
 
 
 const Container = styled.div`
@@ -33,6 +37,10 @@ export default function Figma() {
             />)
             )}
 
+
+<FigmaFrame id="25-145"/>
+<FigmaFrame id="0-1"/>
         </Container>
+        
     );
 }

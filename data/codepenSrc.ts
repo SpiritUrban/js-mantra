@@ -1,7 +1,8 @@
 export enum Category {
   BUTTON = "button",
   SLIDER = "slider",
-  PAGE = "page"
+  PAGE = "page",
+  TOOL = "tool",
 }
 
 export enum Segments {
@@ -19,18 +20,24 @@ export interface Src {
 
 export const defaultTab = (item: Src) => item.segments.split(" ").join("%2C");
 
+export const buttonsSrc: Src[] = [
+  'MWMyvNN',
+  'eYaBKGG',
+  'JjQPQXR'
+].map((id) => ({
+  id,
+  segments: Segments.RESULT,
+  category: Category.BUTTON
+}));
+
 export const codepenSrc: Src[] = [
+  ...buttonsSrc,
   {
-    id: "eYaBKGG",
+    id: "vYqBbgL",
     segments: Segments.RESULT,
-    category: Category.BUTTON,
+    category: Category.TOOL,
   },
-  {
-    id: "JjQPQXR",
-    segments: Segments.RESULT,
-    category: Category.BUTTON,
-  },
- 
+
 ];
 
 

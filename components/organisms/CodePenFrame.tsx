@@ -1,7 +1,6 @@
 import React from "react";
 
 interface CodePenFrameProps {
-  height: string;
   style: React.CSSProperties;
   scrolling?: string;
   title?: string;
@@ -12,7 +11,6 @@ interface CodePenFrameProps {
 }
 
 const CodePenFrame: React.FC<CodePenFrameProps> = ({
-  height,
   style,
   scrolling,
   title,
@@ -23,7 +21,6 @@ const CodePenFrame: React.FC<CodePenFrameProps> = ({
 }) => {
   return (
     <iframe
-      height={height}
       style={style}
       scrolling={scrolling}
       title={title}

@@ -10,9 +10,6 @@ const Container = styled.div`
     max-width: 1400px;
     margin: 0 auto;
     flex-wrap: wrap;
-    iframe {
-    max-width: 40rem;
-    }
 `;
 
 export default function CodepenSrc() {
@@ -21,8 +18,11 @@ export default function CodepenSrc() {
       {codepenSrc.map((item, index) => (
         <CodePenFrame
           key={index + "codepenSrc"}
-          height="300"
-          style={{ width: "100%" }}
+          style={{ 
+            maxWidth: item.category == "tool" ? "80rem" : "40rem", 
+            width: item.category == "tool" ? "80rem" : "40rem",  
+            height: item.category == "tool" ? "40rem" : "20rem",
+          }}
           src={`https://codepen.io/Maks-Mm/embed/${item.id}?default-tab=${defaultTab(item)}`}
           scrolling="no"
           title="CSS Only Shimmer Button"

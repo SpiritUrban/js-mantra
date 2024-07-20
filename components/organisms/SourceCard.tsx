@@ -81,11 +81,11 @@ const LinkContainer = styled.div`
 `;
 
 interface SourceProps {
-    title: string;
-    description: string;
+    title?: string;
+    description?: string;
     imageUrl?: string;
     imageSource?: string;
-    sourceLink: string;
+    sourceLink?: string;
 }
 
 const SourceCard: React.FC<SourceProps> = ({ title, description, imageUrl, imageSource, sourceLink }) => {

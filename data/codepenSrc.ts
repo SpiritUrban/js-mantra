@@ -27,19 +27,10 @@ export const codepenSrc: Src[] = [
   },
   {
     id: "JjQPQXR",
-    segments: Segments.JS_RESULT,
+    segments: Segments.RESULT,
     category: Category.BUTTON,
   },
-  {
-    id: "JjQPQXR",
-    segments: Segments.CSS_RESULT,
-    category: Category.SLIDER,
-  },
-  {
-    id: "JjQPQXR",
-    segments: Segments.HTML_RESULT,
-    category: Category.PAGE,
-  },
+ 
 ];
 
 
@@ -51,7 +42,4 @@ const newItem: Src = {
 };
 
 // Добавляем новый объект в массив codepenSrc
-codepenSrc.push(newItem);
-
-// Проверяем содержимое массива
-console.log(codepenSrc);
+// codepenSrc.push(newItem);

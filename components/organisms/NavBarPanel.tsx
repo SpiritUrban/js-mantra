@@ -39,15 +39,15 @@ function NavBarPanel() {
     { name: 'Home', href: '/' },
     { name: 'Members', href: '/members' },
     { name: 'Codepen', href: '/codepen-src' },
+    { name: 'React', href: '/react' },
+
     { name: 'Treasury', href: '/treasury' },
     {
-      groupeName: 'Link', links: [
-        { name: 'Action', href: '#' },
-        { name: 'Another action', href: '#' },
-        { name: 'Something else here', href: '#' },
+      groupeName: 'Health', links: [
+        { name: 'Issues', href: '/health/issues' },
       ]
     },
-    { name: 'Link', href: '/about', disabled: true }
+    // { name: 'Link', href: '/about', disabled: true }
   ];
 
 

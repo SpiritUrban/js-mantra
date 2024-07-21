@@ -10,7 +10,7 @@ const nextConfig = {
             value: `
               default-src 'self';
               script-src 'self' 'unsafe-inline' 'unsafe-eval' https://codepen.io;
-              child-src https://codepen.io https://www.figma.com;
+              child-src https://codepen.io https://www.figma.com https://www.youtube.com;
               style-src 'self' 'unsafe-inline';
               img-src * blob: data:;
               media-src 'none';

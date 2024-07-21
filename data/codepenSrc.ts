@@ -97,13 +97,16 @@ export const toolsSrc: Src[] = [
   size: "80x40", // or "40x20"
 }));
 
-export const codepenSrc: Src[] = [
-  ...buttonsSrc,
-  ...slidersSrc,
-  ...galerysSrc,
-  ...formsSrc,
-  ...toolsSrc,
-  ...sectionsSrc,
+
+export type SrcSet = {category: Category, items: Src[]}[];
+
+export const codepenSrc: SrcSet = [
+  {category: Category.BUTTON, items: buttonsSrc},
+  {category: Category.SLIDER, items: slidersSrc},
+  {category: Category.GALLERY, items: galerysSrc},
+  {category: Category.FORM, items: formsSrc},
+  {category: Category.TOOL, items: toolsSrc},
+  {category: Category.SECTION, items: sectionsSrc},
 ];
 
 

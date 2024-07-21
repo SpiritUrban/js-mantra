@@ -12,25 +12,51 @@ const Container = styled.div`
     flex-wrap: wrap;
 `;
 
+const Section = styled.section`
+  width: 100%;
+  h2 {
+      display: flex;
+      align-items: center;
+    span {
+      font-size: 1.5rem;
+    }
+    hr {
+      width: 100%;
+      margin-left: 1rem;
+    }
+  }
+  iframe {
+    margin-top: 1rem;
+    margin-right: 1rem;
+  }
+`;
+
 export default function CodepenSrc() {
   return (
     <Container>
-      {codepenSrc.map((item, index) => (
-        <CodePenFrame
-          key={index + "codepenSrc"}
-          style={{ 
-            maxWidth: item.size == "80x40" ? "80rem" : "40rem", 
-            width: item.size == "80x40" ? "80rem" : "40rem",  
-            height: item.size == "80x40" ? "40rem" : "20rem",
-          }}
-          src={`https://codepen.io/Maks-Mm/embed/${item.id}?default-tab=${defaultTab(item)}`}
-          scrolling="no"
-          title="CSS Only Shimmer Button"
-          frameBorder="no"
-          loading="lazy"
-          allowFullScreen={true}
-        />
-      ))}
+      {codepenSrc.map((items, index) => (
+        <Section key={index + "codepenSrcCategory"}>
+          <h2> <span>{items.category} </span> <hr /></h2>
+          {items.items.map((item, index) => (
+            <CodePenFrame
+              key={index + "codepenSrc"}
+              style={{ 
+                maxWidth: item.size == "80x40" ? "80rem" : "40rem", 
+                width: item.size == "80x40" ? "80rem" : "40rem",  
+                height: item.size == "80x40" ? "40rem" : "20rem",
+              }}
+              src={`https://codepen.io/Maks-Mm/embed/${item.id}?default-tab=${defaultTab(item)}`}
+              scrolling="no"
+              title="CSS Only Shimmer Button"
+              frameBorder="no"
+              loading="lazy"
+              allowFullScreen={true}
+            />
+          ))}
+        </Section>
+      ))
+      
+      }
     </Container>
   );
 }

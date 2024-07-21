@@ -41,9 +41,9 @@ export default function CodepenSrc() {
             <CodePenFrame
               key={index + "codepenSrc"}
               style={{ 
-                maxWidth: item.size == "80x40" ? "80rem" : "40rem", 
-                width: item.size == "80x40" ? "80rem" : "40rem",  
-                height: item.size == "80x40" ? "40rem" : "20rem",
+                maxWidth: item.size ? item.size?.split("x")[0] + "rem" : "40rem" ,
+                width: item.size ? item.size?.split("x")[0] + "rem" : "40rem",
+                height: item.size ? item.size?.split("x")[1] + "rem" : "20rem",
               }}
               src={`https://codepen.io/Maks-Mm/embed/${item.id}?default-tab=${defaultTab(item)}`}
               scrolling="no"

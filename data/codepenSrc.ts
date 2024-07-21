@@ -1,12 +1,15 @@
 export enum Category {
   BUTTON = "button",
   CARD = "card",
+  CHECKBOX = "checkbox",
   FORM = "form",
   SLIDER = "slider",
   GALLERY = "gallery",
   SECTION = "section",
   PAGE = "page",
+  UI = "ui",
   TOOL = "tool",
+  EFFECT = "effect"
 }
 
 export enum Segments {
@@ -15,8 +18,6 @@ export enum Segments {
   CSS_RESULT = "css result",
   HTML_RESULT = "html result"
 }
-
-
 
 export interface Src {
   id: string;
@@ -32,11 +33,100 @@ export const buttonsSrc: Src[] = [
   'eYaBKGG',
   'JjQPQXR',
   'WNqwZXq',
+  'qBzZMGN',
+  'VwJaEYb',
 ].map((id) => ({
   id,
   segments: Segments.RESULT,
   category: Category.BUTTON
 }));
+
+export const checkboxesSrc: Src[] = [...[
+  'xxoVaoZ'
+].map((id) => ({
+  id,
+  segments: Segments.RESULT,
+  category: Category.CHECKBOX
+})), ...[
+  // {
+  //   id: 'gOqVqBx',
+  //   segments: Segments.RESULT,
+  //   category: Category.CHECKBOX,
+  //   size: "80x40", // or "40x20"
+  // },
+]];
+
+export const pageSrc: Src[] = [...[
+  'KKjzGPE',
+  'poXyxoB',
+  'abgNRzd',
+].map((id) => ({
+  id,
+  segments: Segments.RESULT,
+  category: Category.PAGE,
+  size: "80x50", // or "40x20"
+})), ...[
+  // {
+  //   id: 'gOqVqBx',
+  //   segments: Segments.RESULT,
+  //   category: Category.PAGE,
+  //   size: "80x40", // or "40x20"
+  // },
+]];
+
+export const uiSrc: Src[] = [...[
+  'wvLGENj',
+  'OJeNBJZ',
+].map((id) => ({
+  id,
+  segments: Segments.RESULT,
+  category: Category.UI,
+  size: "80x50", // or "40x20"
+})), ...[
+  // {
+  //   id: 'gOqVqBx',
+  //   segments: Segments.RESULT,
+  //   category: Category.UI,
+  //   size: "80x40", // or "40x20"
+  // },
+]];
+
+export const cardsSrc: Src[] = [...[
+  'NWZNLez',
+  'eYwZPpY',
+].map((id) => ({
+  id,
+  segments: Segments.RESULT,
+  category: Category.CARD
+})), ...[
+  // {
+  //   id: 'gOqVqBx',
+  //   segments: Segments.RESULT,
+  //   category: Category.CARD,
+  //   size: "80x40", // or "40x20"
+  // },
+]];
+
+export const effectsSrc: Src[] = [...[
+  'MWMyBoo',
+  'KKjzBZW',
+  'bGPpxPj',
+  'eYwZLwq',
+  'rNEeqBN',
+  'vYqGVBJ',
+  'JjQXmRb',
+].map((id) => ({
+  id,
+  segments: Segments.RESULT,
+  category: Category.EFFECT
+})), ...[
+  // {
+  //   id: 'gOqVqBx',
+  //   segments: Segments.RESULT,
+  //   category: Category.EFFECT,
+  //   size: "80x40", // or "40x20"
+  // },
+]];
 
 export const formsSrc: Src[] = [...[
   // 'MWMyvNN',
@@ -102,6 +192,11 @@ export type SrcSet = {category: Category, items: Src[]}[];
 
 export const codepenSrc: SrcSet = [
   {category: Category.BUTTON, items: buttonsSrc},
+  {category: Category.CHECKBOX, items: checkboxesSrc},
+  {category: Category.PAGE, items: pageSrc},
+  {category: Category.UI, items: uiSrc},
+  {category: Category.CARD, items: cardsSrc},
+  {category: Category.EFFECT, items: effectsSrc},
   {category: Category.SLIDER, items: slidersSrc},
   {category: Category.GALLERY, items: galerysSrc},
   {category: Category.FORM, items: formsSrc},

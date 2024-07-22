@@ -40,6 +40,7 @@ function NavBarPanel() {
     { name: 'Members', href: '/members' },
     { name: 'Codepen', href: '/codepen-src' },
     { name: 'React', href: '/react' },
+    { name: 'NLP', href: '/nlp' },
 
     { name: 'Treasury', href: '/treasury' },
     {

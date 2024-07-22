@@ -105,7 +105,7 @@ const App: React.FC = () => (
   <Container>
     <h1>НЛП Книга</h1>
 
-    <Accordion >
+    <Accordion data-bs-theme="dark">
 
       {(nlpData as { sections: SectionItem[] }).sections.map((section, index) => (
 

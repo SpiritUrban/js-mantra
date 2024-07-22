@@ -17,23 +17,24 @@ const Container = styled.div`
 `;
 
 const SectionTitle = styled.h2`
-  color: #4CAF50;
+  color: #6ea170;
   margin-top: 20px;
 `;
 
 const SubsectionTitle = styled.h3`
-  color: #2196F3;
+  color: #4885b6;
   margin-top: 15px;
 `;
 
 const ContentTitle = styled.h4`
-  color: #FF5722;
+  color: #dc772a;
   margin-top: 10px;
 `;
 
 const Paragraph = styled.p`
   font-size: 16px;
   line-height: 1.5;
+  color: #bcbcbc;
 `;
 
 const List = styled.ul`
@@ -43,6 +44,8 @@ const List = styled.ul`
 
 const ListItem = styled.li`
   margin: 5px 0;
+  color: #bcbcbc;
+
 `;
 
 interface ContentItem {

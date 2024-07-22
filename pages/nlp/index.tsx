@@ -2,6 +2,11 @@ import React from 'react';
 import styled from 'styled-components';
 import nlpData from '@/data/nlp.json';
 
+import Accordion from 'react-bootstrap/Accordion';
+
+
+
+
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -99,9 +104,26 @@ const Section: React.FC<SectionItem> = ({ title, subsections }) => (
 const App: React.FC = () => (
   <Container>
     <h1>НЛП Книга</h1>
-    {(nlpData as { sections: SectionItem[] }).sections.map((section, index) => (
+
+    <Accordion >
+
+      {(nlpData as { sections: SectionItem[] }).sections.map((section, index) => (
+
+        <Accordion.Item eventKey={index.toString()} key={index + 'accordion'} >
+          <Accordion.Header>{section.title}</Accordion.Header>
+          <Accordion.Body>
+            <Section key={index} title={section.title} subsections={section.subsections} />
+          </Accordion.Body>
+        </Accordion.Item>
+      ))}
+
+    </Accordion>
+
+    {/* {(nlpData as { sections: SectionItem[] }).sections.map((section, index) => (
       <Section key={index} title={section.title} subsections={section.subsections} />
-    ))}
+    ))} */}
+
+
   </Container>
 );
 

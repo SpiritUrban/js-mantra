@@ -129,10 +129,19 @@ const VoiceReadButton2: React.FC<VoiceReadButton2Props> = ({ section }) => {
   };
 
   const handleVoiceRead = () => {
-    const text = convertSectionToText(section);
-    window.speechSynthesis.speak(new SpeechSynthesisUtterance(text));
+    if ('speechSynthesis' in window && 'SpeechSynthesisUtterance' in window) {
+      const text = convertSectionToText(section);
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = 'ru-RU'; // Set the language to Russian
+      utterance.onerror = (event) => {
+        console.error('SpeechSynthesisUtterance.onerror', event);
+      };
+      window.speechSynthesis.speak(utterance);
+    } else {
+      alert('Your browser does not support speech synthesis.');
+    }
   };
-
+  
   return (
     <Button variant="secondary" onClick={handleVoiceRead}>
       Voice read

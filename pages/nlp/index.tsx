@@ -110,21 +110,28 @@ interface VoiceReadButton2Props {
 const VoiceReadButton2: React.FC<VoiceReadButton2Props> = ({ section }) => {
   const convertSectionToText = (section: SectionItem): string => {
     let text = section.title + ". ";
-    section.subsections.forEach(subsection => {
-      text += subsection.title + ". ";
-      subsection.content.forEach(content => {
-        text += content.part + ". ";
-        if (typeof content.text === 'string') {
-          text += content.text + ". ";
-        } else {
-          for (const key in content.text) {
-            if (content.text.hasOwnProperty(key)) {
-              text += key + ": " + content.text[key] + ". ";
+
+    try {
+      // throw new Error('test error');
+      section.subsections.forEach(subsection => {
+        text += subsection.title + ". ";
+        subsection.content.forEach(content => {
+          text += content.part + ". ";
+          if (typeof content.text === 'string') {
+            text += content.text + ". ";
+          } else {
+            for (const key in content.text) {
+              if (content.text.hasOwnProperty(key)) {
+                text += key + ": " + content.text[key] + ". ";
+              }
             }
           }
-        }
+        });
       });
-    });
+    } catch (error) {
+      text = 'ОШИБКА в парсинге данных!!!';
+    }
+
     return text;
   };
 
@@ -141,7 +148,7 @@ const VoiceReadButton2: React.FC<VoiceReadButton2Props> = ({ section }) => {
       alert('Your browser does not support speech synthesis.');
     }
   };
-  
+
   return (
     <Button variant="secondary" onClick={handleVoiceRead}>
       Voice read

@@ -1,11 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import nlpData from '@/data/nlp.json';
-
+import Button from "react-bootstrap/Button";
 import Accordion from 'react-bootstrap/Accordion';
-
-
-
+import nlpData from '@/data/nlp.json';
 
 const Container = styled.div`
   display: flex;
@@ -45,7 +42,6 @@ const List = styled.ul`
 const ListItem = styled.li`
   margin: 5px 0;
   color: #bcbcbc;
-
 `;
 
 interface ContentItem {
@@ -95,9 +91,60 @@ const Subsection: React.FC<SubsectionItem> = ({ title, content }) => (
   </div>
 );
 
+interface VoiceReadButtonProps {
+  text: string;
+}
+
+const VoiceReadButton: React.FC<VoiceReadButtonProps> = ({ text }) => {
+  return (
+    <Button variant="primary" onClick={() => window.speechSynthesis.speak(new SpeechSynthesisUtterance(text))}>
+      Voice read
+    </Button>
+  );
+};
+
+interface VoiceReadButton2Props {
+  section: SectionItem;
+}
+
+const VoiceReadButton2: React.FC<VoiceReadButton2Props> = ({ section }) => {
+  const convertSectionToText = (section: SectionItem): string => {
+    let text = section.title + ". ";
+    section.subsections.forEach(subsection => {
+      text += subsection.title + ". ";
+      subsection.content.forEach(content => {
+        text += content.part + ". ";
+        if (typeof content.text === 'string') {
+          text += content.text + ". ";
+        } else {
+          for (const key in content.text) {
+            if (content.text.hasOwnProperty(key)) {
+              text += key + ": " + content.text[key] + ". ";
+            }
+          }
+        }
+      });
+    });
+    return text;
+  };
+
+  const handleVoiceRead = () => {
+    const text = convertSectionToText(section);
+    window.speechSynthesis.speak(new SpeechSynthesisUtterance(text));
+  };
+
+  return (
+    <Button variant="secondary" onClick={handleVoiceRead}>
+      Voice read
+    </Button>
+  );
+};
+
 const Section: React.FC<SectionItem> = ({ title, subsections }) => (
   <div>
-    <SectionTitle>{title}</SectionTitle>
+    <SectionTitle>
+      {title}
+    </SectionTitle>
     {subsections.map((subsection, index) => (
       <Subsection key={index} title={subsection.title} content={subsection.content} />
     ))}
@@ -107,26 +154,17 @@ const Section: React.FC<SectionItem> = ({ title, subsections }) => (
 const App: React.FC = () => (
   <Container>
     <h1>НЛП Книга</h1>
-
     <Accordion data-bs-theme="dark">
-
       {(nlpData as { sections: SectionItem[] }).sections.map((section, index) => (
-
-        <Accordion.Item eventKey={index.toString()} key={index + 'accordion'} >
+        <Accordion.Item eventKey={index.toString()} key={index + 'accordion'}>
           <Accordion.Header>{section.title}</Accordion.Header>
           <Accordion.Body>
+            <VoiceReadButton2 section={section} />
             <Section key={index} title={section.title} subsections={section.subsections} />
           </Accordion.Body>
         </Accordion.Item>
       ))}
-
     </Accordion>
-
-    {/* {(nlpData as { sections: SectionItem[] }).sections.map((section, index) => (
-      <Section key={index} title={section.title} subsections={section.subsections} />
-    ))} */}
-
-
   </Container>
 );
 

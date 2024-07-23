@@ -1,6 +1,5 @@
 import dynamic from "next/dynamic";
 import Image from "next/image";
-import Button from "react-bootstrap/Button";
 import { Container } from "react-bootstrap";
 import PageList from "@/components/organisms/PageList";
 import Card from 'react-bootstrap/Card';
@@ -47,7 +46,7 @@ export default function Home() {
           <Card.Body>This is some text within a card body.</Card.Body>
         </Card>
 
-        <Button variant="primary">Primary</Button>{" "}
+        
       </main>
     </Container>
   );

@@ -1,6 +1,5 @@
 'use client';
-
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
@@ -29,28 +28,52 @@ function isGroupLinkItem(item: NavLinkItem): item is GroupLinkItem {
 
 function NavBarPanel() {
   const [expanded, setExpanded] = useState(false);
-
-  const handleToggle = () => setExpanded(!expanded);
-  const handleClose = () => setExpanded(false);
-
-  const toggleRef = useRef<HTMLButtonElement>(null);
-
-  const links: NavLinkItem[] = [
+  const [pages, setPages] = useState<string[]>([]);
+  const [links, setLinks] = useState<NavLinkItem[]>([
     { name: 'Home', href: '/' },
     { name: 'Members', href: '/members' },
     { name: 'Codepen', href: '/codepen-src' },
     { name: 'React', href: '/react' },
     { name: 'NLP', href: '/nlp' },
-
-    { name: 'Treasury', href: '/treasury' },
+    {
+      groupeName: 'Treasury', links: []
+    },
     {
       groupeName: 'Health', links: [
         { name: 'Issues', href: '/health/issues' },
       ]
     },
-    // { name: 'Link', href: '/about', disabled: true }
-  ];
+  ]);
 
+  type PageListResponse = {
+    files: string[];
+  };
+
+  useEffect(() => {
+    fetch('/api/get-pages')
+      .then(response => response.json())
+      .then((data: PageListResponse) => {
+        setPages(data.files);
+        setLinks(prevLinks => prevLinks.map(link => {
+          if (isGroupLinkItem(link) && link.groupeName === 'Treasury') {
+            return {
+              ...link,
+              links: [
+                ...link.links,
+                ...data.files.map(file => ({ name: file, href: `/source/${file.replace(/\.(js|jsx|ts|tsx)$/, '')}` }))
+              ]
+            };
+          }
+          return link;
+        }));
+      })
+      .catch(error => console.error('Error fetching pages:', error));
+  }, []);
+
+  const handleToggle = () => setExpanded(!expanded);
+  const handleClose = () => setExpanded(false);
+
+  const toggleRef = useRef<HTMLButtonElement>(null);
 
   return (
     <Navbar data-bs-theme="dark" expanded={expanded} expand="lg" className="bg-body-tertiary">
@@ -85,8 +108,6 @@ function NavBarPanel() {
                 )
               )
             ))}
-
-
           </Nav>
           <Form className="d-flex">
             <Form.Control

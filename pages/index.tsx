@@ -1,13 +1,7 @@
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import { Container } from "react-bootstrap";
-import PageList from "@/components/organisms/PageList";
 import Card from 'react-bootstrap/Card';
-
-
-const CodePenFrame = dynamic(() => import('../components/organisms/CodePenFrame'), {
-  ssr: false
-});
 
 export default function Home() {
   return (
@@ -23,12 +17,6 @@ export default function Home() {
           gap: "1rem",
         }}
       >
-
-        <PageList />
-
-
-
-
         <Image
           src="/logo.webp"
           alt="JS Mantra"

@@ -128,6 +128,7 @@ const VoiceReadButton2: React.FC<VoiceReadButton2Props> = ({ section }) => {
           }
         });
       });
+      console.log(text)
     } catch (error) {
       text = 'ОШИБКА в парсинге данных!!!';
     }

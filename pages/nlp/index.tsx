@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Button from "react-bootstrap/Button";
 import Accordion from 'react-bootstrap/Accordion';
 import nlpData from '@/data/nlp.json';
+import { textToSpeech } from '@/utils/textToSpeech';
 
 const Container = styled.div`
   display: flex;
@@ -137,17 +138,8 @@ const VoiceReadButton2: React.FC<VoiceReadButton2Props> = ({ section }) => {
   };
 
   const handleVoiceRead = () => {
-    if ('speechSynthesis' in window && 'SpeechSynthesisUtterance' in window) {
-      const text = convertSectionToText(section);
-      const utterance = new SpeechSynthesisUtterance(text);
-      utterance.lang = 'ru-RU'; // Set the language to Russian
-      utterance.onerror = (event) => {
-        console.error('SpeechSynthesisUtterance.onerror', event);
-      };
-      window.speechSynthesis.speak(utterance);
-    } else {
-      alert('Your browser does not support speech synthesis.');
-    }
+    const text = convertSectionToText(section);
+    textToSpeech(text);
   };
 
   return (

@@ -40,7 +40,7 @@ const VideoSection: React.FC<VideoSectionProps> = ({ videoData }) => {
                 key_point ? <p key={index+'kp'}>{key_point.description}</p> : null
             ))}
 
-            { videoData.isHasDetailsLink && <Link href={'./topic/' + videoData.video_id} passHref > Go to  </Link> }
+            { videoData.isHasDetailsLink && <Link href={'./topic/' + videoData.video_id} passHref > Go to details </Link> }
 
         </Section>
     );

@@ -50,6 +50,11 @@ function NavBarPanel() {
   };
 
   useEffect(() => {
+
+    const removeExtension = (fileName: string) => fileName.replace(/\.(js|jsx|ts|tsx)$/, '');
+    const transformLink = (fileName: string) =>
+      fileName === 'index.tsx' ? '/source' : `/source/${removeExtension(fileName)}`;
+
     fetch('/api/get-pages')
       .then(response => response.json())
       .then((data: PageListResponse) => {
@@ -60,7 +65,7 @@ function NavBarPanel() {
               ...link,
               links: [
                 ...link.links,
-                ...data.files.map(file => ({ name: file, href: `/source/${file.replace(/\.(js|jsx|ts|tsx)$/, '')}` }))
+                ...data.files.map(file => ({ name: removeExtension(file), href: transformLink(file) })),
               ]
             };
           }

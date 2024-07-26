@@ -37,7 +37,7 @@ const VideoSection: React.FC<VideoSectionProps> = ({ videoData }) => {
                 src={`https://www.youtube.com/embed/${videoData.video_id}`}
             />
             {Object.values(videoData.key_points).map((key_point, index) => (
-                key_point ? <p key={index}>{key_point.description}</p> : null
+                key_point ? <p key={index+'kp'}>{key_point.description}</p> : null
             ))}
 
             { videoData.isHasDetailsLink && <Link href={'./topic/' + videoData.video_id} passHref > Go to  </Link> }

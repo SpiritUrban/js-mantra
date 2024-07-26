@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import YouTubeFrame from './YouTubeFrame';
-import Button from "react-bootstrap/Button";
 import Link from 'next/link';
 
 
@@ -13,6 +12,7 @@ interface VideoData {
             description: string;
         } | undefined;
     };
+    isHasDetailsLink?: boolean;
 }
 
 interface VideoSectionProps {
@@ -40,11 +40,8 @@ const VideoSection: React.FC<VideoSectionProps> = ({ videoData }) => {
                 key_point ? <p key={index}>{key_point.description}</p> : null
             ))}
 
-            {/* <Button variant="secondary" onClick={() => console.log('clicked')}>
-                Go to
-            </Button> */}
+            { videoData.isHasDetailsLink && <Link href={'./topic/' + videoData.video_id} passHref > Go to  </Link> }
 
-            <Link href={'./topic/' + videoData.video_id} passHref > Go to  </Link>
         </Section>
     );
 };

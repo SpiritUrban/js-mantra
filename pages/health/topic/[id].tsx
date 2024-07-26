@@ -1,6 +1,9 @@
 import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import Button from "react-bootstrap/Button";
+import { textToSpeech } from '@/utils/textToSpeech';
+
 
 interface CommonPinchPoint {
   region: string;
@@ -87,6 +90,58 @@ const LoadingMessage = styled.div`
   color: #ccc;
 `;
 
+const convertSectionToText = (section: VideoData): string => {
+  let text = '';
+
+  try {
+    const {
+      greeting,
+      causes,
+      nervous_problems,
+      anatomy,
+      common_pinch_points,
+      first_aid,
+      exercises,
+      conclusion
+    } = section.organized_text;
+
+    text += greeting + '. ';
+    text += causes + '. ';
+    text += nervous_problems + '. ';
+    text += anatomy + '. ';
+
+    common_pinch_points.forEach(point => {
+      text += point.region + ': ' + point.cause + '. ';
+    });
+
+    text += first_aid + '. ';
+
+    exercises.forEach(exercise => {
+      text += exercise.name + '. ';
+      if (typeof exercise.description === 'string') {
+        text += exercise.description + '. ';
+      } else {
+        exercise.description.forEach(detail => {
+          text += detail.type + ': ' + detail.details + '. ';
+        });
+      }
+    });
+
+    text += conclusion + '. ';
+
+    console.log(text);
+  } catch (error) {
+    text = 'ОШИБКА в парсинге данных!!!';
+  }
+
+  return text;
+};
+
+const handleVoiceRead = (videoData: VideoData) => {
+  const text = convertSectionToText(videoData);
+  textToSpeech(text);
+};
+
 const BlogPost: React.FC = () => {
   const router = useRouter();
   const { id } = router.query;
@@ -110,6 +165,11 @@ const BlogPost: React.FC = () => {
 
   return (
     <Container>
+      <Button variant="secondary" onClick={() => handleVoiceRead(videoData)}>
+        Voice read
+      </Button>
+      <br />
+      <br />
       <Title>{videoData.organized_text.greeting}</Title>
       <SubTitle>Причины онемения пальцев</SubTitle>
       <Paragraph>{videoData.organized_text.causes}</Paragraph>

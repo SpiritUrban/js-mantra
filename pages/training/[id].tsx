@@ -16,10 +16,6 @@ const BlogPost = () => {
   const { id } = router.query;
 
   const code: string = `
-    function add(a, b) {
-      return a + b;
-    };
-
     const cumMixer = (cumPortions: CumPortion[]) => 
       cumPortions.reduce((backet, currentPortion) => backet + currentPortion.volume, 0);
   `;

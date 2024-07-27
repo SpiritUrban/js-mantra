@@ -50,20 +50,7 @@ const BlogPost = () => {
   ];
 
   const dataForCode: string = `
-    const data: CumPortion[] = [
-      {
-        producer: "Vasya",
-        volume: 50 // 50 ml
-      },
-      {
-        producer: "Sanya",
-        volume: 60 // 60 ml
-      },
-      {
-        producer: "Siroja",
-        volume: 70 // 70 ml
-      }
-    ];
+    // example
   `
 
   const initialCode: string = `
@@ -143,6 +130,12 @@ const BlogPost = () => {
 
         <p>Допишите функцию "cumMixer".</p>
 
+        <h3>Описание тестов:</h3>
+        <ul>
+          <li>Тест 1: Проверяет, что cumMixer(data) возвращает 180 для набора данных data.</li>
+          <li>Тест 2: Проверяет, что cumMixer([]) возвращает 0 для пустого массива.</li>
+        </ul>
+
         <CodeEditor initialCode={initialCode} onSubmit={handleSubmit} />
         {result && <div>{result}</div>}
         {testResults && (
@@ -151,12 +144,7 @@ const BlogPost = () => {
             <pre>{testResults}</pre>
           </div>
         )}
-
-        <h3>Описание тестов:</h3>
-        <ul>
-          <li>Тест 1: Проверяет, что cumMixer(data) возвращает 180 для набора данных data.</li>
-          <li>Тест 2: Проверяет, что cumMixer([]) возвращает 0 для пустого массива.</li>
-        </ul>
+      
 
         <CodeBlock code={dataForCode} language="typescript" />
       </Container>

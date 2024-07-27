@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import Editor, { Monaco } from '@monaco-editor/react';
 
+
 interface CodeEditorProps {
   initialCode: string;
   onSubmit: (code: string) => void;

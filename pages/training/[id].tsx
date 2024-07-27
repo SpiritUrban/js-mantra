@@ -3,29 +3,20 @@ import CodeBlock from '@/components/organisms/CodeBlock';
 import styled from 'styled-components';
 import CodeEditor from '@/components/organisms/CodeEditor';
 import { useState } from 'react';
+import * as ts from 'typescript';
 
 const Container = styled.div`
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-    padding: 2rem;
-    max-width: 1200px;
-    margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
 `;
 
 const BlogPost = () => {
   const router = useRouter();
   const { id } = router.query;
-
-  const initialCode: string = `
-    interface CumPortion {
-      producer: string;
-      volume: number;
-    };
-    
-    const cumMixer = (cumPortions: CumPortion[]) => 
-      cumPortions.reduce((backet, currentPortion) => backet + currentPortion.volume, 0);
-  `;
 
   interface CumPortion {
     producer: string;
@@ -48,23 +39,44 @@ const BlogPost = () => {
       producer: "Siroja",
       volume: 70 // 70 ml
     }
-  ]
+  ];
 
   console.log('Total cum volume: ', cumMixer(data));
 
+  const initialCode: string = `
+    interface CumPortion {
+      producer: string;
+      volume: number;
+    };
 
-
-
+    const cumMixer = (cumPortions: CumPortion[]): number => 
+      cumPortions.reduce((backet, currentPortion) => backet + currentPortion.volume, 0);
+  `;
 
   const [result, setResult] = useState<string | null>(null);
 
+  const compileTypeScript = (code: string) => {
+    const result = ts.transpileModule(code, {
+      compilerOptions: { module: ts.ModuleKind.CommonJS }
+    });
+    return result.outputText;
+  };
+
   const handleSubmit = (code: string) => {
     try {
-      // Здесь можно оценить код, выполнив его в безопасной среде
-      // Например, используя new Function или eval (не рекомендуется для реальных приложений из-за безопасности)
-      const func = new Function('return ' + code)();
-      const output = func([1, 2, 3, 4]);
-      setResult(`Результат: ${output}`);
+      const compiledCode = compileTypeScript(code);
+      console.log(compiledCode);
+
+      // Wrap the compiled code in a function
+      const func = new Function('return (function() {' + compiledCode + '\nreturn cumMixer; })();')();
+
+      const output = func(data);
+
+      if (output !== null) {
+        setResult(`Результат: ${output}`);
+      } else {
+        setResult('Ошибка: функция cumMixer не найдена');
+      }
     } catch (error) {
       if (error instanceof Error) {
         setResult(`Ошибка: ${error.message}`);
@@ -76,26 +88,16 @@ const BlogPost = () => {
 
   return (
     <div>
-
       <Container>
-
         <h1>JS Training: {id}</h1>
 
-        <CodeBlock code={initialCode} language="javascript" />
-        {/* <CodeBlock code={code} language="typescript" /> */}
+        <p>Напишите функцию "cumMixer", которая использует метод reduce.</p>
+        <CodeEditor initialCode={initialCode} onSubmit={handleSubmit} />
+        {result && <div>{result}</div>}
 
-
-
-        <div>
-      <h1>JavaScript Training</h1>
-      <p>Напишите функцию CAMMixer, которая использует метод reduce.</p>
-      <CodeEditor initialCode={initialCode} onSubmit={handleSubmit} />
-      {result && <div>{result}</div>}
-    </div>
-    
+        <CodeBlock code={initialCode} language="typescript" />
 
       </Container>
-
     </div>
   );
 };

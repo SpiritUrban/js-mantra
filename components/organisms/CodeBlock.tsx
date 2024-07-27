@@ -17,7 +17,7 @@ const CodeBlock: React.FC<CodeBlockProps> = ({ code, language }) => {
     <pre>
       <code 
         className={`language-${language}`}
-        style={{ fontSize: '1.2rem' }}
+        style={{ fontSize: '.9rem' }}
       >
         {code}
       </code>

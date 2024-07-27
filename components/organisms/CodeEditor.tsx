@@ -29,12 +29,13 @@ const CodeEditor: React.FC<CodeEditorProps> = ({ initialCode, onSubmit }) => {
   return (
     <div>
       <Editor
-        height="40vh"
+        height="65vh"
         defaultLanguage="typescript"
         defaultValue={initialCode}
         onChange={handleEditorChange}
         theme="vs-dark" // Устанавливаем темную тему
       />
+      <br />
       <button onClick={handleSubmit}>Проверить</button>
     </div>
   );

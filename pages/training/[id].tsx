@@ -41,13 +41,45 @@ const BlogPost = () => {
     }
   ];
 
-  console.log('Total cum volume: ', cumMixer(data));
+  // console.log('Total cum volume: ', cumMixer(data));
+
+  const dataForCode: string = `
+    const data: CumPortion[] = [
+      {
+        producer: "Vasya",
+        volume: 50 // 50 ml
+      },
+      {
+        producer: "Sanya",
+        volume: 60 // 60 ml
+      },
+      {
+        producer: "Siroja",
+        volume: 70 // 70 ml
+      }
+    ];
+  `
 
   const initialCode: string = `
     interface CumPortion {
       producer: string;
       volume: number;
     };
+
+    const data: CumPortion[] = [
+      {
+        producer: "Vasya",
+        volume: 50 // 50 ml
+      },
+      {
+        producer: "Sanya",
+        volume: 60 // 60 ml
+      },
+      {
+        producer: "Siroja",
+        volume: 70 // 70 ml
+      }
+    ];
 
     const cumMixer = (cumPortions: CumPortion[]): number => 
       cumPortions.reduce((backet, currentPortion) => backet + currentPortion.volume, 0);
@@ -91,11 +123,17 @@ const BlogPost = () => {
       <Container>
         <h1>JS Training: {id}</h1>
 
-        <p>Напишите функцию "cumMixer", которая использует метод reduce.</p>
+        <h2>Используем метод reduce</h2>
+
+        <p>Допишите функцию "cumMixer".</p>
+
         <CodeEditor initialCode={initialCode} onSubmit={handleSubmit} />
         {result && <div>{result}</div>}
 
-        <CodeBlock code={initialCode} language="typescript" />
+
+        <CodeBlock code={dataForCode} language="typescript" />
+
+
 
       </Container>
     </div>

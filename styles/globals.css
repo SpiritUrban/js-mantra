@@ -1,9 +1,11 @@
 @import '~bootstrap/dist/css/bootstrap.min.css';
 
-/* styles/prism.css */
-@import 'prismjs/themes/prism-okaidia.css';
+/* @import 'prismjs/themes/prism-okaidia.css'; */
 @import './prism-vsc-dark-plus.css';
 
+/* @import 'prismjs/themes/prism-dark.css';  */
+/* @import 'prismjs/themes/prism-twilight.css'; */
+@import 'prismjs/themes/prism-tomorrow.css';
   
 body{
   background: #333;

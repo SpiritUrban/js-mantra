@@ -53,6 +53,7 @@ const BlogPost = () => {
         <h1>JS Training: {id}</h1>
 
         <CodeBlock code={code} language="javascript" />
+        {/* <CodeBlock code={code} language="typescript" /> */}
 
       </Container>
 

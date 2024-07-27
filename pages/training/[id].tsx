@@ -128,12 +128,12 @@ const BlogPost = () => {
 
         <h2>Используем метод reduce</h2>
 
-        <p>Допишите функцию "cumMixer".</p>
+        <p>Допишите функцию <b>"cumMixer()"</b>.</p>
 
         <h3>Описание тестов:</h3>
         <ul>
-          <li>Тест 1: Проверяет, что cumMixer(data) возвращает 180 для набора данных data.</li>
-          <li>Тест 2: Проверяет, что cumMixer([]) возвращает 0 для пустого массива.</li>
+          <li>Тест 1: Проверяет, что <b>"cumMixer(data)"</b> возвращает <b>180</b> для набора данных <b>"data"</b> .</li>
+          <li>Тест 2: Проверяет, что <b>"cumMixer([])"</b> возвращает <b>0</b> для пустого массива.</li>
         </ul>
 
         <CodeEditor initialCode={initialCode} onSubmit={handleSubmit} />

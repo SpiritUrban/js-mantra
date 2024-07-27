@@ -1,6 +1,15 @@
 import { useRouter } from 'next/router';
 import CodeBlock from '@/components/organisms/CodeBlock';
+import styled from 'styled-components';
 
+const Container = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+`;
 
 const BlogPost = () => {
   const router = useRouter();
@@ -20,7 +29,7 @@ const BlogPost = () => {
     volume: number;
   }
 
-  const cumMixer = (cumPortions: CumPortion[]) => 
+  const cumMixer = (cumPortions: CumPortion[]) =>
     cumPortions.reduce((backet, currentPortion) => backet + currentPortion.volume, 0);
 
   const data: CumPortion[] = [
@@ -38,13 +47,18 @@ const BlogPost = () => {
     }
   ]
 
-  console.log('Total cum volume: ',cumMixer(data));
+  console.log('Total cum volume: ', cumMixer(data));
 
   return (
     <div>
-      <h1>training: {id}</h1>
 
-      <CodeBlock code={code} language="javascript" />
+      <Container>
+
+        <h1>JS Training: {id}</h1>
+
+        <CodeBlock code={code} language="javascript" />
+
+      </Container>
 
     </div>
   );

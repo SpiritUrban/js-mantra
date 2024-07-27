@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import Link from 'next/link';
 
 interface IllustrationProps {
     $backgroundImage: string;
@@ -85,10 +86,10 @@ interface SourceProps {
     description?: string;
     imageUrl?: string;
     imageSource?: string;
-    sourceLink?: string;
+    sourceLink: string;
 }
 
-const SourceCard: React.FC<SourceProps> = ({ title, description, imageUrl, imageSource, sourceLink }) => {
+const TrainingCard: React.FC<SourceProps> = ({ title, description, imageUrl, imageSource, sourceLink }) => {
     return (
         <Section>
             {imageUrl && (<Illustration $backgroundImage={imageUrl} />)}
@@ -98,10 +99,12 @@ const SourceCard: React.FC<SourceProps> = ({ title, description, imageUrl, image
                 <p>{description}</p>
             </Content>)}
             <LinkContainer>
-                <a target="_blank" href={sourceLink || imageUrl || imageSource}>Link</a>
+                <Link href={sourceLink} passHref>
+                    Link
+                </Link>
             </LinkContainer>
         </Section>
     );
 };
 
-export default SourceCard;
+export default TrainingCard;

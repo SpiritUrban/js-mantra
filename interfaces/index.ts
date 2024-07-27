@@ -13,3 +13,11 @@ export interface ISourceCard {
     sourceLink?: string;
     description?: string;
 };
+
+export interface ITrainingCard {
+    title?: string;
+    imageUrl?: string;
+    imageSource?: string;
+    sourceLink: string;
+    description?: string;
+};

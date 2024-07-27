@@ -43,6 +43,7 @@ function NavBarPanel() {
         { name: 'Issues', href: '/health/issues' },
       ]
     },
+    { name: 'Training', href: '/training' },
   ]);
 
   type PageListResponse = {

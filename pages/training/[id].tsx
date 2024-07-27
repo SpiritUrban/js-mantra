@@ -1,4 +1,3 @@
-/* eslint-disable react/no-unescaped-entities */
 import { useRouter } from 'next/router';
 import CodeBlock from '@/components/organisms/CodeBlock';
 import styled from 'styled-components';
@@ -15,17 +14,24 @@ const Container = styled.div`
   margin: 0 auto;
 `;
 
+export interface CumPortion {
+  producer: string;
+  volume: number;
+}
+
+export const cumMixer = (cumPortions: CumPortion[]) =>
+  cumPortions.reduce((backet, currentPortion) => backet + currentPortion.volume, 0);
+
+export const compileTypeScript = (code: string) => {
+  const result = ts.transpileModule(code, {
+    compilerOptions: { module: ts.ModuleKind.CommonJS }
+  });
+  return result.outputText;
+};
+
 const BlogPost = () => {
   const router = useRouter();
   const { id } = router.query;
-
-  interface CumPortion {
-    producer: string;
-    volume: number;
-  }
-
-  const cumMixer = (cumPortions: CumPortion[]) =>
-    cumPortions.reduce((backet, currentPortion) => backet + currentPortion.volume, 0);
 
   const data: CumPortion[] = [
     {
@@ -41,8 +47,6 @@ const BlogPost = () => {
       volume: 70 // 70 ml
     }
   ];
-
-  // console.log('Total cum volume: ', cumMixer(data));
 
   const dataForCode: string = `
     const data: CumPortion[] = [
@@ -87,26 +91,20 @@ const BlogPost = () => {
   `;
 
   const [result, setResult] = useState<string | null>(null);
-
-  const compileTypeScript = (code: string) => {
-    const result = ts.transpileModule(code, {
-      compilerOptions: { module: ts.ModuleKind.CommonJS }
-    });
-    return result.outputText;
-  };
+  const [testResults, setTestResults] = useState<string | null>(null);
 
   const handleSubmit = (code: string) => {
     try {
       const compiledCode = compileTypeScript(code);
       console.log(compiledCode);
 
-      // Wrap the compiled code in a function
       const func = new Function('return (function() {' + compiledCode + '\nreturn cumMixer; })();')();
 
       const output = func(data);
 
       if (output !== null) {
         setResult(`Результат: ${output}`);
+        runTests(func);  // Запуск тестов после получения результата
       } else {
         setResult('Ошибка: функция cumMixer не найдена');
       }
@@ -116,6 +114,22 @@ const BlogPost = () => {
       } else {
         setResult('Произошла неизвестная ошибка');
       }
+    }
+  };
+
+  const runTests = (func: (cumPortions: CumPortion[]) => number) => {
+    let results = '';
+    try {
+      const test1 = func(data) === 180 ? 'Тест 1 прошел: cumMixer(data) === 180' : 'Тест 1 провален: cumMixer(data) !== 180';
+      results += test1 + '\n';
+
+      const test2 = func([]) === 0 ? 'Тест 2 прошел: cumMixer([]) === 0' : 'Тест 2 провален: cumMixer([]) !== 0';
+      results += test2 + '\n';
+      
+      setTestResults(results);
+    } catch (error) {
+      results = `Ошибка в тестах: ${(error as Error).message}`;
+      setTestResults(results);
     }
   };
 
@@ -130,12 +144,20 @@ const BlogPost = () => {
 
         <CodeEditor initialCode={initialCode} onSubmit={handleSubmit} />
         {result && <div>{result}</div>}
+        {testResults && (
+          <div>
+            <h3>Результаты тестов:</h3>
+            <pre>{testResults}</pre>
+          </div>
+        )}
 
+        <h3>Описание тестов:</h3>
+        <ul>
+          <li>Тест 1: Проверяет, что cumMixer(data) возвращает 180 для набора данных data.</li>
+          <li>Тест 2: Проверяет, что cumMixer([]) возвращает 0 для пустого массива.</li>
+        </ul>
 
         <CodeBlock code={dataForCode} language="typescript" />
-
-
-
       </Container>
     </div>
   );

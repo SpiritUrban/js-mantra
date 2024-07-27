@@ -10,7 +10,6 @@ const CodeEditor: React.FC<CodeEditorProps> = ({ initialCode, onSubmit }) => {
   const [code, setCode] = useState<string>(initialCode);
 
   useEffect(() => {
-    // Динамическое подключение стилей
     const stylePaths = [
       'monaco-editor/min/vs/editor/editor.main.css',
       'monaco-editor/min/vs/base/browser/ui/contextview/contextview.css',
@@ -53,7 +52,7 @@ const CodeEditor: React.FC<CodeEditorProps> = ({ initialCode, onSubmit }) => {
         defaultLanguage="typescript"
         defaultValue={initialCode}
         onChange={handleEditorChange}
-        theme="vs-dark" // Установка темной темы
+        theme="vs-dark"
       />
       <button onClick={handleSubmit}>Проверить</button>
     </div>

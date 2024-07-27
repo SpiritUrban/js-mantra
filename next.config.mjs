@@ -9,9 +9,9 @@ const nextConfig = {
             key: 'Content-Security-Policy',
             value: `
               default-src 'self';
-              script-src 'self' 'unsafe-inline' 'unsafe-eval' https://codepen.io;
+              script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net https://codepen.io;
               child-src https://codepen.io https://www.figma.com https://www.youtube.com;
-              style-src 'self' 'unsafe-inline';
+              style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net;
               img-src * blob: data:;
               media-src 'none';
               connect-src 'self';
@@ -20,7 +20,7 @@ const nextConfig = {
               frame-ancestors 'self';
               base-uri 'self';
               form-action 'self';
-            `.replace(/\s{2,}/g, ' ').trim()
+            `.replace(/\s{2,}/g, ' ').trim(),
           },
         ],
       },

@@ -27,7 +27,7 @@ export default function Training() {
 
   const data2: ITrainingCard[] = [
     {
-      title: "Cum Work",
+      title: "Cum Mixer",
       imageUrl: "/img/cum-work.webp",
       // imageSource: `<img src="https://justpaste.it/static/img/jp_logo_v3.svg" alt="" />`,
       sourceLink: "./training/cum-work",

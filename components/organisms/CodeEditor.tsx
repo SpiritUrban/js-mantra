@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Editor, { loader } from '@monaco-editor/react';
+import { Button } from 'react-bootstrap';
 
 interface CodeEditorProps {
   initialCode: string;
@@ -46,15 +47,22 @@ const CodeEditor: React.FC<CodeEditorProps> = ({ initialCode, onSubmit }) => {
   };
 
   return (
-    <div>
-      <Editor
-        height="65vh"
-        defaultLanguage="typescript"
-        defaultValue={initialCode}
-        onChange={handleEditorChange}
-        theme="vs-dark"
-      />
-      <button onClick={handleSubmit}>Проверить</button>
+    <div >
+      <div style={{ borderRadius: '.5rem', overflow: 'hidden' }}>
+
+        <Editor
+          height="65vh"
+          defaultLanguage="typescript"
+          defaultValue={initialCode}
+          onChange={handleEditorChange}
+          theme="vs-dark"
+        />
+      </div>
+
+
+      <br />
+
+      <Button variant="primary" onClick={handleSubmit}>Проверить</Button>
     </div>
   );
 };

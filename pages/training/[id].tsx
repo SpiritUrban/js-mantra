@@ -23,12 +23,37 @@ const Container = styled.div`
 const Top = styled.div` 
   display: flex;
   flex-direction: row;
-  gap: 2rem;
+  gap: 1rem;
   .left{
     flex: 2;
+    background: rgb(0 0 0 / 10%);
+    padding: 1rem;
+    border-radius: .5rem;
   }
   .right{
     flex: 3;
+    background: rgb(0 0 0 / 10%);
+    padding: 1rem;
+    border-radius: .5rem;
+  }
+`;
+
+const Second = styled.div` 
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  margin-top: 1rem;
+  .left{
+    flex: 2;
+    background: rgb(0 0 0 / 10%);
+    padding: 1rem;
+    border-radius: .5rem;
+  }
+  .right{
+    flex: 2;
+    background: rgb(0 0 0 / 10%);
+    padding: 1rem;
+    border-radius: .5rem;
   }
 `;
 
@@ -151,29 +176,40 @@ const TrainingPage = () => {
                     content={pageData.modalContent}
                 />
 
-                <Top>
-                    <div className="left">
-                        <h3 dangerouslySetInnerHTML={{ __html: pageData.trainingData.heading }} ></h3>
-                        <p dangerouslySetInnerHTML={{ __html: pageData.trainingData.description }}></p>
-                    </div>
-                    <div className="right">
-                        <h3>Описание тестов:</h3>
-                        <ul>
-                            {pageData.trainingData.test.map((item, index) => (
-                                <li key={index} dangerouslySetInnerHTML={{ __html: item.description }}></li>
-                            ))}
-                        </ul>
-                    </div>
-                </Top>
+                <div>
+
+                    <Top>
+                        <div className="left">
+                            <h3 dangerouslySetInnerHTML={{ __html: pageData.trainingData.heading }} ></h3>
+                            <p dangerouslySetInnerHTML={{ __html: pageData.trainingData.description }}></p>
+                        </div>
+                        <div className="right">
+                            <h3>Описание тестов:</h3>
+                            <ul>
+                                {pageData.trainingData.test.map((item, index) => (
+                                    <li key={index} dangerouslySetInnerHTML={{ __html: item.description }}></li>
+                                ))}
+                            </ul>
+                        </div>
+                    </Top>
 
 
-                {result && <div>{result}</div>}
-                {testResults && (
-                    <div>
-                        <h3>Результаты тестов:</h3>
-                        <pre>{testResults}</pre>
-                    </div>
-                )}
+                    <Second>
+                        <div className="left">
+                            {testResults && (
+                                <div>
+                                    <h3>Результаты тестов:</h3>
+                                    <pre>{testResults}</pre>
+                                </div>
+                            )}
+                        </div>
+                        <div className="right">
+                            {result && <div>{result}</div>}
+
+                        </div>
+                    </Second>
+
+                </div>
 
                 <CodeEditor initialCode={pageData.initialCode} onSubmit={handleSubmit} />
 

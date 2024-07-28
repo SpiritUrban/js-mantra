@@ -7,6 +7,7 @@ import * as ts from 'typescript';
 import RewardModal from '@/components/organisms/modals/RewardModal';
 import { ToastContainer, toast } from 'react-toastify';
 import { playSound } from '@/utils';
+import Image from "next/image";
 
 import pageData, { CumPortion } from '@/data/training/cum-work';
 
@@ -155,7 +156,24 @@ const TrainingPage = () => {
     return (
         <div>
             <Container>
-                <h1>JS Training: {pageData.trainingData.title}</h1>
+                <h1>
+                    <Image
+                        src={pageData.trainingData.img}
+                        alt="JS Mantra"
+                        width={100}  // Adjusted to fit better
+                        height={100} // Adjusted to fit better
+                        priority
+                        style={{
+                            marginRight: "1.5rem",
+                            borderRadius: ".5rem",
+                            objectFit: 'cover',
+                            width: '5rem',
+                            height: '5rem',
+                        }}
+                    />
+                    JS Training: &nbsp;
+                    <b>{pageData.trainingData.title}</b>
+                </h1>
 
                 <ToastContainer
                     position="top-right"

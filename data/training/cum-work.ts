@@ -34,6 +34,7 @@ export default {
         title: "Cum Work",
         heading: 'Используем метод <b>"reduce"</b>',
         description: 'Допишите функцию <b>"cumMixer()"</b>.',
+        img: "/img/cum-work.webp",
 
         test: [
             {
@@ -67,13 +68,7 @@ export default {
                 result: 0
             }
         ],
-    
-    // ][
-    //         'Тест 1: Проверяет, что <b>"cumMixer(data)"</b> возвращает <b>180</b> для набора данных <b>"data"</b> .',
-    //         'Тест 2: Проверяет, что <b>"cumMixer([])"</b> возвращает <b>0</b> для пустого массива.',
-    //     ],
 
-        img: "/img/medals/cum-worker.webp",
     } as Training,
 
     modalContent: {

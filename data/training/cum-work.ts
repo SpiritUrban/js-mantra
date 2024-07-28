@@ -2,7 +2,6 @@ export interface Training {
     title: string;
     heading: string;
     description: string;
-
     test: Test[];
     img: string;
 }
@@ -102,10 +101,14 @@ const data: CumPortion[] = [
 ];
 
 const cumMixer = (cumPortions: CumPortion[]): number => 
-    cumPortions.reduce((backet, currentPortion) => backet + currentPortion.volume, 0);
+    cumPortions.reduce((backet, currentPortion) => /* тут */, 0);
 ` as string,
 
 }
+
+// backet + currentPortion.volume
+
+
 
 
 

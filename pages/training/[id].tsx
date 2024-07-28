@@ -69,7 +69,6 @@ export const compileTypeScript = (code: string) => {
 const TrainingPage = () => {
     const router = useRouter();
     const { id } = router.query;
-
     const [result, setResult] = useState<string | null>(null);
     const [testResults, setTestResults] = useState<string | null>(null);
     const [modalShow, setModalShow] = useState(false);
@@ -128,7 +127,7 @@ const TrainingPage = () => {
         }
     };
 
-    const runTests = async (func: (cumPortions: CumPortion[]) => number) => {
+    const runTests = async (func: any) => {
         let results = '';
         let isPassedAllTests = true;
 

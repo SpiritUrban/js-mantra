@@ -1,6 +1,5 @@
 /* eslint-disable react/no-unescaped-entities */
 import { useRouter } from 'next/router';
-import CodeBlock from '@/components/organisms/CodeBlock';
 import styled from 'styled-components';
 import CodeEditor from '@/components/organisms/CodeEditor';
 import { useState } from 'react';
@@ -19,13 +18,23 @@ const Container = styled.div`
   margin: 0 auto;
 `;
 
+const Top = styled.div` 
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+  .left{
+    flex: 2;
+  }
+  .right{
+    flex: 3;
+  }
+`;
+
 export interface CumPortion {
   producer: string;
   volume: number;
 }
 
-export const cumMixer = (cumPortions: CumPortion[]) =>
-  cumPortions.reduce((backet, currentPortion) => backet + currentPortion.volume, 0);
 
 export const compileTypeScript = (code: string) => {
   const result = ts.transpileModule(code, {
@@ -53,9 +62,7 @@ const BlogPost = () => {
     }
   ];
 
-  const dataForCode: string = `
-    // example
-  `
+
 
   const initialCode: string = `
     interface CumPortion {
@@ -166,8 +173,6 @@ const BlogPost = () => {
     img: '/img/medals/cum-worker.webp'
   };
 
-
-
   return (
     <div>
       <Container>
@@ -192,15 +197,23 @@ const BlogPost = () => {
           content={modalContent}
         />
 
-        <h2>Используем метод reduce</h2>
+        <Top>
+          <div className="left">
+            <h2>Используем метод reduce</h2>
+            <p>Допишите функцию <b>"cumMixer()"</b>.</p>
+          </div>
+          <div className="right">
+            <h3>Описание тестов:</h3>
+            <ul>
+              <li>Тест 1: Проверяет, что <b>"cumMixer(data)"</b> возвращает <b>180</b> для набора данных <b>"data"</b> .</li>
+              <li>Тест 2: Проверяет, что <b>"cumMixer([])"</b> возвращает <b>0</b> для пустого массива.</li>
+            </ul>
+          </div>
+        </Top>
 
-        <p>Допишите функцию <b>"cumMixer()"</b>.</p>
 
-        <h3>Описание тестов:</h3>
-        <ul>
-          <li>Тест 1: Проверяет, что <b>"cumMixer(data)"</b> возвращает <b>180</b> для набора данных <b>"data"</b> .</li>
-          <li>Тест 2: Проверяет, что <b>"cumMixer([])"</b> возвращает <b>0</b> для пустого массива.</li>
-        </ul>
+
+
 
         <CodeEditor initialCode={initialCode} onSubmit={handleSubmit} />
         {result && <div>{result}</div>}
@@ -211,8 +224,6 @@ const BlogPost = () => {
           </div>
         )}
 
-
-        <CodeBlock code={dataForCode} language="typescript" />
       </Container>
     </div>
   );

@@ -13,7 +13,7 @@ const nextConfig = {
               child-src https://codepen.io https://www.figma.com https://www.youtube.com;
               style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net;
               img-src * blob: data:;
-              media-src 'none';
+              media-src *;
               connect-src 'self';
               font-src 'self';
               object-src 'none';

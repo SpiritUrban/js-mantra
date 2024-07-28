@@ -7,6 +7,7 @@ import { useState } from 'react';
 import * as ts from 'typescript';
 import { Button } from 'react-bootstrap';
 import RewardModal from '@/components/organisms/modals/RewardModal';
+import { playSound } from '@/utils';
 
 const Container = styled.div`
   display: flex;
@@ -135,15 +136,19 @@ const BlogPost = () => {
   };
 
 
+
+
   return (
     <div>
       <Container>
         <h1>JS Training: {id}</h1>
 
-
-
         <Button variant="primary" onClick={() => setModalShow(true)}>
           Launch vertically centered modal
+        </Button>
+
+        <Button variant="primary" onClick={() => playSound('/sound/pop.mp3')}>
+          Sound
         </Button>
 
         <RewardModal

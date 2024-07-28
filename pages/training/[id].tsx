@@ -7,6 +7,8 @@ import { useState } from 'react';
 import * as ts from 'typescript';
 import RewardModal from '@/components/organisms/modals/RewardModal';
 import { ToastContainer, toast } from 'react-toastify';
+import { playSound } from '@/utils';
+
 
 const Container = styled.div`
   display: flex;
@@ -83,6 +85,20 @@ const BlogPost = () => {
   const [result, setResult] = useState<string | null>(null);
   const [testResults, setTestResults] = useState<string | null>(null);
 
+  const errorToast = (message: string) => {
+    playSound('/sound/error.mp3');
+    toast.error(message, {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
+    });
+  }
+
   const handleSubmit = (code: string) => {
     try {
       const compiledCode = compileTypeScript(code);
@@ -101,8 +117,10 @@ const BlogPost = () => {
     } catch (error) {
       if (error instanceof Error) {
         setResult(`Ошибка: ${error.message}`);
+        errorToast(`Ошибка`);
       } else {
         setResult('Произошла неизвестная ошибка');
+        errorToast('Произошла неизвестная ошибка');
       }
     }
   };
@@ -121,17 +139,19 @@ const BlogPost = () => {
       results += test2 + '\n';
 
       if (!isPassedTest1 || !isPassedTest2) {
-        results += 'Тесты не прошли. Пожалуйста, проверьте свой код.';
+        // results += 'Тесты не прошли. Пожалуйста, проверьте свой код.';
+        errorToast('Тесты провалены.');
       } else {
         setModalShow(true)
       }
-
 
 
       setTestResults(results);
     } catch (error) {
       results = `Ошибка в тестах: ${(error as Error).message}`;
       setTestResults(results);
+      errorToast('Ошибка в тестах.');
+      ;
     }
   };
 
@@ -147,23 +167,12 @@ const BlogPost = () => {
   };
 
 
-  const notify = () => toast.error('🦄 Wow so easy!', {
-    position: "top-right",
-    autoClose: 5000,
-    hideProgressBar: false,
-    closeOnClick: true,
-    pauseOnHover: true,
-    draggable: true,
-    progress: undefined,
-    theme: "colored",
-  });
 
   return (
     <div>
       <Container>
         <h1>JS Training: {id}</h1>
 
-        <button onClick={notify}>Notify!</button>
         <ToastContainer
           position="top-right"
           autoClose={5000}

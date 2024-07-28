@@ -75,6 +75,16 @@ const TrainingPage = () => {
         });
     }
 
+    const handleError = (error: unknown, defaultMessage: string) => {
+        if (error instanceof Error) {
+            setResult(`Ошибка: ${error.message}`);
+            errorToast(`Ошибка`);
+        } else {
+            setResult(defaultMessage);
+            errorToast(defaultMessage);
+        }
+    };
+
     const handleSubmit = (code: string) => {
         try {
             const compiledCode = compileTypeScript(code);
@@ -88,46 +98,34 @@ const TrainingPage = () => {
                 setResult('Ошибка: функция cumMixer не найдена');
             }
         } catch (error) {
-            if (error instanceof Error) {
-                setResult(`Ошибка: ${error.message}`);
-                errorToast(`Ошибка`);
-            } else {
-                setResult('Произошла неизвестная ошибка');
-                errorToast('Произошла неизвестная ошибка');
-            }
+            handleError(error, 'Произошла неизвестная ошибка');
         }
     };
 
     const runTests = (func: (cumPortions: CumPortion[]) => number) => {
         let results = '';
-        try {
-            let isPassedAllTests = true;
-            // const isPassedTest1 = func(pageData.data) === 180;
-            // const isPassedTest2 = func([]) === 0;
+        let isPassedAllTests = true;
 
-            pageData.trainingData.test.map((item, index) => {
+        try {
+            pageData.trainingData.test.forEach((item) => {
                 const isPassedTest = func(item.data) === item.result;
-                if (!isPassedTest) {
-                    isPassedAllTests = false;
-                }
-                const test = isPassedTest ? item.successMessage : item.failMessage;
-                results += test + '\n';
+                isPassedAllTests = isPassedAllTests && isPassedTest;
+                const testMessage = isPassedTest ? item.successMessage : item.failMessage;
+                results += testMessage + '\n';
             });
-        
+
             if (!isPassedAllTests) {
                 errorToast('Тесты провалены.');
             } else {
-                setModalShow(true)
+                setModalShow(true);
             }
 
             setTestResults(results);
         } catch (error) {
-            results = `Ошибка в тестах: ${(error as Error).message}`;
-            setTestResults(results);
-            errorToast('Ошибка в тестах.');
-            ;
+            handleError(error, 'Ошибка в тестах.');
         }
     };
+
 
     return (
         <div>
@@ -155,7 +153,7 @@ const TrainingPage = () => {
 
                 <Top>
                     <div className="left">
-                        <h2 dangerouslySetInnerHTML={{ __html: pageData.trainingData.heading }} ></h2>
+                        <h3 dangerouslySetInnerHTML={{ __html: pageData.trainingData.heading }} ></h3>
                         <p dangerouslySetInnerHTML={{ __html: pageData.trainingData.description }}></p>
                     </div>
                     <div className="right">
@@ -168,7 +166,7 @@ const TrainingPage = () => {
                     </div>
                 </Top>
 
-                <CodeEditor initialCode={pageData.initialCode} onSubmit={handleSubmit} />
+
                 {result && <div>{result}</div>}
                 {testResults && (
                     <div>
@@ -176,6 +174,8 @@ const TrainingPage = () => {
                         <pre>{testResults}</pre>
                     </div>
                 )}
+
+                <CodeEditor initialCode={pageData.initialCode} onSubmit={handleSubmit} />
 
             </Container>
         </div>

@@ -147,9 +147,9 @@ const BlogPost = () => {
           Launch vertically centered modal
         </Button>
 
-        <Button variant="primary" onClick={() => playSound('/sound/pop.mp3')}>
+        {/* <Button variant="primary" onClick={() => playSound('/sound/pop.mp3')}>
           Sound
-        </Button>
+        </Button> */}
 
         <RewardModal
           show={modalShow}

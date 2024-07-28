@@ -12,6 +12,8 @@ export interface Test {
     code: string;
     successMessage: string;
     failMessage: string;
+    data: any;
+    result: any;
 }
 
 export interface ModalContent {
@@ -39,6 +41,21 @@ export default {
                 code: ``,
                 successMessage: 'Тест 1 прошел: cumMixer(data) === 180',
                 failMessage: 'Тест 1 провален: cumMixer(data) !== 180',
+                data: [
+                    {
+                        producer: "Vasya",
+                        volume: 50 // 50 ml
+                    },
+                    {
+                        producer: "Sanya",
+                        volume: 60 // 60 ml
+                    },
+                    {
+                        producer: "Siroja",
+                        volume: 70 // 70 ml
+                    }
+                ] as CumPortion[],
+                result: 180
             },
 
             {
@@ -46,6 +63,8 @@ export default {
                 code: ``,
                 successMessage: 'Тест 2 прошел: cumMixer([]) === 0',
                 failMessage: 'Тест 2 провален: cumMixer([]) !== 0',
+                data: [],
+                result: 0
             }
         ],
     
@@ -64,20 +83,7 @@ export default {
         img: '/img/medals/cum-worker.webp',
     } as ModalContent,
 
-    data: [
-        {
-            producer: "Vasya",
-            volume: 50 // 50 ml
-        },
-        {
-            producer: "Sanya",
-            volume: 60 // 60 ml
-        },
-        {
-            producer: "Siroja",
-            volume: 70 // 70 ml
-        }
-    ] as CumPortion[],
+    
 
     initialCode: `
 interface CumPortion {

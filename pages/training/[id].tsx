@@ -79,7 +79,7 @@ const TrainingPage = () => {
         try {
             const compiledCode = compileTypeScript(code);
             const func = new Function('return (function() {' + compiledCode + '\nreturn cumMixer; })();')();
-            const output = func(pageData.data);
+            const output = func(pageData.trainingData.test[0].data);
 
             if (output !== null) {
                 setResult(`Результат: ${output}`);
@@ -101,16 +101,20 @@ const TrainingPage = () => {
     const runTests = (func: (cumPortions: CumPortion[]) => number) => {
         let results = '';
         try {
-            const isPassedTest1 = func(pageData.data) === 180;
-            const isPassedTest2 = func([]) === 0;
+            let isPassedAllTests = true;
+            // const isPassedTest1 = func(pageData.data) === 180;
+            // const isPassedTest2 = func([]) === 0;
 
             pageData.trainingData.test.map((item, index) => {
-                // <li key={index} dangerouslySetInnerHTML={{ __html: item.description }}></li>
-                const test = isPassedTest1 ? item.successMessage : item.failMessage;
+                const isPassedTest = func(item.data) === item.result;
+                if (!isPassedTest) {
+                    isPassedAllTests = false;
+                }
+                const test = isPassedTest ? item.successMessage : item.failMessage;
                 results += test + '\n';
             });
         
-            if (!isPassedTest1 || !isPassedTest2) {
+            if (!isPassedAllTests) {
                 errorToast('Тесты провалены.');
             } else {
                 setModalShow(true)

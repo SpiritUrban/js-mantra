@@ -104,12 +104,12 @@ const TrainingPage = () => {
             const isPassedTest1 = func(pageData.data) === 180;
             const isPassedTest2 = func([]) === 0;
 
-            const test1 = isPassedTest1 ? 'Тест 1 прошел: cumMixer(data) === 180' : 'Тест 1 провален: cumMixer(data) !== 180';
-            results += test1 + '\n';
-
-            const test2 = isPassedTest2 ? 'Тест 2 прошел: cumMixer([]) === 0' : 'Тест 2 провален: cumMixer([]) !== 0';
-            results += test2 + '\n';
-
+            pageData.trainingData.test.map((item, index) => {
+                // <li key={index} dangerouslySetInnerHTML={{ __html: item.description }}></li>
+                const test = isPassedTest1 ? item.successMessage : item.failMessage;
+                results += test + '\n';
+            });
+        
             if (!isPassedTest1 || !isPassedTest2) {
                 errorToast('Тесты провалены.');
             } else {
@@ -157,8 +157,8 @@ const TrainingPage = () => {
                     <div className="right">
                         <h3>Описание тестов:</h3>
                         <ul>
-                            {pageData.trainingData.testDescription.map((description, index) => (
-                                <li key={index} dangerouslySetInnerHTML={{ __html: description }}></li>
+                            {pageData.trainingData.test.map((item, index) => (
+                                <li key={index} dangerouslySetInnerHTML={{ __html: item.description }}></li>
                             ))}
                         </ul>
                     </div>

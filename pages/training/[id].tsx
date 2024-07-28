@@ -125,7 +125,14 @@ const BlogPost = () => {
 
 
 
-  const [modalShow, setModalShow] =  useState(false);
+  const [modalShow, setModalShow] = useState(false);
+
+  const modalContent = {
+    title: 'Congratulation !!!',
+    heading: 'You have passed the test',
+    description: 'You have passed the test and you can get a reward.',
+    img: '/img/medals/cum-worker.webp'
+  };
 
 
   return (
@@ -142,6 +149,7 @@ const BlogPost = () => {
         <RewardModal
           show={modalShow}
           onHide={() => setModalShow(false)}
+          content={modalContent}
         />
 
 

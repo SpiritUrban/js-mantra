@@ -5,6 +5,8 @@ import styled from 'styled-components';
 import CodeEditor from '@/components/organisms/CodeEditor';
 import { useState } from 'react';
 import * as ts from 'typescript';
+import { Button } from 'react-bootstrap';
+import RewardModal from '@/components/organisms/modals/RewardModal';
 
 const Container = styled.div`
   display: flex;
@@ -113,7 +115,7 @@ const BlogPost = () => {
 
       const test2 = func([]) === 0 ? 'Тест 2 прошел: cumMixer([]) === 0' : 'Тест 2 провален: cumMixer([]) !== 0';
       results += test2 + '\n';
-      
+
       setTestResults(results);
     } catch (error) {
       results = `Ошибка в тестах: ${(error as Error).message}`;
@@ -121,10 +123,28 @@ const BlogPost = () => {
     }
   };
 
+
+
+  const [modalShow, setModalShow] =  useState(false);
+
+
   return (
     <div>
       <Container>
         <h1>JS Training: {id}</h1>
+
+
+
+        <Button variant="primary" onClick={() => setModalShow(true)}>
+          Launch vertically centered modal
+        </Button>
+
+        <RewardModal
+          show={modalShow}
+          onHide={() => setModalShow(false)}
+        />
+
+
 
         <h2>Используем метод reduce</h2>
 
@@ -144,7 +164,7 @@ const BlogPost = () => {
             <pre>{testResults}</pre>
           </div>
         )}
-      
+
 
         <CodeBlock code={dataForCode} language="typescript" />
       </Container>

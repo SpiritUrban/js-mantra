@@ -5,9 +5,7 @@ import styled from 'styled-components';
 import CodeEditor from '@/components/organisms/CodeEditor';
 import { useState } from 'react';
 import * as ts from 'typescript';
-import { Button } from 'react-bootstrap';
 import RewardModal from '@/components/organisms/modals/RewardModal';
-import { playSound } from '@/utils';
 
 const Container = styled.div`
   display: flex;
@@ -111,11 +109,23 @@ const BlogPost = () => {
   const runTests = (func: (cumPortions: CumPortion[]) => number) => {
     let results = '';
     try {
-      const test1 = func(data) === 180 ? 'Тест 1 прошел: cumMixer(data) === 180' : 'Тест 1 провален: cumMixer(data) !== 180';
+
+      const isPassedTest1 = func(data) === 180;
+      const isPassedTest2 = func([]) === 0;
+
+      const test1 = isPassedTest1 ? 'Тест 1 прошел: cumMixer(data) === 180' : 'Тест 1 провален: cumMixer(data) !== 180';
       results += test1 + '\n';
 
-      const test2 = func([]) === 0 ? 'Тест 2 прошел: cumMixer([]) === 0' : 'Тест 2 провален: cumMixer([]) !== 0';
+      const test2 = isPassedTest2 ? 'Тест 2 прошел: cumMixer([]) === 0' : 'Тест 2 провален: cumMixer([]) !== 0';
       results += test2 + '\n';
+
+      if (!isPassedTest1 || !isPassedTest2) {
+        results += 'Тесты не прошли. Пожалуйста, проверьте свой код.';
+      } else {
+        setModalShow(true)
+      }
+
+      
 
       setTestResults(results);
     } catch (error) {
@@ -142,22 +152,12 @@ const BlogPost = () => {
     <div>
       <Container>
         <h1>JS Training: {id}</h1>
-
-        <Button variant="primary" onClick={() => setModalShow(true)}>
-          Launch vertically centered modal
-        </Button>
-
-        {/* <Button variant="primary" onClick={() => playSound('/sound/pop.mp3')}>
-          Sound
-        </Button> */}
-
+      
         <RewardModal
           show={modalShow}
           onHide={() => setModalShow(false)}
           content={modalContent}
         />
-
-
 
         <h2>Используем метод reduce</h2>
 

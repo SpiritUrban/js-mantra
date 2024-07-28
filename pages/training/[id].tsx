@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 import * as ts from 'typescript';
 import RewardModal from '@/components/organisms/modals/RewardModal';
 import { ToastContainer, toast } from 'react-toastify';
-import { playSound } from '@/utils';
+import { playSound, pause } from '@/utils';
 import Image from "next/image";
 
 import pageData, { CumPortion } from '@/data/training/cum-work';
@@ -128,7 +128,7 @@ const TrainingPage = () => {
         }
     };
 
-    const runTests = (func: (cumPortions: CumPortion[]) => number) => {
+    const runTests = async (func: (cumPortions: CumPortion[]) => number) => {
         let results = '';
         let isPassedAllTests = true;
 
@@ -140,13 +140,15 @@ const TrainingPage = () => {
                 results += testMessage + '\n';
             });
 
+            setTestResults(results);
+
             if (!isPassedAllTests) {
                 errorToast('Тесты провалены.');
             } else {
+                await pause(2000);
                 setModalShow(true);
             }
 
-            setTestResults(results);
         } catch (error) {
             handleError(error, 'Ошибка в тестах.');
         }
@@ -211,7 +213,6 @@ const TrainingPage = () => {
                         </div>
                     </Top>
 
-
                     <Second>
                         <div className="left">
                             {testResults && (
@@ -222,11 +223,9 @@ const TrainingPage = () => {
                             )}
                         </div>
                         <div className="right">
-                            {result && <div>{result}</div>}
-
+                            <h3>{result && <div>{result}</div>}</h3>
                         </div>
                     </Second>
-
                 </div>
 
                 <CodeEditor initialCode={pageData.initialCode} onSubmit={handleSubmit} />

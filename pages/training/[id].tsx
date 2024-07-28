@@ -6,6 +6,7 @@ import CodeEditor from '@/components/organisms/CodeEditor';
 import { useState } from 'react';
 import * as ts from 'typescript';
 import RewardModal from '@/components/organisms/modals/RewardModal';
+import { ToastContainer, toast } from 'react-toastify';
 
 const Container = styled.div`
   display: flex;
@@ -125,7 +126,7 @@ const BlogPost = () => {
         setModalShow(true)
       }
 
-      
+
 
       setTestResults(results);
     } catch (error) {
@@ -146,13 +147,36 @@ const BlogPost = () => {
   };
 
 
-
+  const notify = () => toast.error('🦄 Wow so easy!', {
+    position: "top-right",
+    autoClose: 5000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "colored",
+  });
 
   return (
     <div>
       <Container>
         <h1>JS Training: {id}</h1>
-      
+
+        <button onClick={notify}>Notify!</button>
+        <ToastContainer
+          position="top-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="colored"
+        />
+
         <RewardModal
           show={modalShow}
           onHide={() => setModalShow(false)}

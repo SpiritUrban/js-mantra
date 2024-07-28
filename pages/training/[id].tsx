@@ -2,11 +2,13 @@
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
 import CodeEditor from '@/components/organisms/CodeEditor';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import * as ts from 'typescript';
 import RewardModal from '@/components/organisms/modals/RewardModal';
 import { ToastContainer, toast } from 'react-toastify';
 import { playSound } from '@/utils';
+
+import pageData, { CumPortion } from '@/data/training/cum-work';
 
 
 const Container = styled.div`
@@ -30,203 +32,150 @@ const Top = styled.div`
   }
 `;
 
-export interface CumPortion {
-  producer: string;
-  volume: number;
-}
-
 
 export const compileTypeScript = (code: string) => {
-  const result = ts.transpileModule(code, {
-    compilerOptions: { module: ts.ModuleKind.CommonJS }
-  });
-  return result.outputText;
+    const result = ts.transpileModule(code, {
+        compilerOptions: { module: ts.ModuleKind.CommonJS }
+    });
+    return result.outputText;
 };
 
-const BlogPost = () => {
-  const router = useRouter();
-  const { id } = router.query;
+const TrainingPage = () => {
+    const router = useRouter();
+    const { id } = router.query;
 
-  const data: CumPortion[] = [
-    {
-      producer: "Vasya",
-      volume: 50 // 50 ml
-    },
-    {
-      producer: "Sanya",
-      volume: 60 // 60 ml
-    },
-    {
-      producer: "Siroja",
-      volume: 70 // 70 ml
+    const [result, setResult] = useState<string | null>(null);
+    const [testResults, setTestResults] = useState<string | null>(null);
+    const [modalShow, setModalShow] = useState(false);
+
+    useEffect(() => {
+        if (id) {
+            import(`@/data/training/${id}`)
+                .then((data) => {
+                    console.log('data', data);
+                    //   setVideoData(data.default as VideoData);
+                })
+                .catch((err) => {
+                    console.error("Failed to load data:", err);
+                });
+        }
+    }, [id]);
+
+    const errorToast = (message: string) => {
+        playSound('/sound/error.mp3');
+        toast.error(message, {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+        });
     }
-  ];
 
+    const handleSubmit = (code: string) => {
+        try {
+            const compiledCode = compileTypeScript(code);
+            const func = new Function('return (function() {' + compiledCode + '\nreturn cumMixer; })();')();
+            const output = func(pageData.data);
 
-
-  const initialCode: string = `
-    interface CumPortion {
-      producer: string;
-      volume: number;
+            if (output !== null) {
+                setResult(`Результат: ${output}`);
+                runTests(func);  // Запуск тестов после получения результата
+            } else {
+                setResult('Ошибка: функция cumMixer не найдена');
+            }
+        } catch (error) {
+            if (error instanceof Error) {
+                setResult(`Ошибка: ${error.message}`);
+                errorToast(`Ошибка`);
+            } else {
+                setResult('Произошла неизвестная ошибка');
+                errorToast('Произошла неизвестная ошибка');
+            }
+        }
     };
 
-    const data: CumPortion[] = [
-      {
-        producer: "Vasya",
-        volume: 50 // 50 ml
-      },
-      {
-        producer: "Sanya",
-        volume: 60 // 60 ml
-      },
-      {
-        producer: "Siroja",
-        volume: 70 // 70 ml
-      }
-    ];
+    const runTests = (func: (cumPortions: CumPortion[]) => number) => {
+        let results = '';
+        try {
+            const isPassedTest1 = func(pageData.data) === 180;
+            const isPassedTest2 = func([]) === 0;
 
-    const cumMixer = (cumPortions: CumPortion[]): number => 
-      cumPortions.reduce((backet, currentPortion) => backet + currentPortion.volume, 0);
-  `;
+            const test1 = isPassedTest1 ? 'Тест 1 прошел: cumMixer(data) === 180' : 'Тест 1 провален: cumMixer(data) !== 180';
+            results += test1 + '\n';
 
-  const [result, setResult] = useState<string | null>(null);
-  const [testResults, setTestResults] = useState<string | null>(null);
+            const test2 = isPassedTest2 ? 'Тест 2 прошел: cumMixer([]) === 0' : 'Тест 2 провален: cumMixer([]) !== 0';
+            results += test2 + '\n';
 
-  const errorToast = (message: string) => {
-    playSound('/sound/error.mp3');
-    toast.error(message, {
-      position: "top-right",
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "colored",
-    });
-  }
+            if (!isPassedTest1 || !isPassedTest2) {
+                errorToast('Тесты провалены.');
+            } else {
+                setModalShow(true)
+            }
 
-  const handleSubmit = (code: string) => {
-    try {
-      const compiledCode = compileTypeScript(code);
-      console.log(compiledCode);
+            setTestResults(results);
+        } catch (error) {
+            results = `Ошибка в тестах: ${(error as Error).message}`;
+            setTestResults(results);
+            errorToast('Ошибка в тестах.');
+            ;
+        }
+    };
 
-      const func = new Function('return (function() {' + compiledCode + '\nreturn cumMixer; })();')();
+    return (
+        <div>
+            <Container>
+                <h1>JS Training: {pageData.trainingData.title}</h1>
 
-      const output = func(data);
+                <ToastContainer
+                    position="top-right"
+                    autoClose={5000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover
+                    theme="colored"
+                />
 
-      if (output !== null) {
-        setResult(`Результат: ${output}`);
-        runTests(func);  // Запуск тестов после получения результата
-      } else {
-        setResult('Ошибка: функция cumMixer не найдена');
-      }
-    } catch (error) {
-      if (error instanceof Error) {
-        setResult(`Ошибка: ${error.message}`);
-        errorToast(`Ошибка`);
-      } else {
-        setResult('Произошла неизвестная ошибка');
-        errorToast('Произошла неизвестная ошибка');
-      }
-    }
-  };
+                <RewardModal
+                    show={modalShow}
+                    onHide={() => setModalShow(false)}
+                    content={pageData.modalContent}
+                />
 
-  const runTests = (func: (cumPortions: CumPortion[]) => number) => {
-    let results = '';
-    try {
+                <Top>
+                    <div className="left">
+                        <h2 dangerouslySetInnerHTML={{ __html: pageData.trainingData.heading }} ></h2>
+                        <p dangerouslySetInnerHTML={{ __html: pageData.trainingData.description }}></p>
+                    </div>
+                    <div className="right">
+                        <h3>Описание тестов:</h3>
+                        <ul>
+                            {pageData.trainingData.testDescription.map((description, index) => (
+                                <li key={index} dangerouslySetInnerHTML={{ __html: description }}></li>
+                            ))}
+                        </ul>
+                    </div>
+                </Top>
 
-      const isPassedTest1 = func(data) === 180;
-      const isPassedTest2 = func([]) === 0;
+                <CodeEditor initialCode={pageData.initialCode} onSubmit={handleSubmit} />
+                {result && <div>{result}</div>}
+                {testResults && (
+                    <div>
+                        <h3>Результаты тестов:</h3>
+                        <pre>{testResults}</pre>
+                    </div>
+                )}
 
-      const test1 = isPassedTest1 ? 'Тест 1 прошел: cumMixer(data) === 180' : 'Тест 1 провален: cumMixer(data) !== 180';
-      results += test1 + '\n';
-
-      const test2 = isPassedTest2 ? 'Тест 2 прошел: cumMixer([]) === 0' : 'Тест 2 провален: cumMixer([]) !== 0';
-      results += test2 + '\n';
-
-      if (!isPassedTest1 || !isPassedTest2) {
-        // results += 'Тесты не прошли. Пожалуйста, проверьте свой код.';
-        errorToast('Тесты провалены.');
-      } else {
-        setModalShow(true)
-      }
-
-
-      setTestResults(results);
-    } catch (error) {
-      results = `Ошибка в тестах: ${(error as Error).message}`;
-      setTestResults(results);
-      errorToast('Ошибка в тестах.');
-      ;
-    }
-  };
-
-
-
-  const [modalShow, setModalShow] = useState(false);
-
-  const modalContent = {
-    title: 'Congratulation !!!',
-    heading: 'You have passed the test',
-    description: 'You have passed the test and you can get a reward.',
-    img: '/img/medals/cum-worker.webp'
-  };
-
-  return (
-    <div>
-      <Container>
-        <h1>JS Training: {id}</h1>
-
-        <ToastContainer
-          position="top-right"
-          autoClose={5000}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-          theme="colored"
-        />
-
-        <RewardModal
-          show={modalShow}
-          onHide={() => setModalShow(false)}
-          content={modalContent}
-        />
-
-        <Top>
-          <div className="left">
-            <h2>Используем метод reduce</h2>
-            <p>Допишите функцию <b>"cumMixer()"</b>.</p>
-          </div>
-          <div className="right">
-            <h3>Описание тестов:</h3>
-            <ul>
-              <li>Тест 1: Проверяет, что <b>"cumMixer(data)"</b> возвращает <b>180</b> для набора данных <b>"data"</b> .</li>
-              <li>Тест 2: Проверяет, что <b>"cumMixer([])"</b> возвращает <b>0</b> для пустого массива.</li>
-            </ul>
-          </div>
-        </Top>
-
-
-
-
-
-        <CodeEditor initialCode={initialCode} onSubmit={handleSubmit} />
-        {result && <div>{result}</div>}
-        {testResults && (
-          <div>
-            <h3>Результаты тестов:</h3>
-            <pre>{testResults}</pre>
-          </div>
-        )}
-
-      </Container>
-    </div>
-  );
+            </Container>
+        </div>
+    );
 };
 
-export default BlogPost;
+export default TrainingPage;

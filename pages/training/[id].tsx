@@ -3,14 +3,11 @@ import { useRouter } from 'next/router';
 import styled from 'styled-components';
 import CodeEditor from '@/components/organisms/CodeEditor';
 import { useEffect, useState } from 'react';
-import * as ts from 'typescript';
 import RewardModal from '@/components/organisms/modals/RewardModal';
 import { ToastContainer, toast } from 'react-toastify';
-import { playSound, pause } from '@/utils';
+import { playSound, pause, compileTypeScript } from '@/utils';
 import Image from "next/image";
-
-import pageData, { CumPortion } from '@/data/training/cum-work';
-
+// import pageData from '@/data/training/cum-work';
 
 const Container = styled.div`
   display: flex;
@@ -58,17 +55,10 @@ const Second = styled.div`
   }
 `;
 
-
-export const compileTypeScript = (code: string) => {
-    const result = ts.transpileModule(code, {
-        compilerOptions: { module: ts.ModuleKind.CommonJS }
-    });
-    return result.outputText;
-};
-
 const TrainingPage = () => {
     const router = useRouter();
     const { id } = router.query;
+    const [pageData, setPageData] = useState<any>(null);
     const [result, setResult] = useState<string | null>(null);
     const [testResults, setTestResults] = useState<string | null>(null);
     const [modalShow, setModalShow] = useState(false);
@@ -78,6 +68,7 @@ const TrainingPage = () => {
             import(`@/data/training/${id}`)
                 .then((data) => {
                     console.log('data', data);
+                    setPageData(data.default);
                     //   setVideoData(data.default as VideoData);
                 })
                 .catch((err) => {
@@ -152,7 +143,11 @@ const TrainingPage = () => {
             handleError(error, 'Ошибка в тестах.');
         }
     };
+    
 
+    if (!pageData) {
+        return <div>Loading...</div>;
+    }
 
     return (
         <div>

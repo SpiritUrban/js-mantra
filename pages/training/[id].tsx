@@ -84,10 +84,13 @@ const TrainingPage = () => {
         }
     }, [testPassed]);
 
+
+    // [BUTTON]
     const handleRunTests = async () => {
         // setScriptsLoaded(false)
-        await pause(1000)
-        setResultVisible(false);
+        // await pause(1000)
+        // setResultVisible(false);
+
         addTestScripts(() => {
             (function () {
                 window.mocha.run()

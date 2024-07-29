@@ -2,10 +2,9 @@
 // Пример выполнения кода
 const executeCode = (code) => {
     try {
-      eval(code);
-      mocha.run();
+        eval(code);
+        mocha.run();
     } catch (error) {
-      console.error('Ошибка выполнения кода:', error);
+        console.error('Ошибка выполнения кода:', error);
     }
-  };
-  
+};

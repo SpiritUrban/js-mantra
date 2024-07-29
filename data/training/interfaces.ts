@@ -5,6 +5,7 @@ export interface Training {
     description: string;
     test: Test[];
     img: string;
+    editorHeight: string;
 }
 
 export interface Test {

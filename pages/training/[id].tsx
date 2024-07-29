@@ -227,7 +227,7 @@ const TrainingPage = () => {
                     </Second>
                 </div>
 
-                <CodeEditor initialCode={pageData.initialCode} onSubmit={handleSubmit} />
+                <CodeEditor height={pageData.trainingData.editorHeight} initialCode={pageData.initialCode} onSubmit={handleSubmit} />
 
             </Container>
         </div>

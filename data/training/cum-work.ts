@@ -8,6 +8,7 @@ const trainingData: Training = {
     funcName,
     description: `Допишите функцию <b>"${funcName}()"</b>.`,
     img: "/img/cum-work.webp",
+    editorHeight: '30rem',
 
     test: [
         {

@@ -4,10 +4,11 @@ import { Button } from 'react-bootstrap';
 
 interface CodeEditorProps {
   initialCode: string;
+  height: string;
   onSubmit: (code: string) => void;
 }
 
-const CodeEditor: React.FC<CodeEditorProps> = ({ initialCode, onSubmit }) => {
+const CodeEditor: React.FC<CodeEditorProps> = ({ initialCode, height, onSubmit }) => {
   const [code, setCode] = useState<string>(initialCode);
 
   useEffect(() => {
@@ -51,7 +52,7 @@ const CodeEditor: React.FC<CodeEditorProps> = ({ initialCode, onSubmit }) => {
       <div style={{ borderRadius: '.5rem', overflow: 'hidden' }}>
 
         <Editor
-          height="65vh"
+          height={height}
           defaultLanguage="typescript"
           defaultValue={initialCode}
           onChange={handleEditorChange}

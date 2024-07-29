@@ -66,9 +66,6 @@ declare global {
 }
 
 
-
-
-
 const TrainingPage = () => {
     const router = useRouter();
     const { id } = router.query;
@@ -88,11 +85,8 @@ const TrainingPage = () => {
     }, [testPassed]);
 
     const handleRunTests = async () => {
-
         // setScriptsLoaded(false)
-
         await pause(1000)
-
         setResultVisible(false);
         addTestScripts(() => {
             (function () {

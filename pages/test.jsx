@@ -56,7 +56,7 @@ export default function Test() {
   };
 
   return (
-    <div>
+    <div style={{ marginTop: '2rem' }}>
       <Head>
         <title>Тесты</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mocha/9.1.3/mocha.min.css" />

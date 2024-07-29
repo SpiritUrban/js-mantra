@@ -104,14 +104,14 @@ const TrainingPage = () => {
     const handleSubmit = (code: string) => {
         try {
             const compiledCode = compileTypeScript(code);
-            const func = new Function('return (function() {' + compiledCode + '\nreturn cumMixer; })();')();
+            const func = new Function(`return (function() {${compiledCode}\nreturn ${pageData.trainingData.funcName}; })();`)();
             const output = func(pageData.trainingData.test[0].data);
 
             if (output !== null) {
                 setResult(`Результат: ${output}`);
                 runTests(func);  // Запуск тестов после получения результата
             } else {
-                setResult('Ошибка: функция cumMixer не найдена');
+                setResult(`Ошибка: функция "${pageData.trainingData.funcName}()" не найдена`);
             }
         } catch (error) {
             handleError(error, 'Произошла неизвестная ошибка');
@@ -135,7 +135,7 @@ const TrainingPage = () => {
             if (!isPassedAllTests) {
                 errorToast('Тесты провалены.');
             } else {
-                await pause(2000);
+                await pause(1000);
                 setModalShow(true);
             }
 
@@ -143,7 +143,12 @@ const TrainingPage = () => {
             handleError(error, 'Ошибка в тестах.');
         }
     };
-    
+
+
+   const glassDick: string = 'my dick is big';
+   const dickSplitter = (glassDick: string): string[] => glassDick.split(' '); // ['my', 'dick', 'is', 'big'] => 'my%2Cdick%2Cis%2Cbig'
+
+    console.log(dickSplitter(glassDick));
 
     if (!pageData) {
         return <div>Loading...</div>;

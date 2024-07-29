@@ -1,44 +1,21 @@
-export interface Training {
-    title: string;
-    heading: string;
-    description: string;
-    test: Test[];
-    img: string;
-}
+import { Training, ModalContent, CumPortion, } from "./interfaces";
 
-export interface Test {
-    description: string;
-    successMessage: string;
-    failMessage: string;
-    data: any;
-    result: any;
-}
-
-export interface ModalContent {
-    title: string;
-    heading: string;
-    description: string;
-    img: string;
-}
-
-export interface CumPortion {
-    producer: string;
-    volume: number;
-}
+const funcName = 'cumMixer';
 
 export default {
 
     trainingData: {
         title: "Cum Work",
         heading: 'Используем метод <b>"reduce"</b>',
-        description: 'Допишите функцию <b>"cumMixer()"</b>.',
+        funcName,
+        description: `Допишите функцию <b>"${funcName}()"</b>.`,
         img: "/img/cum-work.webp",
 
         test: [
             {
-                description: 'Тест 1: Проверяет, что <b>"cumMixer(data)"</b> возвращает <b>180</b> для набора данных <b>"data"</b> .',
-                successMessage: 'Тест 1 прошел: cumMixer(data) === 180',
-                failMessage: 'Тест 1 провален: cumMixer(data) !== 180',
+                description: `Тест 1: Проверяет, что <b>"${funcName}(data)"</b> возвращает <b>180</b> для набора данных <b>"data"</b> .`,
+                successMessage: `Тест 1 прошел: ${funcName}(data) === 180`,
+                failMessage: `Тест 1 провален: ${funcName}(data) !== 180`,
                 data: [
                     {
                         producer: "Vasya",
@@ -57,9 +34,9 @@ export default {
             },
 
             {
-                description: 'Тест 2: Проверяет, что <b>"cumMixer([])"</b> возвращает <b>0</b> для пустого массива.',
-                successMessage: 'Тест 2 прошел: cumMixer([]) === 0',
-                failMessage: 'Тест 2 провален: cumMixer([]) !== 0',
+                description: `Тест 2: Проверяет, что <b>"${funcName}([])"</b> возвращает <b>0</b> для пустого массива.`,
+                successMessage: `Тест 2 прошел: ${funcName}([]) === 0`,
+                failMessage: `Тест 2 провален: ${funcName}([]) !== 0`,
                 data: [],
                 result: 0
             }

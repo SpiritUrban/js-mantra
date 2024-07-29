@@ -8,7 +8,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import { playSound, pause, compileTypeScript } from '@/utils';
 import Image from "next/image";
 import Head from 'next/head';
-import { Test, Training } from "@/data/training/interfaces";
+import { Test, Training, PageData } from "@/data/training/interfaces";
 
 const Container = styled.div`
   display: flex;
@@ -133,7 +133,7 @@ const loadTestScript = (callback: () => void) => {
 const TrainingPage = () => {
     const router = useRouter();
     const { id } = router.query;
-    const [pageData, setPageData] = useState<Training | null>(null);
+    const [pageData, setPageData] = useState<PageData | null>(null);
     const [result, setResult] = useState<string | null>(null);
     const [testResultsMessage, setTestResultsMessage] = useState<string | null>(null);
     const [modalShow, setModalShow] = useState(false);

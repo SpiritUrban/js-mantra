@@ -1,3 +1,9 @@
+export interface PageData {
+    trainingData: Training;
+    modalContent: ModalContent;
+    initialCode: string;
+}
+
 export interface Training {
     title: string;
     heading: string;

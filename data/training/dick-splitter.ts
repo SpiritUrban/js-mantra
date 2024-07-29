@@ -6,7 +6,7 @@ const trainingData: Training = {
     title: "Dick Splitting",
     heading: 'Используем метод <b>"split"</b>',
     funcName,
-    description: `Допишите функцию <b>"${funcName}()"</b>.`,
+    description: `Допишите функцию <b>"${funcName}()"</b>.<br>Нужно разбить "glassDick" и не порезать руки!`,
     img: "/img/dick-splitter.webp",
     editorHeight: '10rem',
 

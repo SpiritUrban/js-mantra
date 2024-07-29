@@ -32,6 +32,13 @@ export default function Training() {
       // imageSource: `<img src="https://justpaste.it/static/img/jp_logo_v3.svg" alt="" />`,
       sourceLink: "./training/cum-work",
       description: ""
+    },
+    {
+      title: "Dick Splitter",
+      imageUrl: "/img/dick-splitter.webp",
+      // imageSource: `<img src="https://justpaste.it/static/img/jp_logo_v3.svg" alt="" />`,
+      sourceLink: "./training/dick-splitter",
+      description: ""
     }
   ];
 

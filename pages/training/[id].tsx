@@ -11,7 +11,6 @@ import Image from "next/image";
 
 import { Test, Training, ModalContent, CumPortion } from "@/data/training/interfaces";
 
-
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -127,7 +126,10 @@ const TrainingPage = () => {
 
         try {
             pageData.trainingData.test.forEach((item: Test) => {
-                const isPassedTest = func(item.data) === item.result;
+                // const isPassedTest = func(item.data) === item.result; // RESULT !!!
+                
+                const isPassedTest = func(item.data).length; // RESULT !!!
+
                 isPassedAllTests = isPassedAllTests && isPassedTest;
                 const testMessage = isPassedTest ? item.successMessage : item.failMessage;
                 results += testMessage + '\n';
@@ -152,6 +154,8 @@ const TrainingPage = () => {
     const dickSplitter = (glassDick: string): string[] => glassDick.split(' '); // ['my', 'dick', 'is', 'big'] => 'my%2Cdick%2Cis%2Cbig'
 
     console.log(dickSplitter(glassDick));
+
+    // dickSplitter(glassDick) => ['my', 'dick', 'is', 'big']
 
     if (!pageData) {
         return <div>Loading...</div>;

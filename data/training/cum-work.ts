@@ -4,11 +4,11 @@ const funcName = 'cumMixer';
 
 const trainingData: Training = {
     title: "Cum Work",
-    heading: 'Используем метод <b>"reduce"</b>',
+    heading: 'Используя метод <b>"reduce"</b>',
     funcName,
     description: `Допишите функцию <b>"${funcName}()"</b>.`,
     img: "/img/cum-work.webp",
-    editorHeight: '30rem',
+    editorHeight: '32rem',
 
     test: [
         {
@@ -73,6 +73,8 @@ const data: CumPortion[] = [
 
 const cumMixer = (cumPortions: CumPortion[]): number => 
     cumPortions.reduce((backet, currentPortion) => /* тут */, 0);
+
+// dickSplitter(glassDick) => ['my', 'dick', 'is', 'big']
 `;
 
 export default { trainingData, modalContent, initialCode }

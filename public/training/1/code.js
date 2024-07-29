@@ -1,4 +1,3 @@
-// public/code.js
 
 // Пример выполнения кода
 const executeCode = (code) => {

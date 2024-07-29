@@ -1,4 +1,3 @@
-// public/tests.js
 
 // Пример функции для тестирования
 function add(a, b) {

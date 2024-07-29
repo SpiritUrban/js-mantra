@@ -7,8 +7,9 @@ import RewardModal from '@/components/organisms/modals/RewardModal';
 import { ToastContainer, toast } from 'react-toastify';
 import { playSound, pause, compileTypeScript } from '@/utils';
 import Image from "next/image";
-import Head from 'next/head';
-import { Test, TrainingData, ModalContent } from "@/data/training/interfaces";
+// import pageData from '@/data/training/cum-work';
+
+import { Test, Training, ModalContent, CumPortion } from "@/data/training/interfaces";
 
 const Container = styled.div`
   display: flex;
@@ -56,116 +57,13 @@ const Second = styled.div`
   }
 `;
 
-declare global {
-    interface Window {
-        mocha: any;
-        chai: any;
-    }
-}
-
-let testResults = false;
-
-// Функция для добавления тестовых скриптов и запуска тестов
-let mochaLoaded = false;
-let chaiLoaded = false;
-let codeScriptLoaded = false;
-let testScriptLoaded = false;
-
-const addTestScripts = (callback: () => void) => {
-  if (!mochaLoaded) {
-    const mochaScript = document.createElement('script');
-    mochaScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/mocha/9.1.3/mocha.min.js';
-    mochaScript.onload = () => {
-      window.mocha.setup('bdd');
-      mochaLoaded = true;
-      loadChai(callback);
-    };
-    document.body.appendChild(mochaScript);
-  } else {
-    loadChai(callback);
-  }
-};
-
-const loadChai = (callback: () => void) => {
-  if (!chaiLoaded) {
-    const chaiScript = document.createElement('script');
-    chaiScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/chai/4.3.4/chai.min.js';
-    chaiScript.onload = () => {
-      window.chai = window.chai;
-      chaiLoaded = true;
-      loadCodeScript(callback);
-    };
-    document.body.appendChild(chaiScript);
-  } else {
-    loadCodeScript(callback);
-  }
-};
-
-const loadCodeScript = (callback: () => void) => {
-  if (!codeScriptLoaded) {
-    const codeScript = document.createElement('script');
-    codeScript.src = '/training/1/code.js';
-    codeScript.onload = () => {
-      codeScriptLoaded = true;
-      loadTestScript(callback);
-    };
-    document.body.appendChild(codeScript);
-  } else {
-    loadTestScript(callback);
-  }
-};
-
-const loadTestScript = (callback: () => void) => {
-  if (!testScriptLoaded) {
-    const testScript = document.createElement('script');
-    testScript.src = '/training/1/tests.js';
-    testScript.onload = () => {
-      testScriptLoaded = true;
-      callback();
-    };
-    document.body.appendChild(testScript);
-  } else {
-    callback();
-  }
-};
-
-
 const TrainingPage = () => {
     const router = useRouter();
     const { id } = router.query;
-    const [pageData, setPageData] = useState<TrainingData | null>(null);
+    const [pageData, setPageData] = useState<any>(null);
     const [result, setResult] = useState<string | null>(null);
-    const [testResultsMessage, setTestResultsMessage] = useState<string | null>(null);
+    const [testResults, setTestResults] = useState<string | null>(null);
     const [modalShow, setModalShow] = useState(false);
-    const [testPassed, setTestPassed] = useState<boolean | null>(null);
-    const [resultVisible, setResultVisible] = useState(false);
-
-    useEffect(() => {
-        if (testPassed !== null) {
-            console.log('Test Results:', testPassed);
-            setTimeout(() => setResultVisible(true), 100); // Плавное появление после небольшой задержки
-        }
-    }, [testPassed]);
-
-    const handleRunTests = () => {
-        try {
-
-
-            setResultVisible(false);
-            addTestScripts(() => {
-                window.mocha.run()
-                    .on('end', () => {
-                        const allTestsPassed = window.mocha.suite.suites.every((suite: any) =>
-                            suite.tests.every((test: any) => test.state === 'passed')
-                        );
-                        setTestPassed(allTestsPassed);
-                    });
-            });
-
-        } catch (error) {
-
-        }
-    };
 
     useEffect(() => {
         if (id) {
@@ -173,6 +71,7 @@ const TrainingPage = () => {
                 .then((data) => {
                     console.log('data', data);
                     setPageData(data.default);
+                    //   setVideoData(data.default as VideoData);
                 })
                 .catch((err) => {
                     console.error("Failed to load data:", err);
@@ -207,14 +106,14 @@ const TrainingPage = () => {
     const handleSubmit = (code: string) => {
         try {
             const compiledCode = compileTypeScript(code);
-            const func = new Function(`return (function() {${compiledCode}\nreturn ${pageData?.trainingData.funcName}; })();`)();
-            const output = func(pageData?.trainingData.test[0].data);
+            const func = new Function(`return (function() {${compiledCode}\nreturn ${pageData.trainingData.funcName}; })();`)();
+            const output = func(pageData.trainingData.test[0].data);
 
             if (output !== null) {
                 setResult(`Результат: ${output}`);
-                runTests(func);
+                runTests(func);  // Запуск тестов после получения результата
             } else {
-                setResult(`Ошибка: функция "${pageData?.trainingData.funcName}()" не найдена`);
+                setResult(`Ошибка: функция "${pageData.trainingData.funcName}()" не найдена`);
             }
         } catch (error) {
             handleError(error, 'Произошла неизвестная ошибка');
@@ -226,14 +125,17 @@ const TrainingPage = () => {
         let isPassedAllTests = true;
 
         try {
-            pageData?.trainingData.test.forEach((item: Test) => {
-                const isPassedTest = func(item.data).length > 0; // RESULT !!!
+            pageData.trainingData.test.forEach((item: Test) => {
+                // const isPassedTest = func(item.data) === item.result; // RESULT !!!
+                
+                const isPassedTest = func(item.data).length; // RESULT !!!
+
                 isPassedAllTests = isPassedAllTests && isPassedTest;
                 const testMessage = isPassedTest ? item.successMessage : item.failMessage;
                 results += testMessage + '\n';
             });
 
-            setTestResultsMessage(results);
+            setTestResults(results);
 
             if (!isPassedAllTests) {
                 errorToast('Тесты провалены.');
@@ -247,6 +149,14 @@ const TrainingPage = () => {
         }
     };
 
+
+    const glassDick: string = 'my dick is big';
+    const dickSplitter = (glassDick: string): string[] => glassDick.split(' '); // ['my', 'dick', 'is', 'big'] => 'my%2Cdick%2Cis%2Cbig'
+
+    console.log(dickSplitter(glassDick));
+
+    // dickSplitter(glassDick) => ['my', 'dick', 'is', 'big']
+
     if (!pageData) {
         return <div>Loading...</div>;
     }
@@ -254,28 +164,12 @@ const TrainingPage = () => {
     return (
         <div>
             <Container>
-                <div style={{ marginTop: '2rem' }}>
-                    <Head>
-                        <title>Тесты</title>
-                        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mocha/9.1.3/mocha.min.css" />
-                    </Head>
-                    <button onClick={handleRunTests}>Запустить</button>
-
-                    <div id="mocha"></div>
-
-                    {testPassed !== null && (
-                        <div className={`result ${resultVisible ? 'visible' : ''}`}>
-                            {testPassed ? 'Все тесты прошли успешно!' : 'Некоторые тесты не прошли.'}
-                        </div>
-                    )}
-                </div>
-
                 <h1>
                     <Image
                         src={pageData.trainingData.img}
                         alt="JS Mantra"
-                        width={100}
-                        height={100}
+                        width={100}  // Adjusted to fit better
+                        height={100} // Adjusted to fit better
                         priority
                         style={{
                             marginRight: "1.5rem",
@@ -309,6 +203,7 @@ const TrainingPage = () => {
                 />
 
                 <div>
+
                     <Top>
                         <div className="left">
                             <h3 dangerouslySetInnerHTML={{ __html: pageData.trainingData.heading }} ></h3>
@@ -326,10 +221,10 @@ const TrainingPage = () => {
 
                     <Second>
                         <div className="left">
-                            {testResultsMessage && (
+                            {testResults && (
                                 <div>
                                     <h3>Результаты тестов:</h3>
-                                    <pre>{testResultsMessage}</pre>
+                                    <pre>{testResults}</pre>
                                 </div>
                             )}
                         </div>
@@ -339,7 +234,8 @@ const TrainingPage = () => {
                     </Second>
                 </div>
 
-                {/* <CodeEditor height={pageData.trainingData.editorHeight} initialCode={pageData.initialCode} onSubmit={handleSubmit} /> */}
+                <CodeEditor height={pageData.trainingData.editorHeight} initialCode={pageData.initialCode} onSubmit={handleSubmit} />
+
             </Container>
         </div>
     );

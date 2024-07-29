@@ -8,7 +8,6 @@ export interface Training {
 
 export interface Test {
     description: string;
-    code: string;
     successMessage: string;
     failMessage: string;
     data: any;
@@ -38,7 +37,6 @@ export default {
         test: [
             {
                 description: 'Тест 1: Проверяет, что <b>"cumMixer(data)"</b> возвращает <b>180</b> для набора данных <b>"data"</b> .',
-                code: ``,
                 successMessage: 'Тест 1 прошел: cumMixer(data) === 180',
                 failMessage: 'Тест 1 провален: cumMixer(data) !== 180',
                 data: [
@@ -60,7 +58,6 @@ export default {
 
             {
                 description: 'Тест 2: Проверяет, что <b>"cumMixer([])"</b> возвращает <b>0</b> для пустого массива.',
-                code: ``,
                 successMessage: 'Тест 2 прошел: cumMixer([]) === 0',
                 failMessage: 'Тест 2 провален: cumMixer([]) !== 0',
                 data: [],
@@ -76,8 +73,6 @@ export default {
         description: 'You have passed the test and you can get a reward.',
         img: '/img/medals/cum-worker.webp',
     } as ModalContent,
-
-    
 
     initialCode: `
 interface CumPortion {
@@ -106,7 +101,7 @@ const cumMixer = (cumPortions: CumPortion[]): number =>
 
 }
 
-// backet + currentPortion.volume
+// answer -> backet + currentPortion.volume
 
 
 

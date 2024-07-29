@@ -9,6 +9,9 @@ import { playSound, pause, compileTypeScript } from '@/utils';
 import Image from "next/image";
 // import pageData from '@/data/training/cum-work';
 
+import { Test, Training, ModalContent, CumPortion } from "@/data/training/interfaces";
+
+
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -123,7 +126,7 @@ const TrainingPage = () => {
         let isPassedAllTests = true;
 
         try {
-            pageData.trainingData.test.forEach((item) => {
+            pageData.trainingData.test.forEach((item: Test) => {
                 const isPassedTest = func(item.data) === item.result;
                 isPassedAllTests = isPassedAllTests && isPassedTest;
                 const testMessage = isPassedTest ? item.successMessage : item.failMessage;
@@ -145,8 +148,8 @@ const TrainingPage = () => {
     };
 
 
-   const glassDick: string = 'my dick is big';
-   const dickSplitter = (glassDick: string): string[] => glassDick.split(' '); // ['my', 'dick', 'is', 'big'] => 'my%2Cdick%2Cis%2Cbig'
+    const glassDick: string = 'my dick is big';
+    const dickSplitter = (glassDick: string): string[] => glassDick.split(' '); // ['my', 'dick', 'is', 'big'] => 'my%2Cdick%2Cis%2Cbig'
 
     console.log(dickSplitter(glassDick));
 
@@ -205,8 +208,8 @@ const TrainingPage = () => {
                         <div className="right">
                             <h3>Описание тестов:</h3>
                             <ul>
-                                {pageData.trainingData.test.map((item, index) => (
-                                    <li key={index} dangerouslySetInnerHTML={{ __html: item.description }}></li>
+                                {pageData.trainingData.test.map((item: Test, index: number) => (
+                                    <li key={index + 'Test'} dangerouslySetInnerHTML={{ __html: item.description }}></li>
                                 ))}
                             </ul>
                         </div>

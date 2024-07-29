@@ -1,11 +1,18 @@
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 
-const CodeEditorFrame = ({ initialCode, onSubmit }) => {
+interface CodeEditorFrameProps {
+    initialCode: string;
+    onSubmit: (code: string) => void;
+}
+
+const CodeEditorFrame: React.FC<CodeEditorFrameProps> = ({ initialCode, onSubmit }) => {
     useEffect(() => {
         const iframe = document.getElementById('code-editor-iframe') as HTMLIFrameElement;
         const iframeWindow = iframe.contentWindow;
 
-        const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
+        const iframeDocument = iframe.contentDocument || iframeWindow?.document;
+        if (!iframeDocument) return;
+
         iframeDocument.open();
         iframeDocument.write(`
             <html>
@@ -34,7 +41,18 @@ const CodeEditorFrame = ({ initialCode, onSubmit }) => {
             </html>
         `);
         iframeDocument.close();
-    }, [initialCode]);
+
+        const handleMessage = (event: MessageEvent) => {
+            if (event.data.type === 'execute-code') {
+                onSubmit(event.data.code);
+            }
+        };
+
+        window.addEventListener('message', handleMessage);
+        return () => {
+            window.removeEventListener('message', handleMessage);
+        };
+    }, [initialCode, onSubmit]);
 
     return <iframe id="code-editor-iframe" style={{ width: '100%', height: '500px', border: 'none' }}></iframe>;
 };

@@ -8,7 +8,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import { playSound, pause, compileTypeScript } from '@/utils';
 import Image from "next/image";
 import Head from 'next/head';
-import { Test, TrainingData, ModalContent } from "@/data/training/interfaces";
+import { Test, TrainingData } from "@/data/training/interfaces";
 
 const Container = styled.div`
   display: flex;
@@ -60,10 +60,10 @@ declare global {
     interface Window {
         mocha: any;
         chai: any;
+        executeCode: (code: string) => void;
     }
 }
 
-let testResults = false;
 
 // Функция для добавления тестовых скриптов и запуска тестов
 let mochaLoaded = false;
@@ -72,61 +72,61 @@ let codeScriptLoaded = false;
 let testScriptLoaded = false;
 
 const addTestScripts = (callback: () => void) => {
-  if (!mochaLoaded) {
-    const mochaScript = document.createElement('script');
-    mochaScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/mocha/9.1.3/mocha.min.js';
-    mochaScript.onload = () => {
-      window.mocha.setup('bdd');
-      mochaLoaded = true;
-      loadChai(callback);
-    };
-    document.body.appendChild(mochaScript);
-  } else {
-    loadChai(callback);
-  }
+    if (!mochaLoaded) {
+        const mochaScript = document.createElement('script');
+        mochaScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/mocha/9.1.3/mocha.min.js';
+        mochaScript.onload = () => {
+            window.mocha.setup('bdd');
+            mochaLoaded = true;
+            loadChai(callback);
+        };
+        document.body.appendChild(mochaScript);
+    } else {
+        loadChai(callback);
+    }
 };
 
 const loadChai = (callback: () => void) => {
-  if (!chaiLoaded) {
-    const chaiScript = document.createElement('script');
-    chaiScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/chai/4.3.4/chai.min.js';
-    chaiScript.onload = () => {
-      window.chai = window.chai;
-      chaiLoaded = true;
-      loadCodeScript(callback);
-    };
-    document.body.appendChild(chaiScript);
-  } else {
-    loadCodeScript(callback);
-  }
+    if (!chaiLoaded) {
+        const chaiScript = document.createElement('script');
+        chaiScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/chai/4.3.4/chai.min.js';
+        chaiScript.onload = () => {
+            window.chai = window.chai;
+            chaiLoaded = true;
+            loadCodeScript(callback);
+        };
+        document.body.appendChild(chaiScript);
+    } else {
+        loadCodeScript(callback);
+    }
 };
 
 const loadCodeScript = (callback: () => void) => {
-  if (!codeScriptLoaded) {
-    const codeScript = document.createElement('script');
-    codeScript.src = '/training/1/code.js';
-    codeScript.onload = () => {
-      codeScriptLoaded = true;
-      loadTestScript(callback);
-    };
-    document.body.appendChild(codeScript);
-  } else {
-    loadTestScript(callback);
-  }
+    if (!codeScriptLoaded) {
+        const codeScript = document.createElement('script');
+        codeScript.src = '/training/1/code.js';
+        codeScript.onload = () => {
+            codeScriptLoaded = true;
+            loadTestScript(callback);
+        };
+        document.body.appendChild(codeScript);
+    } else {
+        loadTestScript(callback);
+    }
 };
 
 const loadTestScript = (callback: () => void) => {
-  if (!testScriptLoaded) {
-    const testScript = document.createElement('script');
-    testScript.src = '/training/1/tests.js';
-    testScript.onload = () => {
-      testScriptLoaded = true;
-      callback();
-    };
-    document.body.appendChild(testScript);
-  } else {
-    callback();
-  }
+    if (!testScriptLoaded) {
+        const testScript = document.createElement('script');
+        testScript.src = '/training/1/tests.js';
+        testScript.onload = () => {
+            testScriptLoaded = true;
+            callback();
+        };
+        document.body.appendChild(testScript);
+    } else {
+        callback();
+    }
 };
 
 
@@ -139,6 +139,7 @@ const TrainingPage = () => {
     const [modalShow, setModalShow] = useState(false);
     const [testPassed, setTestPassed] = useState<boolean | null>(null);
     const [resultVisible, setResultVisible] = useState(false);
+    const [scriptsLoaded, setScriptsLoaded] = useState(false);
 
     useEffect(() => {
         if (testPassed !== null) {
@@ -147,12 +148,15 @@ const TrainingPage = () => {
         }
     }, [testPassed]);
 
-    const handleRunTests = () => {
-        try {
+    const handleRunTests = async () => {
 
+        // setScriptsLoaded(false)
 
-            setResultVisible(false);
-            addTestScripts(() => {
+        await pause(1000)
+
+        setResultVisible(false);
+        addTestScripts(() => {
+            (function () {
                 window.mocha.run()
                     .on('end', () => {
                         const allTestsPassed = window.mocha.suite.suites.every((suite: any) =>
@@ -160,11 +164,8 @@ const TrainingPage = () => {
                         );
                         setTestPassed(allTestsPassed);
                     });
-            });
-
-        } catch (error) {
-
-        }
+            })();
+        });
     };
 
     useEffect(() => {
@@ -179,6 +180,12 @@ const TrainingPage = () => {
                 });
         }
     }, [id]);
+
+    useEffect(() => {
+        addTestScripts(() => {
+            setScriptsLoaded(true);
+        });
+    }, []);
 
     const errorToast = (message: string) => {
         playSound('/sound/error.mp3');
@@ -339,7 +346,13 @@ const TrainingPage = () => {
                     </Second>
                 </div>
 
-                {/* <CodeEditor height={pageData.trainingData.editorHeight} initialCode={pageData.initialCode} onSubmit={handleSubmit} /> */}
+                {scriptsLoaded && (
+                    <CodeEditor
+                        height={pageData.trainingData.editorHeight}
+                        initialCode={pageData.initialCode}
+                        onSubmit={handleSubmit}
+                    />
+                )}
             </Container>
         </div>
     );

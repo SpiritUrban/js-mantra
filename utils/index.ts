@@ -10,7 +10,7 @@ export const pause = (ms: number) => new Promise(resolve => setTimeout(resolve, 
 
 export const compileTypeScript = (code: string) => {
   const result = ts.transpileModule(code, {
-      compilerOptions: { module: ts.ModuleKind.CommonJS }
+    compilerOptions: { module: ts.ModuleKind.CommonJS }
   });
   return result.outputText;
 };

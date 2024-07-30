@@ -11,6 +11,16 @@ import Head from 'next/head';
 import { Test, Training, PageData } from "@/data/training/interfaces";
 import { addTestScripts } from '@/utils/training';
 
+declare global {
+    interface Window {
+        mocha: any;
+        mochaInstance: any;
+        chai: any;
+        executeCode: (code: string) => void;
+        expect: any;
+    }
+}
+
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -103,32 +113,25 @@ const TrainingPage = () => {
         loadScripts();
     }, []);
 
-    declare global {
-        interface Window {
-            mocha: any;
-            mochaInstance: any;
-            chai: any;
-            executeCode: (code: string) => void;
-        }
-    }
+
 
     // Функция для прокрутки элемента вниз
-    const scrollToBottom = (element) => {
+    const scrollToBottom = (element: { scrollTop: any; scrollHeight: any; }) => {
         if (element) {
             element.scrollTop = element.scrollHeight;
         }
     };
 
     // Функция для плавного скроллинга элемента вниз
-const smoothScrollToBottom = (element) => {
+const smoothScrollToBottom = (element: { scrollHeight: any; scrollTop: any; } | null) => {
     if (element) {
       const scrollHeight = element.scrollHeight;
       const scrollTop = element.scrollTop;
       const distance = scrollHeight - scrollTop;
       const duration = 500; // Продолжительность анимации в миллисекундах
-      let startTime = null;
+      let startTime: number | null = null;
   
-      const animateScroll = (currentTime) => {
+      const animateScroll = (currentTime: number) => {
         if (startTime === null) startTime = currentTime;
         const timeElapsed = currentTime - startTime;
         const progress = Math.min(timeElapsed / duration, 1);
@@ -172,7 +175,7 @@ const smoothScrollToBottom = (element) => {
 
 
     // [BUTTON]
-    const handleRunTests = async (x: never) => {
+    const handleRunTests = async (x: number) => {
         if (!scriptsLoaded) return;
         const path = `/training/${x}/tests.js`;
         runTest(path);

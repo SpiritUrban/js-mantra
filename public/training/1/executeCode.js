@@ -12,11 +12,3 @@ if (typeof executeCode === 'undefined') {
 } else {
     console.error('executeCode уже существует');
 }
-// const executeCode = (code) => {
-//     try {
-//         eval(code);
-//         mocha.run();
-//     } catch (error) {
-//         console.error('Ошибка выполнения кода:', error);
-//     }
-// };

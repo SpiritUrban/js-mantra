@@ -91,23 +91,17 @@ const TrainingPage = () => {
 
 
 
-
-
     // setScriptsLoaded(false)
     // await pause(1000)
     // setResultVisible(false);
-
 
     useEffect(() => {
         const loadScripts = async () => {
             await addTestScripts();
             setScriptsLoaded(true);
         };
-
         loadScripts();
     }, []);
-
-
 
 
 
@@ -140,15 +134,12 @@ const TrainingPage = () => {
     };
 
 
-
     // [BUTTON]
     const handleRunTests = async (x: number) => {
         if (!scriptsLoaded) return;
         const path = `/training/${x}/tests.js`;
         runTest(path);
     };
-
-
 
 
 

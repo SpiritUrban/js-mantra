@@ -9,7 +9,7 @@ import { playSound, pause, compileTypeScript } from '@/utils';
 import Image from "next/image";
 import Head from 'next/head';
 import { Test, Training, PageData } from "@/data/training/interfaces";
-import { addTestScripts } from '@/utils/training';
+import { addTestScripts, smoothScrollToBottom } from '@/utils/training';
 
 declare global {
     interface Window {
@@ -68,8 +68,6 @@ const Second = styled.div`
 `;
 
 
-
-
 const TrainingPage = () => {
     const router = useRouter();
     const { id } = router.query;
@@ -95,10 +93,6 @@ const TrainingPage = () => {
 
 
 
-
-
-
-
     // setScriptsLoaded(false)
     // await pause(1000)
     // setResultVisible(false);
@@ -114,37 +108,6 @@ const TrainingPage = () => {
     }, []);
 
 
-
-    // Функция для прокрутки элемента вниз
-    const scrollToBottom = (element: { scrollTop: any; scrollHeight: any; }) => {
-        if (element) {
-            element.scrollTop = element.scrollHeight;
-        }
-    };
-
-    // Функция для плавного скроллинга элемента вниз
-const smoothScrollToBottom = (element: { scrollHeight: any; scrollTop: any; } | null) => {
-    if (element) {
-      const scrollHeight = element.scrollHeight;
-      const scrollTop = element.scrollTop;
-      const distance = scrollHeight - scrollTop;
-      const duration = 500; // Продолжительность анимации в миллисекундах
-      let startTime: number | null = null;
-  
-      const animateScroll = (currentTime: number) => {
-        if (startTime === null) startTime = currentTime;
-        const timeElapsed = currentTime - startTime;
-        const progress = Math.min(timeElapsed / duration, 1);
-        element.scrollTop = scrollTop + distance * progress;
-  
-        if (timeElapsed < duration) {
-          window.requestAnimationFrame(animateScroll);
-        }
-      };
-  
-      window.requestAnimationFrame(animateScroll);
-    }
-  };
 
 
 

@@ -1,7 +1,4 @@
 
-function multiply(a, b) {
-    return a * b;
-}
 
 describe('Функция Multiply', function () {
     it('должна вернуть 6 при умножении 2 и 3', function () {

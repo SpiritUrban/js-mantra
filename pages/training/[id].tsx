@@ -137,7 +137,7 @@ const TrainingPage = () => {
     // [BUTTON]
     const handleRunTests = async (x: number) => {
         if (!scriptsLoaded) return;
-        const path = `/training/${x}/tests.js`;
+        const path = `/training/${x}`;
         runTest(path);
     };
 

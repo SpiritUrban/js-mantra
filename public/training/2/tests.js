@@ -1,12 +1,4 @@
 
-// Пример функции для тестирования
-function add(a, b) {
-    return a + b;
-}
-
-
-
-// Определение тестового набора
 describe('Функция Add', function () {
     it('должна вернуть 5 при сложении 2 и 3', function () {
         expect(add(2, 3)).to.equal(5);

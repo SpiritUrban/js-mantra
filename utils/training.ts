@@ -2,6 +2,7 @@ interface ScriptLoadStatus {
   mocha: boolean;
   chai: boolean;
   executeCode: boolean;
+  code: boolean;
   tests: boolean;
 }
 
@@ -9,11 +10,15 @@ const scriptStatus: ScriptLoadStatus = {
   mocha: false,
   chai: false,
   executeCode: false,
+  code: false,
   tests: false,
 };
 
 const loadScript = async (src: string, statusKey: keyof ScriptLoadStatus): Promise<void> => {
   return new Promise((resolve, reject) => {
+    if (statusKey === 'code' && scriptStatus[statusKey]) {
+      removeScript(statusKey);
+    }
     if (statusKey === 'tests' && scriptStatus[statusKey]) {
       removeScript(statusKey);
     }
@@ -48,6 +53,8 @@ export const addTestScripts = async (testPath?: string): Promise<void> => {
   await loadScript('https://cdnjs.cloudflare.com/ajax/libs/chai/4.3.4/chai.min.js', 'chai');
   window.chai = window.chai;
   await loadScript('/training/1/executeCode.js', 'executeCode');
-  if (testPath) await loadScript(testPath, 'tests');
+  if (testPath) await loadScript(testPath+'/code.js', 'code');
+  if (testPath) await loadScript(testPath+'/tests.js', 'tests');
+
 };
 

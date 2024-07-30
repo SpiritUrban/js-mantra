@@ -1,0 +1,11 @@
+{
+  "files": [
+    "anonymous.tsx",
+    "design.tsx",
+    "figma.tsx",
+    "game-ui.tsx",
+    "index.tsx",
+    "other.tsx",
+    "tools.tsx"
+  ]
+}

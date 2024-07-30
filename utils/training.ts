@@ -1,5 +1,8 @@
 interface ScriptLoadStatus {
-  [key: string]: boolean;
+  mocha: boolean;
+  chai: boolean;
+  code: boolean;
+  tests: boolean;
 }
 
 const scriptStatus: ScriptLoadStatus = {
@@ -11,6 +14,10 @@ const scriptStatus: ScriptLoadStatus = {
 
 const loadScript = async (src: string, statusKey: keyof ScriptLoadStatus): Promise<void> => {
   return new Promise((resolve, reject) => {
+    if (statusKey === 'tests' && scriptStatus[statusKey]) {
+      removeScript(statusKey);
+    }
+
     if (!scriptStatus[statusKey]) {
       const script = document.createElement('script');
       script.src = src;
@@ -19,11 +26,20 @@ const loadScript = async (src: string, statusKey: keyof ScriptLoadStatus): Promi
         resolve();
       };
       script.onerror = reject;
+      script.id = statusKey; // Assign an ID to the script for easy removal
       document.body.appendChild(script);
     } else {
       resolve();
     }
   });
+};
+
+const removeScript = (statusKey: keyof ScriptLoadStatus): void => {
+  const script = document.getElementById(statusKey);
+  if (script) {
+    script.parentNode?.removeChild(script);
+    scriptStatus[statusKey] = false; // Update the status to indicate the script is not loaded
+  }
 };
 
 export const addTestScripts = async (testPath?: string): Promise<void> => {
@@ -35,26 +51,3 @@ export const addTestScripts = async (testPath?: string): Promise<void> => {
   if (testPath) await loadScript(testPath, 'tests');
 };
 
-// Функция для плавного скроллинга элемента вниз
-export const smoothScrollToBottom = (element: { scrollHeight: any; scrollTop: any; } | null) => {
-  if (element) {
-    const scrollHeight = element.scrollHeight;
-    const scrollTop = element.scrollTop;
-    const distance = scrollHeight - scrollTop;
-    const duration = 500; // Продолжительность анимации в миллисекундах
-    let startTime: number | null = null;
-
-    const animateScroll = (currentTime: number) => {
-      if (startTime === null) startTime = currentTime;
-      const timeElapsed = currentTime - startTime;
-      const progress = Math.min(timeElapsed / duration, 1);
-      element.scrollTop = scrollTop + distance * progress;
-
-      if (timeElapsed < duration) {
-        window.requestAnimationFrame(animateScroll);
-      }
-    };
-
-    window.requestAnimationFrame(animateScroll);
-  }
-};

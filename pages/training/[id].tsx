@@ -5,11 +5,11 @@ import CodeEditor from '@/components/organisms/CodeEditor';
 import { useRef, useEffect, useState } from 'react';
 import RewardModal from '@/components/organisms/modals/RewardModal';
 import { ToastContainer, toast } from 'react-toastify';
-import { playSound, pause, compileTypeScript } from '@/utils';
+import { playSound, pause, compileTypeScript, smoothScrollToBottom } from '@/utils';
 import Image from "next/image";
 import Head from 'next/head';
 import { Test, Training, PageData } from "@/data/training/interfaces";
-import { addTestScripts, smoothScrollToBottom } from '@/utils/training';
+import { addTestScripts } from '@/utils/training';
 
 declare global {
     interface Window {

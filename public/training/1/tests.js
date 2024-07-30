@@ -4,8 +4,6 @@ function add(a, b) {
     return a + b;
 }
 
-// Chai доступен глобально
-const { expect } = chai;
 
 // Определение тестового набора
 describe('Функция Add', function () {

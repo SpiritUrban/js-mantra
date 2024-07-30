@@ -57,13 +57,7 @@ const Second = styled.div`
   }
 `;
 
-declare global {
-    interface Window {
-        mocha: any;
-        chai: any;
-        executeCode: (code: string) => void;
-    }
-}
+
 
 
 const TrainingPage = () => {
@@ -107,18 +101,35 @@ const TrainingPage = () => {
         loadScripts();
     }, []);
 
+    declare global {
+        interface Window {
+            mocha: any;
+            mochaInstance: any;
+            chai: any;
+            executeCode: (code: string) => void;
+        }
+    }
+
 
 
     const runTest = async (path: string) => {
+        // Load the necessary scripts
         await addTestScripts(path);
+      
+        // Ensure global `describe`, `it`, and `expect` functions are available
+        window.describe = window.mocha.suite.describe;
+        window.it = window.mocha.suite.it;
+        window.expect = window.chai.expect;
+      
+        // Run the tests
         window.mocha.run().on('end', () => {
-            const allTestsPassed = window.mocha.suite.suites.every((suite: any) =>
-                suite.tests.every((test: any) => test.state === 'passed')
-            );
-            setTestPassed(allTestsPassed);
+          const allTestsPassed = window.mocha.suite.suites.every((suite: any) =>
+            suite.tests.every((test: any) => test.state === 'passed')
+          );
+          setTestPassed(allTestsPassed);
         });
-    }
-
+      };
+      
 
 
     // [BUTTON]

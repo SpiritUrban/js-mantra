@@ -111,7 +111,15 @@ const TrainingPage = () => {
 
 
 
+    const resetMocha = () => {
+        // Clear previous mocha suite
+        mocha.suite.suites = [];
+    };
+
     const runTest = async (path: string) => {
+        // Reset Mocha to clear previous tests
+        resetMocha();
+
         // Load the necessary scripts
         await addTestScripts(path);
 
@@ -123,16 +131,12 @@ const TrainingPage = () => {
         // Run the tests
         window.mocha.run().on('end', () => {
             // Прокрутка элемента Mocha вниз после завершения тестов
-            // scrollToBottom(mochaRef.current);
             smoothScrollToBottom(mochaRef.current);
             const allTestsPassed = window.mocha.suite.suites.every((suite: any) =>
                 suite.tests.every((test: any) => test.state === 'passed')
             );
             setTestPassed(allTestsPassed);
         });
-
-        // const mochaElement = document.querySelector('#mocha #mocha-report');
-        // mochaElement ? mochaElement.scrollIntoView({ behavior: 'smooth' }) : null;
     };
 
 

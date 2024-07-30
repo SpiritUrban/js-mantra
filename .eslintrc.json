@@ -2,6 +2,6 @@
   "extends": "next/core-web-vitals",
   "ignorePatterns": [
     "src/**/node_modules/",
-    "src/public/**",
+    "src/public/training/**/*"
   ]
 }

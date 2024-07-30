@@ -84,7 +84,6 @@ const TrainingPage = () => {
         }
     }, [testPassed]);
 
-    
 
 
 
@@ -92,7 +91,8 @@ const TrainingPage = () => {
 
 
 
-    
+
+
     // setScriptsLoaded(false)
     // await pause(1000)
     // setResultVisible(false);
@@ -107,27 +107,26 @@ const TrainingPage = () => {
         loadScripts();
     }, []);
 
+
+
+    const runTest = async (path: string) => {
+        await addTestScripts(path);
+        window.mocha.run().on('end', () => {
+            const allTestsPassed = window.mocha.suite.suites.every((suite: any) =>
+                suite.tests.every((test: any) => test.state === 'passed')
+            );
+            setTestPassed(allTestsPassed);
+        });
+    }
+
+
+
     // [BUTTON]
-    const handleRunTests = async () => {
+    const handleRunTests = async (x: never) => {
         if (!scriptsLoaded) return;
-
-        try {
-            await addTestScripts('/training/1/tests.js');
-            window.mocha.run().on('end', () => {
-                const allTestsPassed = window.mocha.suite.suites.every((suite: any) =>
-                    suite.tests.every((test: any) => test.state === 'passed')
-                );
-                setTestPassed(allTestsPassed);
-            });
-        } catch (error) {
-            console.error('Error running tests:', error);
-        }
+        const path = `/training/${x}/tests.js`;
+        runTest(path);
     };
-
-
-
-
-
 
 
 
@@ -227,7 +226,10 @@ const TrainingPage = () => {
                         <title>Тесты</title>
                         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mocha/9.1.3/mocha.min.css" />
                     </Head>
-                    <button onClick={handleRunTests}>Запустить</button>
+
+                    <button onClick={_ => handleRunTests(1)}>Запустить</button>
+                    <button onClick={_ => handleRunTests(2)}>Запустить2</button>
+
 
                     <div id="mocha"></div>
 

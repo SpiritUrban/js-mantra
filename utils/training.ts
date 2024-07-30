@@ -1,14 +1,14 @@
 interface ScriptLoadStatus {
   mocha: boolean;
   chai: boolean;
-  code: boolean;
+  executeCode: boolean;
   tests: boolean;
 }
 
 const scriptStatus: ScriptLoadStatus = {
   mocha: false,
   chai: false,
-  code: false,
+  executeCode: false,
   tests: false,
 };
 
@@ -47,7 +47,7 @@ export const addTestScripts = async (testPath?: string): Promise<void> => {
   window.mocha.setup({ ui: 'bdd', cleanReferencesAfterRun: false });
   await loadScript('https://cdnjs.cloudflare.com/ajax/libs/chai/4.3.4/chai.min.js', 'chai');
   window.chai = window.chai;
-  await loadScript('/training/1/code.js', 'code');
+  await loadScript('/training/1/executeCode.js', 'executeCode');
   if (testPath) await loadScript(testPath, 'tests');
 };
 

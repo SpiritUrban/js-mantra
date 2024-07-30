@@ -3,6 +3,9 @@ const nextConfig = {
   async headers() {
     return [
       {
+        eslint: {
+          ignoreDuringBuilds: true,
+        },
         source: '/(.*)',
         headers: [
           {

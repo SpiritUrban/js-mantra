@@ -112,7 +112,7 @@ const TrainingPage = () => {
         if (!scriptsLoaded) return;
 
         try {
-            await addTestScripts();
+            await addTestScripts('/training/1/tests.js');
             window.mocha.run().on('end', () => {
                 const allTestsPassed = window.mocha.suite.suites.every((suite: any) =>
                     suite.tests.every((test: any) => test.state === 'passed')

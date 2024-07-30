@@ -2,7 +2,7 @@
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
 import CodeEditor from '@/components/organisms/CodeEditor';
-import { useEffect, useState } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import RewardModal from '@/components/organisms/modals/RewardModal';
 import { ToastContainer, toast } from 'react-toastify';
 import { playSound, pause, compileTypeScript } from '@/utils';
@@ -71,6 +71,8 @@ const TrainingPage = () => {
     const [resultVisible, setResultVisible] = useState(false);
     const [scriptsLoaded, setScriptsLoaded] = useState(false);
 
+    const mochaRef = useRef(null);
+
     useEffect(() => {
         if (testPassed !== null) {
             console.log('Test Results:', testPassed);
@@ -110,26 +112,63 @@ const TrainingPage = () => {
         }
     }
 
+    // Функция для прокрутки элемента вниз
+    const scrollToBottom = (element) => {
+        if (element) {
+            element.scrollTop = element.scrollHeight;
+        }
+    };
+
+    // Функция для плавного скроллинга элемента вниз
+const smoothScrollToBottom = (element) => {
+    if (element) {
+      const scrollHeight = element.scrollHeight;
+      const scrollTop = element.scrollTop;
+      const distance = scrollHeight - scrollTop;
+      const duration = 500; // Продолжительность анимации в миллисекундах
+      let startTime = null;
+  
+      const animateScroll = (currentTime) => {
+        if (startTime === null) startTime = currentTime;
+        const timeElapsed = currentTime - startTime;
+        const progress = Math.min(timeElapsed / duration, 1);
+        element.scrollTop = scrollTop + distance * progress;
+  
+        if (timeElapsed < duration) {
+          window.requestAnimationFrame(animateScroll);
+        }
+      };
+  
+      window.requestAnimationFrame(animateScroll);
+    }
+  };
+
 
 
     const runTest = async (path: string) => {
         // Load the necessary scripts
         await addTestScripts(path);
-      
+
         // Ensure global `describe`, `it`, and `expect` functions are available
         window.describe = window.mocha.suite.describe;
         window.it = window.mocha.suite.it;
         window.expect = window.chai.expect;
-      
+
         // Run the tests
         window.mocha.run().on('end', () => {
-          const allTestsPassed = window.mocha.suite.suites.every((suite: any) =>
-            suite.tests.every((test: any) => test.state === 'passed')
-          );
-          setTestPassed(allTestsPassed);
+            // Прокрутка элемента Mocha вниз после завершения тестов
+            // scrollToBottom(mochaRef.current);
+            smoothScrollToBottom(mochaRef.current);
+            const allTestsPassed = window.mocha.suite.suites.every((suite: any) =>
+                suite.tests.every((test: any) => test.state === 'passed')
+            );
+            setTestPassed(allTestsPassed);
         });
-      };
-      
+
+        // const mochaElement = document.querySelector('#mocha #mocha-report');
+        // mochaElement ? mochaElement.scrollIntoView({ behavior: 'smooth' }) : null;
+    };
+
 
 
     // [BUTTON]
@@ -242,7 +281,7 @@ const TrainingPage = () => {
                     <button onClick={_ => handleRunTests(2)}>Запустить2</button>
 
 
-                    <div id="mocha"></div>
+                    <div id="mocha" ref={mochaRef} ></div>
 
                     {testPassed !== null && (
                         <div className={`result ${resultVisible ? 'visible' : ''}`}>

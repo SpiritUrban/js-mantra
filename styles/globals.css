@@ -20,6 +20,13 @@ body{
   z-index: 9999;
 }
 
+#mocha {
+  height: 20rem;
+  overflow-y: scroll;
+  background: rgb(0 0 0 / 54%);
+    padding: .5rem;
+    height: 20rem;
+}
 
 #mocha-stats {
   top: 5rem;

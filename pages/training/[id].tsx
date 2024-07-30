@@ -84,25 +84,54 @@ const TrainingPage = () => {
         }
     }, [testPassed]);
 
+    
+
+
+
+
+
+
+
+    
+    // setScriptsLoaded(false)
+    // await pause(1000)
+    // setResultVisible(false);
+
+
+    useEffect(() => {
+        const loadScripts = async () => {
+            await addTestScripts();
+            setScriptsLoaded(true);
+        };
+
+        loadScripts();
+    }, []);
 
     // [BUTTON]
     const handleRunTests = async () => {
-        // setScriptsLoaded(false)
-        // await pause(1000)
-        // setResultVisible(false);
+        if (!scriptsLoaded) return;
 
-        addTestScripts(() => {
-            (function () {
-                window.mocha.run()
-                    .on('end', () => {
-                        const allTestsPassed = window.mocha.suite.suites.every((suite: any) =>
-                            suite.tests.every((test: any) => test.state === 'passed')
-                        );
-                        setTestPassed(allTestsPassed);
-                    });
-            })();
-        });
+        try {
+            await addTestScripts();
+            window.mocha.run().on('end', () => {
+                const allTestsPassed = window.mocha.suite.suites.every((suite: any) =>
+                    suite.tests.every((test: any) => test.state === 'passed')
+                );
+                setTestPassed(allTestsPassed);
+            });
+        } catch (error) {
+            console.error('Error running tests:', error);
+        }
     };
+
+
+
+
+
+
+
+
+
 
     useEffect(() => {
         if (id) {
@@ -117,11 +146,7 @@ const TrainingPage = () => {
         }
     }, [id]);
 
-    useEffect(() => {
-        addTestScripts(() => {
-            setScriptsLoaded(true);
-        });
-    }, []);
+
 
     const errorToast = (message: string) => {
         playSound('/sound/error.mp3');

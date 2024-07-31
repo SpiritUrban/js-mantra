@@ -9,7 +9,7 @@ import { playSound, pause, compileTypeScript, smoothScrollToBottom } from '@/uti
 import Image from "next/image";
 import Head from 'next/head';
 import { Test, Training, PageData } from "@/data/training/interfaces";
-import { addTestScripts } from '@/utils/training';
+import { addTestScripts, fetchFile } from '@/utils/training';
 
 declare global {
     interface Window {
@@ -78,6 +78,7 @@ const TrainingPage = () => {
     const [testPassed, setTestPassed] = useState<boolean | null>(null);
     const [resultVisible, setResultVisible] = useState(false);
     const [scriptsLoaded, setScriptsLoaded] = useState(false);
+    const [initialCode, setInitialCode] = useState('');
 
     const mochaRef = useRef(null);
 
@@ -89,19 +90,39 @@ const TrainingPage = () => {
     }, [testPassed]);
 
 
-
-
     // setScriptsLoaded(false)
     // await pause(1000)
     // setResultVisible(false);
 
     useEffect(() => {
-        const loadScripts = async () => {
+        const run = async () => {
             await addTestScripts();
             setScriptsLoaded(true);
+
         };
-        loadScripts();
+        run();
+
     }, []);
+
+    useEffect(() => {
+        const run = async () => {
+            if (id) {
+                import(`@/data/training/${id}`)
+                    .then((data) => {
+                        console.log('data', data);
+                        setPageData(data.default);
+                    })
+                    .catch((err) => {
+                        console.error("Failed to load data:", err);
+                    });
+
+                //
+                const initialCode = await fetchFile(`/training/${id}/code.ts`);
+                if (initialCode) setInitialCode(initialCode);
+            }
+        };
+        run();
+    }, [id]);
 
 
 
@@ -143,18 +164,7 @@ const TrainingPage = () => {
 
 
 
-    useEffect(() => {
-        if (id) {
-            import(`@/data/training/${id}`)
-                .then((data) => {
-                    console.log('data', data);
-                    setPageData(data.default);
-                })
-                .catch((err) => {
-                    console.error("Failed to load data:", err);
-                });
-        }
-    }, [id]);
+
 
 
 

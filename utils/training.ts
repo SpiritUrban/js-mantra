@@ -51,7 +51,7 @@ const removeScript = (statusKey: keyof ScriptLoadStatus): void => {
 
 
 // AndCompileTypeScript
-const fetchFile = async (src: string): Promise<string | null> => {
+export const fetchFile = async (src: string): Promise<string | null> => {
   try {
     const response = await fetch(src, {
       headers: {

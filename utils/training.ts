@@ -142,7 +142,7 @@ export const addTestScripts = async (testPath?: string): Promise<void> => {
   window.mocha.setup({ ui: 'bdd', cleanReferencesAfterRun: false });
   await loadScript('https://cdnjs.cloudflare.com/ajax/libs/chai/4.3.4/chai.min.js', 'chai');
   window.chai = window.chai;
-  await loadScript('/training/1/executeCode.js', 'executeCode');
+  await loadScript('/training/executeCode.js', 'executeCode');
   if (testPath) {
     await fetchAndCompileTypeScript(`${testPath}/code.ts`);
     await loadScript(`${testPath}/code.test.js`, 'tests');

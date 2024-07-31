@@ -238,8 +238,8 @@ const TrainingPage = () => {
                         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mocha/9.1.3/mocha.min.css" />
                     </Head>
 
-                    <button onClick={_ => handleRunTests(1)}>Запустить</button>
-                    <button onClick={_ => handleRunTests(2)}>Запустить2</button>
+                    <button onClick={_ => handleRunTests('add')}>add</button>
+                    <button onClick={_ => handleRunTests('multiply')}>multiply</button>
 
                     <button onClick={_ => handleRunTests('cum-work')}>cum-work</button>
                     <button onClick={_ => handleRunTests('dick-splitter')}>dick-splitter</button>

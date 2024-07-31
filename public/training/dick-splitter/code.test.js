@@ -6,6 +6,13 @@ describe('dickSplitter', function () {
         expect(result).to.deep.equal(['my', 'dick', 'is', 'big']);
     });
 
+    it('должен возвращать пустой массив для пустой строки', function () {
+        const glassDick = '';
+        const result = dickSplitter(glassDick);
+        console.log(result);
+        expect(result).to.deep.equal([]);
+    });
+
     it('должен правильно обрабатывать строку с несколькими пробелами', function () {
         const glassDick = 'my  dick   is    big';
         const result = dickSplitter(glassDick);

@@ -101,7 +101,6 @@ const TrainingPage = () => {
 
         };
         run();
-
     }, []);
 
     useEffect(() => {
@@ -146,15 +145,36 @@ const TrainingPage = () => {
         window.expect = window.chai.expect;
 
         // Run the tests
-        window.mocha.run().on('end', () => {
+        window.mocha.run().on('end', async () => {
             // Прокрутка элемента Mocha вниз после завершения тестов
             smoothScrollToBottom(mochaRef.current);
             const allTestsPassed = window.mocha.suite.suites.every((suite: any) =>
                 suite.tests.every((test: any) => test.state === 'passed')
             );
             setTestPassed(allTestsPassed);
+
+            // Show results
+            await pause(1000);
+            setTestResultsMessage('results');
+            if (!allTestsPassed) {
+                errorToast('Тесты провалены.');
+            } else {
+                await pause(1000);
+                setModalShow(true);
+            }
         });
     };
+
+
+    useEffect(() => {
+        const run = async () => {
+           
+        };
+        run();
+    }, [testPassed, resultVisible]);
+
+
+
 
 
     // [BUTTON from files]
@@ -255,14 +275,10 @@ const TrainingPage = () => {
                     </Head>
 
                     <button onClick={_ => handleRunTests(id as string)}>Run: {id}</button> &nbsp; : &nbsp;
-
                     <button onClick={_ => handleRunTests('add')}>add</button>
                     <button onClick={_ => handleRunTests('multiply')}>multiply</button>
-
                     <button onClick={_ => handleRunTests('cum-work')}>cum-work</button>
                     <button onClick={_ => handleRunTests('dick-splitter')}>dick-splitter</button>
-
-
 
                     <Second>
                         <div className="left">
@@ -279,10 +295,6 @@ const TrainingPage = () => {
 
                         </div>
                     </Second>
-
-
-
-
 
 
                     {testPassed !== null && (

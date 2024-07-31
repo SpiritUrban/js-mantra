@@ -49,7 +49,9 @@ const removeScript = (statusKey: keyof ScriptLoadStatus): void => {
   }
 };
 
-const fetchAndCompileTypeScript = async (src: string): Promise<void> => {
+
+// AndCompileTypeScript
+const fetchFile = async (src: string): Promise<string | null> => {
   try {
     const response = await fetch(src, {
       headers: {
@@ -65,19 +67,34 @@ const fetchAndCompileTypeScript = async (src: string): Promise<void> => {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36'
       }
     });
-
     if (!response.ok) throw new Error(`Failed to fetch script: ${src}`);
     const tsCode = await response.text();
-    let jsCode = compileTypeScript(tsCode);
+    return tsCode;
+  } catch (error) {
+    console.error(`Error loading script ${src}:`, error);
+    return null;
+  }
+};
 
+const executeJSCode = (code: string): void => {
+  try {
+    eval(code);
+  } catch (error) {
+    console.error('Error executing JS code:', error);
+  }
+};
+
+const executeTypeScript = (tsCode: string): void => {
+  try {
+    let jsCode = compileTypeScript(tsCode);
     // Automatically add global export
     console.log(jsCode)
     jsCode = addGlobalExport(jsCode);
     eval(jsCode); // Execute the compiled JavaScript code
   } catch (error) {
-    console.error(`Error loading script ${src}:`, error);
+    console.error('Error executing JS -> TScode:', error);
   }
-};
+}
 
 
 const addGlobalExport = (jsCode: string): string => {
@@ -96,38 +113,38 @@ const addGlobalExport = (jsCode: string): string => {
   let match;
 
   while ((match = functionRegex.exec(jsCode)) !== null) {
-      functionNames.push(match[1]);
+    functionNames.push(match[1]);
   }
   while ((match = varFunctionRegex.exec(jsCode)) !== null) {
-      functionNames.push(match[1]);
+    functionNames.push(match[1]);
   }
   while ((match = varArrowFunctionRegex.exec(jsCode)) !== null) {
-      functionNames.push(match[1]);
+    functionNames.push(match[1]);
   }
   while ((match = constFunctionRegex.exec(jsCode)) !== null) {
-      functionNames.push(match[1]);
+    functionNames.push(match[1]);
   }
   while ((match = constArrowFunctionRegex.exec(jsCode)) !== null) {
-      functionNames.push(match[1]);
+    functionNames.push(match[1]);
   }
   while ((match = letFunctionRegex.exec(jsCode)) !== null) {
-      functionNames.push(match[1]);
+    functionNames.push(match[1]);
   }
   while ((match = letArrowFunctionRegex.exec(jsCode)) !== null) {
-      functionNames.push(match[1]);
+    functionNames.push(match[1]);
   }
   while ((match = varRegex.exec(jsCode)) !== null) {
-      functionNames.push(match[1]);
+    functionNames.push(match[1]);
   }
   while ((match = constRegex.exec(jsCode)) !== null) {
-      functionNames.push(match[1]);
+    functionNames.push(match[1]);
   }
   while ((match = letRegex.exec(jsCode)) !== null) {
-      functionNames.push(match[1]);
+    functionNames.push(match[1]);
   }
 
   functionNames.forEach(name => {
-      jsCode += `\nif (typeof window !== 'undefined') { window.${name} = ${name}; }\n`;
+    jsCode += `\nif (typeof window !== 'undefined') { window.${name} = ${name}; }\n`;
   });
 
   return jsCode;
@@ -144,7 +161,9 @@ export const addTestScripts = async (testPath?: string): Promise<void> => {
   window.chai = window.chai;
   await loadScript('/training/executeCode.js', 'executeCode');
   if (testPath) {
-    await fetchAndCompileTypeScript(`${testPath}/code.ts`);
+    const tsCode = await fetchFile(`${testPath}/code.ts`);
+    if (tsCode) executeTypeScript(tsCode)
+    else console.error(`Failed to fetch TypeScript code from ${testPath}/code.ts`);
     await loadScript(`${testPath}/code.test.js`, 'tests');
   }
 };

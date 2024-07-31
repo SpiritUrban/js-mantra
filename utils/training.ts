@@ -71,6 +71,7 @@ const fetchAndCompileTypeScript = async (src: string): Promise<void> => {
     let jsCode = compileTypeScript(tsCode);
 
     // Automatically add global export
+    console.log(jsCode)
     jsCode = addGlobalExport(jsCode);
     eval(jsCode); // Execute the compiled JavaScript code
   } catch (error) {
@@ -78,25 +79,50 @@ const fetchAndCompileTypeScript = async (src: string): Promise<void> => {
   }
 };
 
+
 const addGlobalExport = (jsCode: string): string => {
   const functionNames = [];
   const functionRegex = /function\s+(\w+)/g;
-  const constRegex = /const\s+(\w+)\s*=\s*\(/g;
-  const letRegex = /let\s+(\w+)\s*=\s*\(/g;
-  const varRegex = /var\s+(\w+)\s*=\s*\(/g;
+  const varFunctionRegex = /var\s+(\w+)\s*=\s*function/g;
+  const varArrowFunctionRegex = /var\s+(\w+)\s*=\s*\([\w\s,:]*\)\s*=>/g;
+  const constFunctionRegex = /const\s+(\w+)\s*=\s*function/g;
+  const constArrowFunctionRegex = /const\s+(\w+)\s*=\s*\([\w\s,:]*\)\s*=>/g;
+  const letFunctionRegex = /let\s+(\w+)\s*=\s*function/g;
+  const letArrowFunctionRegex = /let\s+(\w+)\s*=\s*\([\w\s,:]*\)\s*=>/g;
+  const varRegex = /var\s+(\w+)\s*=/g;
+  const constRegex = /const\s+(\w+)\s*=/g;
+  const letRegex = /let\s+(\w+)\s*=/g;
 
   let match;
 
   while ((match = functionRegex.exec(jsCode)) !== null) {
       functionNames.push(match[1]);
   }
+  while ((match = varFunctionRegex.exec(jsCode)) !== null) {
+      functionNames.push(match[1]);
+  }
+  while ((match = varArrowFunctionRegex.exec(jsCode)) !== null) {
+      functionNames.push(match[1]);
+  }
+  while ((match = constFunctionRegex.exec(jsCode)) !== null) {
+      functionNames.push(match[1]);
+  }
+  while ((match = constArrowFunctionRegex.exec(jsCode)) !== null) {
+      functionNames.push(match[1]);
+  }
+  while ((match = letFunctionRegex.exec(jsCode)) !== null) {
+      functionNames.push(match[1]);
+  }
+  while ((match = letArrowFunctionRegex.exec(jsCode)) !== null) {
+      functionNames.push(match[1]);
+  }
+  while ((match = varRegex.exec(jsCode)) !== null) {
+      functionNames.push(match[1]);
+  }
   while ((match = constRegex.exec(jsCode)) !== null) {
       functionNames.push(match[1]);
   }
   while ((match = letRegex.exec(jsCode)) !== null) {
-      functionNames.push(match[1]);
-  }
-  while ((match = varRegex.exec(jsCode)) !== null) {
       functionNames.push(match[1]);
   }
 
@@ -106,6 +132,8 @@ const addGlobalExport = (jsCode: string): string => {
 
   return jsCode;
 };
+
+
 
 
 

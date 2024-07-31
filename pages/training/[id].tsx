@@ -241,7 +241,9 @@ const TrainingPage = () => {
                     <button onClick={_ => handleRunTests(1)}>Запустить</button>
                     <button onClick={_ => handleRunTests(2)}>Запустить2</button>
 
-                    <button onClick={_ => handleRunTests('cum-work')}>Запустить2</button>
+                    <button onClick={_ => handleRunTests('cum-work')}>cum-work</button>
+                    <button onClick={_ => handleRunTests('dick-splitter')}>dick-splitter</button>
+
 
 
 

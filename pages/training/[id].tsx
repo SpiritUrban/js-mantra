@@ -133,12 +133,12 @@ const TrainingPage = () => {
         mocha.suite.suites = [];
     };
 
-    const runTest = async (path: string) => {
+    const runTest = async (path: string, tsCode?: string) => {
         // Reset Mocha to clear previous tests
         resetMocha();
 
         // Load the necessary scripts
-        await addTestScripts(path);
+        await addTestScripts(path, tsCode);
 
         // Ensure global `describe`, `it`, and `expect` functions are available
         window.describe = window.mocha.suite.describe;
@@ -157,16 +157,12 @@ const TrainingPage = () => {
     };
 
 
-    // [BUTTON]
+    // [BUTTON from files]
     const handleRunTests = async (x: number | string) => {
         if (!scriptsLoaded) return;
         const path = `/training/${x}`;
         runTest(path);
     };
-
-
-
-
 
 
 
@@ -194,18 +190,26 @@ const TrainingPage = () => {
         }
     };
 
+
+    // [BUTTON from Editor]
     const handleSubmit = (code: string) => {
         try {
-            const compiledCode = compileTypeScript(code);
-            const func = new Function(`return (function() {${compiledCode}\nreturn ${pageData?.trainingData.funcName}; })();`)();
-            const output = func(pageData?.trainingData.test[0].data);
+            console.log('ts',code); // ts
+            // const compiledCode = compileTypeScript(code);
+            // console.log('js', code); // js
 
-            if (output !== null) {
-                setResult(`Результат: ${output}`);
-                runTests(func);
-            } else {
-                setResult(`Ошибка: функция "${pageData?.trainingData.funcName}()" не найдена`);
-            }
+            const path = `/training/${id}`;
+            runTest(path, code);
+
+            // const func = new Function(`return (function() {${compiledCode}\nreturn ${pageData?.trainingData.funcName}; })();`)();
+            // const output = func(pageData?.trainingData.test[0].data);
+
+            // if (output !== null) {
+            //     setResult(`Результат: ${output}`);
+            //     runTests(func);
+            // } else {
+            //     setResult(`Ошибка: функция "${pageData?.trainingData.funcName}()" не найдена`);
+            // }
         } catch (error) {
             handleError(error, 'Произошла неизвестная ошибка');
         }

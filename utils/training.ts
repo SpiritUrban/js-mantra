@@ -154,14 +154,14 @@ const addGlobalExport = (jsCode: string): string => {
 
 
 
-export const addTestScripts = async (testPath?: string): Promise<void> => {
+export const addTestScripts = async (testPath?: string, _tsCode?: string): Promise<void> => {
   await loadScript('https://cdnjs.cloudflare.com/ajax/libs/mocha/9.1.3/mocha.min.js', 'mocha');
   window.mocha.setup({ ui: 'bdd', cleanReferencesAfterRun: false });
   await loadScript('https://cdnjs.cloudflare.com/ajax/libs/chai/4.3.4/chai.min.js', 'chai');
   window.chai = window.chai;
   await loadScript('/training/executeCode.js', 'executeCode');
   if (testPath) {
-    const tsCode = await fetchFile(`${testPath}/code.ts`);
+    const tsCode = _tsCode ? _tsCode : await fetchFile(`${testPath}/code.ts`);
     if (tsCode) executeTypeScript(tsCode)
     else console.error(`Failed to fetch TypeScript code from ${testPath}/code.ts`);
     await loadScript(`${testPath}/code.test.js`, 'tests');

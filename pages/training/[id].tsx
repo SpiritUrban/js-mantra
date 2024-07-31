@@ -135,7 +135,7 @@ const TrainingPage = () => {
 
 
     // [BUTTON]
-    const handleRunTests = async (x: number) => {
+    const handleRunTests = async (x: number | string) => {
         if (!scriptsLoaded) return;
         const path = `/training/${x}`;
         runTest(path);
@@ -240,6 +240,9 @@ const TrainingPage = () => {
 
                     <button onClick={_ => handleRunTests(1)}>Запустить</button>
                     <button onClick={_ => handleRunTests(2)}>Запустить2</button>
+
+                    <button onClick={_ => handleRunTests('cum-work')}>Запустить2</button>
+
 
 
                     <div id="mocha" ref={mochaRef} ></div>

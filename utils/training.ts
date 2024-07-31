@@ -80,17 +80,33 @@ const fetchAndCompileTypeScript = async (src: string): Promise<void> => {
 
 const addGlobalExport = (jsCode: string): string => {
   const functionNames = [];
-  const regex = /function\s+(\w+)/g;
+  const functionRegex = /function\s+(\w+)/g;
+  const constRegex = /const\s+(\w+)\s*=\s*\(/g;
+  const letRegex = /let\s+(\w+)\s*=\s*\(/g;
+  const varRegex = /var\s+(\w+)\s*=\s*\(/g;
+
   let match;
-  while ((match = regex.exec(jsCode)) !== null) {
-    functionNames.push(match[1]);
+
+  while ((match = functionRegex.exec(jsCode)) !== null) {
+      functionNames.push(match[1]);
+  }
+  while ((match = constRegex.exec(jsCode)) !== null) {
+      functionNames.push(match[1]);
+  }
+  while ((match = letRegex.exec(jsCode)) !== null) {
+      functionNames.push(match[1]);
+  }
+  while ((match = varRegex.exec(jsCode)) !== null) {
+      functionNames.push(match[1]);
   }
 
   functionNames.forEach(name => {
-    jsCode += `\nif (typeof window !== 'undefined') { window.${name} = ${name}; }\n`;
+      jsCode += `\nif (typeof window !== 'undefined') { window.${name} = ${name}; }\n`;
   });
+
   return jsCode;
 };
+
 
 
 export const addTestScripts = async (testPath?: string): Promise<void> => {
@@ -101,6 +117,6 @@ export const addTestScripts = async (testPath?: string): Promise<void> => {
   await loadScript('/training/1/executeCode.js', 'executeCode');
   if (testPath) {
     await fetchAndCompileTypeScript(`${testPath}/code.ts`);
-    await loadScript(`${testPath}/tests.js`, 'tests');
+    await loadScript(`${testPath}/code.test.js`, 'tests');
   }
 };

@@ -106,7 +106,8 @@ const TrainingPage = () => {
 
     useEffect(() => {
         const run = async () => {
-            if (!id) return;
+            if (!id) return console.log ('No id provided');
+            else console.log('id:', id);
             
             try {
                 const data = await import(`@/data/training/${id}`);
@@ -264,7 +265,7 @@ const TrainingPage = () => {
                             {scriptsLoaded && (
                                 <CodeEditor
                                     height={pageData.trainingData.editorHeight}
-                                    initialCode={pageData.initialCode}
+                                    initialCode={initialCode}
                                     onSubmit={handleSubmit}
                                 />
                             )}

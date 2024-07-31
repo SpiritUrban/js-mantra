@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import Editor, { loader } from '@monaco-editor/react';
+import Editor from '@monaco-editor/react';
 import { Button } from 'react-bootstrap';
 
 interface CodeEditorProps {
@@ -10,6 +10,10 @@ interface CodeEditorProps {
 
 const CodeEditor: React.FC<CodeEditorProps> = ({ initialCode, height, onSubmit }) => {
   const [code, setCode] = useState<string>(initialCode);
+
+  useEffect(() => {
+    setCode(initialCode);
+  }, [initialCode]);
 
   useEffect(() => {
     const stylePaths = [
@@ -48,21 +52,17 @@ const CodeEditor: React.FC<CodeEditorProps> = ({ initialCode, height, onSubmit }
   };
 
   return (
-    <div >
+    <div>
       <div style={{ borderRadius: '.5rem', overflow: 'hidden' }}>
-
         <Editor
           height={height}
           defaultLanguage="typescript"
-          defaultValue={initialCode}
+          value={code}
           onChange={handleEditorChange}
           theme="vs-dark"
         />
       </div>
-
-
       <br />
-
       <Button variant="primary" onClick={handleSubmit}>Проверить</Button>
     </div>
   );

@@ -70,7 +70,7 @@ const Second = styled.div`
 
 const TrainingPage = () => {
     const router = useRouter();
-    const { id } = router.query;
+    const { id } = router.query as { id?: string };
     const [pageData, setPageData] = useState<PageData | null>(null);
     const [result, setResult] = useState<string | null>(null);
     const [testResultsMessage, setTestResultsMessage] = useState<string | null>(null);
@@ -106,19 +106,20 @@ const TrainingPage = () => {
 
     useEffect(() => {
         const run = async () => {
-            if (id) {
-                import(`@/data/training/${id}`)
-                    .then((data) => {
-                        console.log('data', data);
-                        setPageData(data.default);
-                    })
-                    .catch((err) => {
-                        console.error("Failed to load data:", err);
-                    });
+            if (!id) return;
+            
+            try {
+                const data = await import(`@/data/training/${id}`);
+                setPageData(data.default);
+            } catch (err) {
+                console.error("Failed to load JSON by [id]:", err);
+            }
 
-                //
+            try {
                 const initialCode = await fetchFile(`/training/${id}/code.ts`);
                 if (initialCode) setInitialCode(initialCode);
+            } catch (err) {
+                console.error(`Error loading script /training/${id}/code.ts:`, err);
             }
         };
         run();

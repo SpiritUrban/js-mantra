@@ -21,8 +21,11 @@ body{
 }
 
 #mocha {
+  margin: 0;
+  border-radius: .5rem;
   height: 20rem;
   overflow-y: scroll;
+  overflow-y: hidden;
   background: rgb(0 0 0 / 54%);
     padding: .5rem;
     height: 20rem;

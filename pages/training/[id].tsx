@@ -238,6 +238,8 @@ const TrainingPage = () => {
                         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mocha/9.1.3/mocha.min.css" />
                     </Head>
 
+                    <button onClick={_ => handleRunTests(id as string)}>Run: {id}</button> &nbsp; : &nbsp;
+
                     <button onClick={_ => handleRunTests('add')}>add</button>
                     <button onClick={_ => handleRunTests('multiply')}>multiply</button>
 
@@ -246,8 +248,26 @@ const TrainingPage = () => {
 
 
 
+                    <Second>
+                        <div className="left">
+                            {scriptsLoaded && (
+                                <CodeEditor
+                                    height={pageData.trainingData.editorHeight}
+                                    initialCode={pageData.initialCode}
+                                    onSubmit={handleSubmit}
+                                />
+                            )}
+                        </div>
+                        <div className="right">
+                            <div id="mocha" ref={mochaRef} ></div>
 
-                    <div id="mocha" ref={mochaRef} ></div>
+                        </div>
+                    </Second>
+
+
+
+
+
 
                     {testPassed !== null && (
                         <div className={`result ${resultVisible ? 'visible' : ''}`}>
@@ -325,13 +345,7 @@ const TrainingPage = () => {
                     </Second>
                 </div>
 
-                {scriptsLoaded && (
-                    <CodeEditor
-                        height={pageData.trainingData.editorHeight}
-                        initialCode={pageData.initialCode}
-                        onSubmit={handleSubmit}
-                    />
-                )}
+
             </Container>
         </div>
     );

@@ -27,7 +27,7 @@ const Container = styled.div`
   flex-direction: column;
   gap: 2rem;
   padding: 2rem;
-  max-width: 1200px;
+//   max-width: 1200px;
   margin: 0 auto;
 `;
 
@@ -80,7 +80,7 @@ const TrainingPage = () => {
     const [resultVisible, setResultVisible] = useState(false);
     const [scriptsLoaded, setScriptsLoaded] = useState(false);
     const [initialCode, setInitialCode] = useState<string | null>(null);
-    const [ testingCode, setTestingCode ] = useState<string | null>(null);
+    const [testingCode, setTestingCode] = useState<string | null>(null);
 
     const mochaRef = useRef(null);
 
@@ -107,9 +107,9 @@ const TrainingPage = () => {
 
     useEffect(() => {
         const run = async () => {
-            if (!id) return console.log ('No id provided');
+            if (!id) return console.log('No id provided');
             else console.log('id:', id);
-            
+
             try {
                 const data = await import(`@/data/training/${id}`);
                 setPageData(data.default);
@@ -177,7 +177,7 @@ const TrainingPage = () => {
 
     useEffect(() => {
         const run = async () => {
-           
+
         };
         run();
     }, [testPassed, resultVisible]);
@@ -223,7 +223,7 @@ const TrainingPage = () => {
     // [BUTTON from Editor]
     const handleSubmit = (code: string) => {
         try {
-            console.log('ts',code); // ts
+            console.log('ts', code); // ts
             // const compiledCode = compileTypeScript(code);
             // console.log('js', code); // js
 
@@ -277,6 +277,53 @@ const TrainingPage = () => {
     return (
         <div>
             <Container>
+
+                <Second>
+                    <div className="left">
+
+                        {/* Topic */}
+                        <h1>
+                            <Image
+                                src={pageData.trainingData.img}
+                                alt="JS Mantra"
+                                width={100}
+                                height={100}
+                                priority
+                                style={{
+                                    marginRight: "1.5rem",
+                                    borderRadius: ".5rem",
+                                    objectFit: 'cover',
+                                    width: '5rem',
+                                    height: '5rem',
+                                }}
+                            />
+                            JS Training: &nbsp;
+                            <b>{pageData.trainingData.title}</b>
+                        </h1>
+
+                        {/* Details */}
+                        <h3 dangerouslySetInnerHTML={{ __html: pageData.trainingData.heading }} ></h3>
+                        <p dangerouslySetInnerHTML={{ __html: pageData.trainingData.description }}></p>
+
+                        {scriptsLoaded && (
+                            <CodeEditor
+                                height={pageData.trainingData.editorHeight}
+                                initialCode={initialCode || '// no code'}
+                                onSubmit={handleSubmit}
+                            />
+                        )}
+
+
+                    </div>
+                    <div className="right">
+                        <div id="mocha" ref={mochaRef} ></div>
+                        <CodeBlock code={testingCode || '// no code'} language="typescript" />
+                    </div>
+                </Second>
+
+
+
+
                 <div style={{ marginTop: '2rem' }}>
                     <Head>
                         <title>Тесты</title>
@@ -289,28 +336,6 @@ const TrainingPage = () => {
                     <button onClick={_ => handleRunTests('cum-work')}>cum-work</button>
                     <button onClick={_ => handleRunTests('dick-splitter')}>dick-splitter</button>
 
-                    <Second>
-                        <div className="left">
-                            {scriptsLoaded && (
-                                <CodeEditor
-                                    height={pageData.trainingData.editorHeight}
-                                    initialCode={initialCode || '// no code'}
-                                    onSubmit={handleSubmit}
-                                />
-                            )}
-                        </div>
-                        <div className="right">
-                            <div id="mocha" ref={mochaRef} ></div>
-
-                        </div>
-                    </Second>
-
-    <CodeBlock code={testingCode || '// no code'} language="typescript" />
-
-
-                    
-
-
                     {testPassed !== null && (
                         <div className={`result ${resultVisible ? 'visible' : ''}`}>
                             {testPassed ? 'Все тесты прошли успешно!' : 'Некоторые тесты не прошли.'}
@@ -318,24 +343,7 @@ const TrainingPage = () => {
                     )}
                 </div>
 
-                <h1>
-                    <Image
-                        src={pageData.trainingData.img}
-                        alt="JS Mantra"
-                        width={100}
-                        height={100}
-                        priority
-                        style={{
-                            marginRight: "1.5rem",
-                            borderRadius: ".5rem",
-                            objectFit: 'cover',
-                            width: '5rem',
-                            height: '5rem',
-                        }}
-                    />
-                    JS Training: &nbsp;
-                    <b>{pageData.trainingData.title}</b>
-                </h1>
+
 
                 <ToastContainer
                     position="top-right"
@@ -359,8 +367,7 @@ const TrainingPage = () => {
                 <div>
                     <Top>
                         <div className="left">
-                            <h3 dangerouslySetInnerHTML={{ __html: pageData.trainingData.heading }} ></h3>
-                            <p dangerouslySetInnerHTML={{ __html: pageData.trainingData.description }}></p>
+
                         </div>
                         <div className="right">
                             <h3>Описание тестов:</h3>

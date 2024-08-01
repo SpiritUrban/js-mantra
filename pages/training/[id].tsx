@@ -35,6 +35,17 @@ const Container = styled.div.attrs<StyledProps>({ 'data-component': 'Container' 
     h1 {
         color: cadetblue;
     }
+    b {
+        color: cadetblue;
+        font-weight: bold;
+    }
+    pre {
+        b {
+            background: #0000009c;
+            padding: .1rem .3rem;
+            border-radius: 1rem;
+        }
+    }
   `;
 
 const Second = styled.div` 
@@ -205,7 +216,7 @@ const TrainingPage = () => {
 
                         {/* Details */}
                         <h3 dangerouslySetInnerHTML={{ __html: pageData.trainingData.heading }} ></h3>
-                        <p dangerouslySetInnerHTML={{ __html: pageData.trainingData.description }}></p>
+                        <pre dangerouslySetInnerHTML={{ __html: pageData.trainingData.description }}></pre>
 
                         {scriptsLoaded && (
                             <CodeEditor

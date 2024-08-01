@@ -5,10 +5,10 @@ import CodeEditor from '@/components/organisms/CodeEditor';
 import { useRef, useEffect, useState } from 'react';
 import RewardModal from '@/components/organisms/modals/RewardModal';
 import { ToastContainer, toast } from 'react-toastify';
-import { playSound, pause, compileTypeScript, smoothScrollToBottom } from '@/utils';
+import { playSound, pause, smoothScrollToBottom } from '@/utils';
 import Image from "next/image";
 import Head from 'next/head';
-import { Test, Training, PageData } from "@/data/training/interfaces";
+import { PageData } from "@/data/training/interfaces";
 import { addTestScripts, fetchFile } from '@/utils/training';
 import CodeBlock from '@/components/organisms/CodeBlock';
 
@@ -62,7 +62,6 @@ const TrainingPage = () => {
     const [pageData, setPageData] = useState<PageData | null>(null);
     const [modalShow, setModalShow] = useState(false);
     const [testPassed, setTestPassed] = useState<boolean | null>(null);
-    const [resultVisible, setResultVisible] = useState(false);
     const [scriptsLoaded, setScriptsLoaded] = useState(false);
     const [initialCode, setInitialCode] = useState<string | null>(null);
     const [testingCode, setTestingCode] = useState<string | null>(null);
@@ -75,13 +74,6 @@ const TrainingPage = () => {
         };
         run();
     }, []);
-
-    useEffect(() => {
-        if (testPassed !== null) {
-            console.log('Test Results:', testPassed);
-            setResultVisible(true);
-        }
-    }, [testPassed]);
 
     useEffect(() => {
         const run = async () => {
@@ -141,7 +133,6 @@ const TrainingPage = () => {
                 setTestPassed(allTestsPassed);
 
                 // Show results
-                await pause(1000);
                 if (!allTestsPassed) {
                     errorToast('Тесты провалены.');
                 } else {
@@ -187,7 +178,7 @@ const TrainingPage = () => {
                 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mocha/9.1.3/mocha.min.css" />
             </Head>
 
-            <Container>
+            <Container style={{ background: (testPassed) ? '#0e5a0e' : 'none' }}>
 
                 <Second>
                     <div className="left">
@@ -230,15 +221,6 @@ const TrainingPage = () => {
                         <CodeBlock code={testingCode || '// no code'} language="typescript" />
                     </div>
                 </Second>
-
-                <div style={{ marginTop: '2rem' }}>
-
-                    {testPassed !== null && (
-                        <div className={`result ${resultVisible ? 'visible' : ''}`}>
-                            {testPassed ? 'Все тесты прошли успешно!' : 'Некоторые тесты не прошли.'}
-                        </div>
-                    )}
-                </div>
 
                 <ToastContainer
                     position="top-right"

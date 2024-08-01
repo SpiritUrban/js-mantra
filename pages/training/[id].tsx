@@ -22,14 +22,17 @@ declare global {
     }
 }
 
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-  padding: 2rem;
-//   max-width: 1200px;
-  margin: 0 auto;
-`;
+interface StyledProps extends React.HTMLAttributes<HTMLDivElement> {
+    'data-component'?: string;
+}
+
+const Container = styled.div.attrs<StyledProps>({ 'data-component': 'Container' })`
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding: 2rem;
+    margin: 0 auto;
+  `;
 
 const Top = styled.div` 
   display: flex;

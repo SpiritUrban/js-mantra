@@ -34,24 +34,6 @@ const Container = styled.div.attrs<StyledProps>({ 'data-component': 'Container' 
     margin: 0 auto;
   `;
 
-const Top = styled.div` 
-  display: flex;
-  flex-direction: row;
-  gap: 1rem;
-  .left{
-    flex: 2;
-    background: rgb(0 0 0 / 10%);
-    padding: 1rem;
-    border-radius: .5rem;
-  }
-  .right{
-    flex: 3;
-    background: rgb(0 0 0 / 10%);
-    padding: 1rem;
-    border-radius: .5rem;
-  }
-`;
-
 const Second = styled.div` 
   display: flex;
   flex-direction: row;
@@ -167,7 +149,6 @@ const TrainingPage = () => {
 
             // Show results
             await pause(1000);
-            setTestResultsMessage('results');
             if (!allTestsPassed) {
                 errorToast('Тесты провалены.');
             } else {
@@ -187,15 +168,12 @@ const TrainingPage = () => {
 
 
 
-
-
     // [BUTTON from files]
     const handleRunTests = async (x: number | string) => {
         if (!scriptsLoaded) return;
         const path = `/training/${x}`;
         runTest(path);
     };
-
 
 
     const errorToast = (message: string) => {
@@ -279,6 +257,11 @@ const TrainingPage = () => {
 
     return (
         <div>
+            <Head>
+                <title>Тесты</title>
+                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mocha/9.1.3/mocha.min.css" />
+            </Head>
+
             <Container>
 
                 <Second>
@@ -316,7 +299,6 @@ const TrainingPage = () => {
                             />
                         )}
 
-
                     </div>
                     <div className="right">
                         <div id="mocha" ref={mochaRef} ></div>
@@ -325,13 +307,8 @@ const TrainingPage = () => {
                 </Second>
 
 
-
-
                 <div style={{ marginTop: '2rem' }}>
-                    <Head>
-                        <title>Тесты</title>
-                        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mocha/9.1.3/mocha.min.css" />
-                    </Head>
+
 
                     <button onClick={_ => handleRunTests(id as string)}>Run: {id}</button> &nbsp; : &nbsp;
                     <button onClick={_ => handleRunTests('add')}>add</button>
@@ -367,35 +344,17 @@ const TrainingPage = () => {
                     content={pageData.modalContent}
                 />
 
-                <div>
-                    <Top>
-                        <div className="left">
+                <hr />
 
-                        </div>
-                        <div className="right">
-                            <h3>Описание тестов:</h3>
-                            <ul>
-                                {pageData.trainingData.test.map((item: Test, index: number) => (
-                                    <li key={index + 'Test'} dangerouslySetInnerHTML={{ __html: item.description }}></li>
-                                ))}
-                            </ul>
-                        </div>
-                    </Top>
-
-                    <Second>
-                        <div className="left">
-                            {testResultsMessage && (
-                                <div>
-                                    <h3>Результаты тестов:</h3>
-                                    <pre>{testResultsMessage}</pre>
-                                </div>
-                            )}
-                        </div>
-                        <div className="right">
-                            <h3>{result && <div>{result}</div>}</h3>
-                        </div>
-                    </Second>
-                </div>
+                {/* 
+                <div className="right">
+                    <h3>Описание тестов:</h3>
+                    <ul>
+                        {pageData.trainingData.test.map((item: Test, index: number) => (
+                            <li key={index + 'Test'} dangerouslySetInnerHTML={{ __html: item.description }}></li>
+                        ))}
+                    </ul>
+                </div> */}
 
 
             </Container>

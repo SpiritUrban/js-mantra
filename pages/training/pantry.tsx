@@ -7,6 +7,7 @@ const PantryPage = () => {
     const [scriptsLoaded, setScriptsLoaded] = useState(false);
     const [result, setResult] = useState<string | null>(null);
     const [testResultsMessage, setTestResultsMessage] = useState<string | null>(null);
+    const { id } = router.query as { id?: string };
 
     const pageData: any = {};
 

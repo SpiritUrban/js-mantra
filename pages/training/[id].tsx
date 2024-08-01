@@ -56,13 +56,10 @@ const Second = styled.div`
   }
 `;
 
-
 const TrainingPage = () => {
     const router = useRouter();
     const { id } = router.query as { id?: string };
     const [pageData, setPageData] = useState<PageData | null>(null);
-    const [result, setResult] = useState<string | null>(null);
-    const [testResultsMessage, setTestResultsMessage] = useState<string | null>(null);
     const [modalShow, setModalShow] = useState(false);
     const [testPassed, setTestPassed] = useState<boolean | null>(null);
     const [resultVisible, setResultVisible] = useState(false);
@@ -78,11 +75,6 @@ const TrainingPage = () => {
             setTimeout(() => setResultVisible(true), 100); // Плавное появление после небольшой задержки
         }
     }, [testPassed]);
-
-
-    // setScriptsLoaded(false)
-    // await pause(1000)
-    // setResultVisible(false);
 
     useEffect(() => {
         const run = async () => {
@@ -122,8 +114,6 @@ const TrainingPage = () => {
         run();
     }, [id]);
 
-
-
     const resetMocha = () => {
         // Clear previous mocha suite
         mocha.suite.suites = [];
@@ -142,25 +132,26 @@ const TrainingPage = () => {
         window.expect = window.chai.expect;
 
         // Run the tests
-        window.mocha.run().on('end', async () => {
-            // Прокрутка элемента Mocha вниз после завершения тестов
-            smoothScrollToBottom(mochaRef.current);
-            const allTestsPassed = window.mocha.suite.suites.every((suite: any) =>
-                suite.tests.every((test: any) => test.state === 'passed')
-            );
-            setTestPassed(allTestsPassed);
+        window.mocha
+            .run()
+            .on('end', async () => {
+                // Прокрутка элемента Mocha вниз после завершения тестов
+                smoothScrollToBottom(mochaRef.current);
+                const allTestsPassed = window.mocha.suite.suites.every((suite: any) =>
+                    suite.tests.every((test: any) => test.state === 'passed')
+                );
+                setTestPassed(allTestsPassed);
 
-            // Show results
-            await pause(1000);
-            if (!allTestsPassed) {
-                errorToast('Тесты провалены.');
-            } else {
+                // Show results
                 await pause(1000);
-                setModalShow(true);
-            }
-        });
+                if (!allTestsPassed) {
+                    errorToast('Тесты провалены.');
+                } else {
+                    await pause(1000);
+                    setModalShow(true);
+                }
+            });
     };
-
 
     useEffect(() => {
         const run = async () => {
@@ -168,16 +159,6 @@ const TrainingPage = () => {
         };
         run();
     }, [testPassed, resultVisible]);
-
-
-
-    // [BUTTON from files]
-    const handleRunTests = async (x: number | string) => {
-        if (!scriptsLoaded) return;
-        const path = `/training/${x}`;
-        runTest(path);
-    };
-
 
     const errorToast = (message: string) => {
         playSound('/sound/error.mp3');
@@ -203,54 +184,14 @@ const TrainingPage = () => {
         }
     };
 
-
     // [BUTTON from Editor]
     const handleSubmit = (code: string) => {
         try {
             console.log('ts', code); // ts
-            // const compiledCode = compileTypeScript(code);
-            // console.log('js', code); // js
-
             const path = `/training/${id}`;
             runTest(path, code);
-
-            // const func = new Function(`return (function() {${compiledCode}\nreturn ${pageData?.trainingData.funcName}; })();`)();
-            // const output = func(pageData?.trainingData.test[0].data);
-
-            // if (output !== null) {
-            //     setResult(`Результат: ${output}`);
-            //     runTests(func);
-            // } else {
-            //     setResult(`Ошибка: функция "${pageData?.trainingData.funcName}()" не найдена`);
-            // }
         } catch (error) {
             handleError(error, 'Произошла неизвестная ошибка');
-        }
-    };
-
-    const runTests = async (func: any) => {
-        let results = '';
-        let isPassedAllTests = true;
-
-        try {
-            pageData?.trainingData.test.forEach((item: Test) => {
-                const isPassedTest = func(item.data).length > 0; // RESULT !!!
-                isPassedAllTests = isPassedAllTests && isPassedTest;
-                const testMessage = isPassedTest ? item.successMessage : item.failMessage;
-                results += testMessage + '\n';
-            });
-
-            setTestResultsMessage(results);
-
-            if (!isPassedAllTests) {
-                errorToast('Тесты провалены.');
-            } else {
-                await pause(1000);
-                setModalShow(true);
-            }
-
-        } catch (error) {
-            handleError(error, 'Ошибка в тестах.');
         }
     };
 
@@ -309,15 +250,7 @@ const TrainingPage = () => {
                     </div>
                 </Second>
 
-
                 <div style={{ marginTop: '2rem' }}>
-
-
-                    <button onClick={_ => handleRunTests(id as string)}>Run: {id}</button> &nbsp; : &nbsp;
-                    <button onClick={_ => handleRunTests('add')}>add</button>
-                    <button onClick={_ => handleRunTests('multiply')}>multiply</button>
-                    <button onClick={_ => handleRunTests('cum-work')}>cum-work</button>
-                    <button onClick={_ => handleRunTests('dick-splitter')}>dick-splitter</button>
 
                     {testPassed !== null && (
                         <div className={`result ${resultVisible ? 'visible' : ''}`}>
@@ -325,8 +258,6 @@ const TrainingPage = () => {
                         </div>
                     )}
                 </div>
-
-
 
                 <ToastContainer
                     position="top-right"
@@ -346,20 +277,6 @@ const TrainingPage = () => {
                     onHide={() => setModalShow(false)}
                     content={pageData.modalContent}
                 />
-
-                <hr />
-
-                {/* 
-                <div className="right">
-                    <h3>Описание тестов:</h3>
-                    <ul>
-                        {pageData.trainingData.test.map((item: Test, index: number) => (
-                            <li key={index + 'Test'} dangerouslySetInnerHTML={{ __html: item.description }}></li>
-                        ))}
-                    </ul>
-                </div> */}
-
-
             </Container>
         </div>
     );

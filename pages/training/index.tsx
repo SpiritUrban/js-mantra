@@ -4,7 +4,6 @@ import TrainingCard from '@/components/organisms/TrainingCard';
 import { ISource, ISourceCard, ITrainingCard } from '@/interfaces/index';
 import Image from "next/image";
 
-
 const Container = styled.div`
     display: flex;
     flex-direction: column;
@@ -41,6 +40,8 @@ export default function Training() {
       description: ""
     }
   ];
+
+ 
 
   return (
     <div>

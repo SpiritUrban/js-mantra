@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import Link from 'next/link';
+import { playSound } from '@/utils';
 
 interface IllustrationProps {
     $backgroundImage: string;
@@ -96,7 +97,7 @@ interface SourceProps {
 
 const TrainingCard: React.FC<SourceProps> = ({ title, description, imageUrl, imageSource, sourceLink }) => {
     return (
-        <Link href={sourceLink} passHref>
+        <Link href={sourceLink} passHref onClick={() => playSound('/sound/monkey.mp3')}>
             <Section>
                 {imageUrl && (<Illustration $backgroundImage={imageUrl} />)}
                 {imageSource && (<ImageSourceContainer dangerouslySetInnerHTML={{ __html: imageSource }} />)}

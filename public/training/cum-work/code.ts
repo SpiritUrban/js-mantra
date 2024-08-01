@@ -19,10 +19,7 @@ const data: CumPortion[] = [
     }
 ];
 
-// const cumMixer = (cumPortions: CumPortion[]): number => 
-//     cumPortions.reduce((backet, currentPortion) => /* тут */, 0);
+const cumMixer = (cumPortions: CumPortion[]): number => 
+    cumPortions.reduce((backet, currentPortion) => /* тут */, 0);
 
 // dickSplitter(glassDick) => ['my', 'dick', 'is', 'big']
-
-const cumMixer = (cumPortions: CumPortion[]): number => 
-    cumPortions.reduce((backet, currentPortion) => backet + currentPortion.volume, 0);

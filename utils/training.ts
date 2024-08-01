@@ -49,6 +49,11 @@ const removeScript = (statusKey: keyof ScriptLoadStatus): void => {
   }
 };
 
+// Функция для замены строки /* tslint:disable */ на пустую строку
+const removeTslintDisable = (code: string): string => {
+  const tslintDisablePattern = /\/\*\s*tslint:disable\s*\*\//g;
+  return code.replace(tslintDisablePattern, '');
+};
 
 // AndCompileTypeScript
 export const fetchFile = async (src: string): Promise<string | null> => {
@@ -69,7 +74,7 @@ export const fetchFile = async (src: string): Promise<string | null> => {
     });
     if (!response.ok) throw new Error(`Failed to fetch script: ${src}`);
     const tsCode = await response.text();
-    return tsCode;
+    return removeTslintDisable(tsCode);
   } catch (error) {
     console.error(`Error loading script ${src}:`, error);
     return null;

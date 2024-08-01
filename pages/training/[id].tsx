@@ -66,24 +66,22 @@ const TrainingPage = () => {
     const [scriptsLoaded, setScriptsLoaded] = useState(false);
     const [initialCode, setInitialCode] = useState<string | null>(null);
     const [testingCode, setTestingCode] = useState<string | null>(null);
-
     const mochaRef = useRef(null);
-
-    useEffect(() => {
-        if (testPassed !== null) {
-            console.log('Test Results:', testPassed);
-            setTimeout(() => setResultVisible(true), 100); // Плавное появление после небольшой задержки
-        }
-    }, [testPassed]);
 
     useEffect(() => {
         const run = async () => {
             await addTestScripts();
             setScriptsLoaded(true);
-
         };
         run();
     }, []);
+
+    useEffect(() => {
+        if (testPassed !== null) {
+            console.log('Test Results:', testPassed);
+            setResultVisible(true);
+        }
+    }, [testPassed]);
 
     useEffect(() => {
         const run = async () => {
@@ -153,13 +151,6 @@ const TrainingPage = () => {
             });
     };
 
-    useEffect(() => {
-        const run = async () => {
-
-        };
-        run();
-    }, [testPassed, resultVisible]);
-
     const errorToast = (message: string) => {
         playSound('/sound/error.mp3');
         toast.error(message, {
@@ -174,16 +165,6 @@ const TrainingPage = () => {
         });
     }
 
-    const handleError = (error: unknown, defaultMessage: string) => {
-        if (error instanceof Error) {
-            setResult(`Ошибка: ${error.message}`);
-            errorToast(`Ошибка`);
-        } else {
-            setResult(defaultMessage);
-            errorToast(defaultMessage);
-        }
-    };
-
     // [BUTTON from Editor]
     const handleSubmit = (code: string) => {
         try {
@@ -191,7 +172,7 @@ const TrainingPage = () => {
             const path = `/training/${id}`;
             runTest(path, code);
         } catch (error) {
-            handleError(error, 'Произошла неизвестная ошибка');
+            errorToast('Произошла неизвестная ошибка');
         }
     };
 

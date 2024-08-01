@@ -8,7 +8,7 @@ const PantryPage = () => {
     const [result, setResult] = useState<string | null>(null);
     const [testResultsMessage, setTestResultsMessage] = useState<string | null>(null);
 
-    const pageData = {};
+    const pageData: any = {};
 
     const runTest = async (path: string) => {
     };
@@ -38,7 +38,7 @@ const PantryPage = () => {
                 setResult(`Ошибка: функция "${pageData?.trainingData.funcName}()" не найдена`);
             }
         } catch (error) {
-            handleError(error, 'Произошла неизвестная ошибка');
+            // handleError(error, 'Произошла неизвестная ошибка');
         }
     };
 

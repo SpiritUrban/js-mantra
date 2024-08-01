@@ -14,8 +14,8 @@ const CodeBlock: React.FC<CodeBlockProps> = ({ code, language }) => {
   }, [code, language]);
 
   return (
-    <pre>
-      <code 
+    <pre style={{ borderRadius: '.5rem' }}>
+      <code
         className={`language-${language}`}
         style={{ fontSize: '.9rem' }}
       >

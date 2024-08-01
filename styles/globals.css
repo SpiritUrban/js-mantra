@@ -31,8 +31,8 @@ body {
 }
 
 #mocha-stats {
-  top: 5rem;
-  background: #2d445b;
+  top: 4rem;
+  background: #4d196f;
   padding: .5rem;
   border-radius: .5rem;
 }

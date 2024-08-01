@@ -30,8 +30,11 @@ const Container = styled.div.attrs<StyledProps>({ 'data-component': 'Container' 
     display: flex;
     flex-direction: column;
     gap: 2rem;
-    padding: 2rem;
+    padding: 0;
     margin: 0 auto;
+    h1 {
+        color: cadetblue;
+    }
   `;
 
 const Second = styled.div` 

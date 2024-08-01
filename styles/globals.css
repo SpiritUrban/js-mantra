@@ -25,7 +25,7 @@ body {
   border-radius: .5rem;
   height: 10rem;
   overflow-y: scroll;
-  overflow-y: hidden;
+  /* overflow-y: hidden; */
   background: rgb(0 0 0 / 54%);
   padding: .5rem;
 }

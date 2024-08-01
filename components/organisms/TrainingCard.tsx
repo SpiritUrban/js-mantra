@@ -7,7 +7,8 @@ interface IllustrationProps {
 }
 
 const Section = styled.section`
-position: relative;
+    color: deepskyblue;
+    position: relative;
     height: 15rem;
     width: 15rem;
     border-radius: 2rem;
@@ -15,7 +16,7 @@ position: relative;
     transform: perspective(350px) rotateX(20deg) rotateY(20deg);
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2), 0 6px 6px rgba(0, 0, 0, 0.23);
     border: black solid 4px;
-        box-sizing: content-box;
+    box-sizing: content-box;
 
     &:hover {
         transform: perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1.5);
@@ -59,11 +60,15 @@ const ImageSourceContainer = styled.div`
 
 const Content = styled.div`
     position: absolute;
-     right:0;
-        bottom: 0rem;
-    background: #000000a6;
-    border-radius: 1rem;
-    padding: .5rem 1rem 0rem 1rem;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6); /* полупрозрачный черный фон */
+    border-radius: 1.2rem;
+    padding: 1rem 1rem 0rem 1rem;
+    backdrop-filter: blur(10px); /* добавление размытия */
+    -webkit-backdrop-filter: blur(10px); /* для поддержки в Safari */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* легкая тень */
+
     h1 {
         font-size: 1.3rem;
     }
@@ -91,19 +96,21 @@ interface SourceProps {
 
 const TrainingCard: React.FC<SourceProps> = ({ title, description, imageUrl, imageSource, sourceLink }) => {
     return (
-        <Section>
-            {imageUrl && (<Illustration $backgroundImage={imageUrl} />)}
-            {imageSource && (<ImageSourceContainer dangerouslySetInnerHTML={{ __html: imageSource }} />)}
-            {(title || description) && (<Content>
-                <h1>{title}</h1>
-                <p>{description}</p>
-            </Content>)}
-            <LinkContainer>
-                <Link href={sourceLink} passHref>
-                    Link
-                </Link>
-            </LinkContainer>
-        </Section>
+        <Link href={sourceLink} passHref>
+            <Section>
+                {imageUrl && (<Illustration $backgroundImage={imageUrl} />)}
+                {imageSource && (<ImageSourceContainer dangerouslySetInnerHTML={{ __html: imageSource }} />)}
+                {(title || description) && (<Content>
+                    <h1>{title}</h1>
+                    <p>{description}</p>
+                </Content>)}
+                {/* <LinkContainer>
+                    <Link href={sourceLink} passHref>
+                        Link
+                    </Link>
+                </LinkContainer> */}
+            </Section>
+        </Link>
     );
 };
 

@@ -1,4 +1,4 @@
-
+/* tslint:disable */
 interface CumPortion {
     producer: string;
     volume: number;

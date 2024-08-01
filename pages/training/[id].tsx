@@ -10,6 +10,7 @@ import Image from "next/image";
 import Head from 'next/head';
 import { Test, Training, PageData } from "@/data/training/interfaces";
 import { addTestScripts, fetchFile } from '@/utils/training';
+import CodeBlock from '@/components/organisms/CodeBlock';
 
 declare global {
     interface Window {
@@ -78,7 +79,8 @@ const TrainingPage = () => {
     const [testPassed, setTestPassed] = useState<boolean | null>(null);
     const [resultVisible, setResultVisible] = useState(false);
     const [scriptsLoaded, setScriptsLoaded] = useState(false);
-    const [initialCode, setInitialCode] = useState('');
+    const [initialCode, setInitialCode] = useState<string | null>(null);
+    const [ testingCode, setTestingCode ] = useState<string | null>(null);
 
     const mochaRef = useRef(null);
 
@@ -120,6 +122,13 @@ const TrainingPage = () => {
                 if (initialCode) setInitialCode(initialCode);
             } catch (err) {
                 console.error(`Error loading script /training/${id}/code.ts:`, err);
+            }
+
+            try {
+                const testingCode = await fetchFile(`/training/${id}/code.test.js`);
+                if (testingCode) setTestingCode(testingCode);
+            } catch (err) {
+                console.error(`Error loading script /training/${id}/code.test.js:`, err);
             }
         };
         run();
@@ -285,7 +294,7 @@ const TrainingPage = () => {
                             {scriptsLoaded && (
                                 <CodeEditor
                                     height={pageData.trainingData.editorHeight}
-                                    initialCode={initialCode}
+                                    initialCode={initialCode || '// no code'}
                                     onSubmit={handleSubmit}
                                 />
                             )}
@@ -295,6 +304,11 @@ const TrainingPage = () => {
 
                         </div>
                     </Second>
+
+    <CodeBlock code={testingCode || '// no code'} language="typescript" />
+
+
+                    
 
 
                     {testPassed !== null && (

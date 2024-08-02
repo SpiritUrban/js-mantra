@@ -1,10 +1,12 @@
 import * as ts from 'typescript';
 
 
-export const playSound = (path: string) => {
+export const playSound = (path: string, volume: number = 1.0) => {
   const audio = new Audio(path);
+  audio.volume = volume; // Устанавливаем громкость
   audio.play();
 };
+
 
 export const pause = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 

@@ -97,7 +97,7 @@ interface SourceProps {
 
 const TrainingCard: React.FC<SourceProps> = ({ title, description, imageUrl, imageSource, sourceLink }) => {
     return (
-        <Link href={sourceLink} passHref onClick={() => playSound('/sound/monkey.mp3')}>
+        <Link href={sourceLink} passHref onClick={() => playSound('/sound/monkey.mp3', .3)}>
             <Section>
                 {imageUrl && (<Illustration $backgroundImage={imageUrl} />)}
                 {imageSource && (<ImageSourceContainer dangerouslySetInnerHTML={{ __html: imageSource }} />)}

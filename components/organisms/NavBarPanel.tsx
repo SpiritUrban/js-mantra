@@ -84,7 +84,7 @@ function NavBarPanel() {
   return (
     <Navbar data-bs-theme="dark" expanded={expanded} expand="lg" className="bg-body-tertiary">
       <Container fluid>
-        <Navbar.Brand href="#">
+        <Navbar.Brand href="https://js-mantra.vercel.app/">
           <img
             src="/logo.svg"
             alt="logo"

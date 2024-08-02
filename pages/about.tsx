@@ -14,6 +14,21 @@ export default function About() {
 
     <CodeBlock code={dataForCode} language="typescript" />
 
+    {/* <Image
+          src="/logo.svg"
+          alt="JS Mantra"
+          className="test"
+          width={1000}
+          height={1000}
+          priority
+          style={{
+            filter: "invert(100%)",
+            borderRadius: "20rem",
+          }}
+        /> */}
+
+
+
 
     {/* <Button variant="primary" onClick={() => setModalShow(true)}>
       Launch vertically centered modal

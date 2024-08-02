@@ -6,6 +6,7 @@ export interface PageData {
 export interface Training {
     title: string;
     heading: string;
+    sounds?: { src: string; delay: number }[];
     funcName: string;
     description: string;
     img: string;

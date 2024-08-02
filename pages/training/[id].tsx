@@ -115,6 +115,16 @@ const TrainingPage = () => {
         run();
     }, [id]);
 
+    useEffect(() => {
+        console.log('pageData', pageData);
+        if (!pageData) return;
+        if (pageData.trainingData.sounds) {
+            pageData.trainingData.sounds.forEach((sound) => {
+                playSound(sound.src, 1, sound.delay);
+            });
+        }
+    }, [pageData]);
+
     const resetMocha = () => {
         // Clear previous mocha suite
         mocha.suite.suites = [];

@@ -5,6 +5,16 @@ const funcName = 'dickSplitter';
 const trainingData: Training = {
     title: "Dick Splitting",
     heading: 'Используем метод <b>"split"</b>',
+    sounds: [
+      {
+        src: '/sound/training/JS-Training-Dick-Splitting.mp3',
+        delay: 2
+      },
+      {
+        src: '/sound/training/JS-Training-Dick-Splitting-ru.mp3',
+        delay: 8
+      }
+    ],
     funcName,
     description: `
 Допишите функцию <b>"${funcName}()"</b>.

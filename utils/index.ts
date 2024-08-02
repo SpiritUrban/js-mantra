@@ -1,14 +1,15 @@
 import * as ts from 'typescript';
 
+export const pause = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
-export const playSound = (path: string, volume: number = 1.0) => {
+
+export const playSound = async (path: string, volume: number = 1.0, delay: number = 0) => {
   const audio = new Audio(path);
   audio.volume = volume; // Устанавливаем громкость
+  if (delay > 0) await pause(delay * 1000); // Переводим задержку в миллисекунды
   audio.play();
 };
 
-
-export const pause = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
 export const compileTypeScript = (code: string) => {
   const result = ts.transpileModule(code, {

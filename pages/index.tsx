@@ -2,41 +2,56 @@ import dynamic from "next/dynamic";
 import Image from "next/image";
 import { Container } from "react-bootstrap";
 import Card from 'react-bootstrap/Card';
+import styled from 'styled-components';
+
+const Main = styled.main`
+  padding: 2rem 0;
+  min-height: 100vh;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+`;
 
 export default function Home() {
   return (
-  <Container fluid className="bg-dark text-white min-vh-100">
-      <main
-        className=""
-        style={{
-          minHeight: "100vh",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          flexDirection: "column",
-          gap: "1rem",
-        }}
-      >
-
-        {/* <Image
-          src="/logo.svg"
-          alt="JS Mantra"
-          className="test"
-          width={1000}
-          height={1000}
-          priority
-          style={{
-            filter: "invert(100%)",
-            borderRadius: "20rem",
-          }}
-        /> */}
+    <Container fluid className="bg-dark text-white min-vh-100">
+      <Main>
 
         <Card data-bs-theme="dark">
           <Card.Body>This is some text within a card body.</Card.Body>
         </Card>
 
-        
-      </main>
+        <Card data-bs-theme="dark">
+          <Card.Body>This is some text within a card body.</Card.Body>
+        </Card>
+
+        <Card data-bs-theme="dark">
+          <Card.Body>This is some text within a card body.</Card.Body>
+        </Card>        <Card data-bs-theme="dark">
+          <Card.Body>This is some text within a card body.</Card.Body>
+        </Card>
+
+        <Card data-bs-theme="dark">
+          <Card.Body>This is some text within a card body.</Card.Body>
+        </Card>
+
+        <Card data-bs-theme="dark">
+          <Card.Body>This is some text within a card body.</Card.Body>
+        </Card>        <Card data-bs-theme="dark">
+          <Card.Body>This is some text within a card body.</Card.Body>
+        </Card>
+
+        <Card data-bs-theme="dark">
+          <Card.Body>This is some text within a card body.</Card.Body>
+        </Card>
+
+        <Card data-bs-theme="dark">
+          <Card.Body>This is some text within a card body.</Card.Body>
+        </Card>
+
+
+      </Main>
     </Container>
   );
 }

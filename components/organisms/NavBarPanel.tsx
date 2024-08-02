@@ -84,7 +84,17 @@ function NavBarPanel() {
   return (
     <Navbar data-bs-theme="dark" expanded={expanded} expand="lg" className="bg-body-tertiary">
       <Container fluid>
-        <Navbar.Brand href="#">js-mantra</Navbar.Brand>
+        <Navbar.Brand href="#">
+          <img
+            src="/logo.svg"
+            alt="logo"
+            style={{
+              filter: "invert(100%)",
+              width: '2rem',
+              marginRight: '.7rem'
+            }} />
+          js-mantra
+        </Navbar.Brand>
         <Navbar.Toggle ref={toggleRef} aria-controls="navbarScroll" onClick={handleToggle} />
         <Navbar.Collapse id="navbarScroll">
           <Nav
@@ -115,7 +125,9 @@ function NavBarPanel() {
               )
             ))}
           </Nav>
-          <Form className="d-flex">
+
+          {/* SEARCH !!! */}
+          {/* <Form className="d-flex">
             <Form.Control
               type="search"
               placeholder="Search"
@@ -123,7 +135,7 @@ function NavBarPanel() {
               aria-label="Search"
             />
             <Button variant="outline-success">Search</Button>
-          </Form>
+          </Form> */}
         </Navbar.Collapse>
       </Container>
     </Navbar>

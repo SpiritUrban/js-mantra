@@ -17,8 +17,9 @@ export default function Home() {
           gap: "1rem",
         }}
       >
-        <Image
-          src="/logo.webp"
+
+        {/* <Image
+          src="/logo.svg"
           alt="JS Mantra"
           className="test"
           width={1000}
@@ -28,7 +29,7 @@ export default function Home() {
             filter: "invert(100%)",
             borderRadius: "20rem",
           }}
-        />
+        /> */}
 
         <Card data-bs-theme="dark">
           <Card.Body>This is some text within a card body.</Card.Body>

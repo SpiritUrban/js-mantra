@@ -5,6 +5,17 @@ const funcName = 'cumMixer';
 const trainingData: Training = {
     title: "Cum Work",
     heading: 'Используя метод <b>"reduce"</b>',
+    sounds: [
+        {
+          src: '/sound/training/JS-Training-Cum-Work.mp3',
+          delay: 2
+        },
+        // {
+        //   src: '/sound/training/JS-Training-Dick-Splitting-ru.mp3',
+        //   delay: 8
+        // }
+      ],
+    
     funcName,
     description: `Допишите функцию <b>"${funcName}()"</b>.`,
     img: "/img/cum-work.webp",

@@ -47,13 +47,21 @@ const GlassCard = styled.div`
   backdrop-filter: blur(4px);
   border-radius: 10px;
   border: 1px solid rgba(255, 255, 255, 0.18);
-  width: fit-content;
+  padding: 1rem 2rem;
   position: absolute;
   right: 1rem;
   bottom: 1rem;
-  padding: 1rem;
-  height: calc(100% - 4rem);
+  width: fit-content;
   max-width: 50%;
+  height: calc(100% - 4rem);
+  text-align: justify;
+  text-shadow: -1px -1px 1px rgba(255, 255, 255, 0.1),
+    1px 1px 1px rgba(0, 0, 0, 0.5);
+
+  h1 {
+    text-align: center;
+    color: #d570ff;
+  }
 `;
 
 export default function Home() {

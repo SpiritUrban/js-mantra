@@ -42,25 +42,26 @@ const ContentSection = styled.section`
 `;
 
 const GlassCard = styled.div`
-  background-color: rgba(12, 0, 55, 0.48);
+  background-color: rgb(12 13 43 / 69%);
   box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-  backdrop-filter: blur(4px);
+  backdrop-filter: blur(7px);
   border-radius: 10px;
-  border: 1px solid rgba(255, 255, 255, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.22);
   padding: 1rem 2rem;
   position: absolute;
   right: 1rem;
   bottom: 1rem;
   width: fit-content;
   max-width: 50%;
-  height: calc(100% - 4rem);
+  // height: calc(100% - 4rem);
   text-align: justify;
   text-shadow: -1px -1px 1px rgba(255, 255, 255, 0.1),
-    1px 1px 1px rgba(0, 0, 0, 0.5);
+  1px 1px 1px rgba(0, 0, 0, 0.5);
 
   h1 {
     text-align: center;
     color: #d570ff;
+    color: #c88afb;
   }
 `;
 
@@ -72,6 +73,8 @@ export default function Home() {
         <ParallaxSection>
           <GlassCard>
             <h1>JS Mantra</h1>
+            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Harum magni maiores praesentium reprehenderit a autem reiciendis asperiores facere quisquam quaerat recusandae et officia ratione, odio dolores voluptas ut. At, ea?</p>
+            <hr />
             <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Harum magni maiores praesentium reprehenderit a autem reiciendis asperiores facere quisquam quaerat recusandae et officia ratione, odio dolores voluptas ut. At, ea?</p>
           </GlassCard>
         </ParallaxSection>

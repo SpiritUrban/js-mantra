@@ -24,7 +24,6 @@ const Container2 = styled.div`
 export default function CheatSheets() {
 
     const data2: ISourceCard[] = [
-        '/img/cheatsheets/array.jpg',
         '/img/cheatsheets/array-2.jpg',
         '/img/cheatsheets/array-3.gif',
         '/img/cheatsheets/array-4.png',

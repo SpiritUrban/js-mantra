@@ -75,8 +75,11 @@ const LinkContainer = styled.div`
     right: -3rem;
     top: -1rem;
     background: #000000a6;
-    border-radius: 1rem;
+    border-radius: 5rem;
     padding: .5rem;
+    a {
+        padding: 1rem;
+    }
  
 `;
 

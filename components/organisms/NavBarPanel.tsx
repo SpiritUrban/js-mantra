@@ -44,6 +44,7 @@ function NavBarPanel() {
       ]
     },
     { name: 'Training', href: '/training' },
+    { name: 'CheatSheets', href: '/cheatsheets' },
   ]);
 
   type PageListResponse = {

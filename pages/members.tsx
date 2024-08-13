@@ -3,6 +3,7 @@
 import React from "react";
 import Table from "react-bootstrap/Table";
 import { members, Member, Contact } from "@/data/members";
+import StatusBadge from "@/components/atoms/StatusBadge";
 
 interface MemberRowsProps {
   members: Member[];
@@ -30,7 +31,7 @@ const MemberRows: React.FC<MemberRowsProps> = ({ members }) => (
         <td>
           <ContactItems contacts={member.contacts} />
         </td>
-        <td>{member.status}</td>
+        <td><StatusBadge title={member.status}/></td>
         <td>
           <a
             href={member.github.link}

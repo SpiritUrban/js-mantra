@@ -40,6 +40,13 @@ export default function Training() {
       description: "",
       soundClick: "/sound/monkey.mp3",
     },
+    {
+      title: "Cum Filter",
+      imageUrl: "/img/dick-splitter.webp",
+      // imageSource: `<img src="https://justpaste.it/static/img/jp_logo_v3.svg" alt="" />`,
+      sourceLink: "./training/cum-filter",
+      description: "",
+      soundClick: "/sound/monkey.mp3",}
   ];
 
   return (

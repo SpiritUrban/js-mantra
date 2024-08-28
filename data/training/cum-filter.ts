@@ -14,7 +14,7 @@ const trainingData: Training = {
 
   funcName,
   description: `Допишите функцию <b>"${funcName}()"</b>.`,
-  img: "/img/cum-work.webp",
+  img: "/img/cum-filter.webp",
   editorHeight: "45rem",
 };
 

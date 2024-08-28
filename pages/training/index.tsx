@@ -42,7 +42,7 @@ export default function Training() {
     },
     {
       title: "Cum Filter",
-      imageUrl: "/img/dick-splitter.webp",
+      imageUrl: "/img/cum-filter.webp",
       // imageSource: `<img src="https://justpaste.it/static/img/jp_logo_v3.svg" alt="" />`,
       sourceLink: "./training/cum-filter",
       description: "",

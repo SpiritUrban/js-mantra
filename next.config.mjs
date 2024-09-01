@@ -14,7 +14,7 @@ const nextConfig = {
               style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com;
               img-src * blob: data:;
               media-src *;
-              connect-src 'self';
+              connect-src 'self' https://jsonplaceholder.typicode.com;
               font-src 'self';
               object-src 'none';
               frame-ancestors 'self';

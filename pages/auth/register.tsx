@@ -3,6 +3,9 @@ import Form from "react-bootstrap/Form";
 import styled from "styled-components";
 
 import Card from "react-bootstrap/Card";
+import { useDispatch, useSelector } from "react-redux";
+import authSlice, { setAuthData } from "@/lib/RTK/slices/authSlice";
+import React, { FormEvent } from "react";
 
 const Container = styled.div`
   display: flex;
@@ -14,16 +17,32 @@ const Container = styled.div`
 `;
 
 function Register() {
+  const dispatch = useDispatch();
+
+  const submit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const formData = new FormData(e.currentTarget);
+    const email = formData.get("email") as string;
+    const password = formData.get("password") as string;
+
+    dispatch(setAuthData({ email, password }));
+  };
+
   return (
     <Container>
-      <Card style={{ width: "25rem", margin:"auto" }}>
+      <Card style={{ width: "25rem", margin: "auto" }}>
         <Card.Body>
           <Card.Title>Register</Card.Title>
 
-          <Form>
+          <Form onSubmit={submit}>
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label>Email address</Form.Label>
-              <Form.Control type="email" placeholder="Enter email" />
+              <Form.Control
+                name="email"
+                type="email"
+                placeholder="Enter email"
+              />
               <Form.Text className="text-muted">
                 We'll never share your email with anyone else.
               </Form.Text>
@@ -31,7 +50,11 @@ function Register() {
 
             <Form.Group className="mb-3" controlId="formBasicPassword">
               <Form.Label>Password</Form.Label>
-              <Form.Control type="password" placeholder="Password" />
+              <Form.Control
+                name="password"
+                type="password"
+                placeholder="Password"
+              />
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicCheckbox">
               <Form.Check type="checkbox" label="Check me out" />

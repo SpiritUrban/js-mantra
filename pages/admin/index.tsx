@@ -3,7 +3,7 @@
 import dynamic from 'next/dynamic';
 
 const AdminApp = dynamic(() => import('@/components/modules/AdminApp'), {
-  ssr: false, // Отключение серверного рендеринга для этого компонента
+  ssr: false,
 });
 
 export default function Index() {

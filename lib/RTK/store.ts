@@ -2,11 +2,14 @@ import { configureStore } from '@reduxjs/toolkit';
 import { createWrapper } from 'next-redux-wrapper';
 import todosSlice from './slices/todosSlice';
 import counterSlice from './slices/counterSlice';
+import authSlice from './slices/authSlice';
+
 
 export const makeStore = () => configureStore({
   reducer: {
     todos: todosSlice,
-    counter:counterSlice
+    counter:counterSlice,
+    auth:authSlice
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

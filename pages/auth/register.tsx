@@ -1,11 +1,11 @@
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import styled from "styled-components";
-
 import Card from "react-bootstrap/Card";
-import { useDispatch, useSelector } from "react-redux";
-import authSlice, { setAuthData } from "@/lib/RTK/slices/authSlice";
+import { useDispatch } from "react-redux";
+import { setAuthData } from "@/lib/RTK/slices/authSlice";
 import React, { FormEvent } from "react";
+import axios from "axios";
 
 const Container = styled.div`
   display: flex;
@@ -27,6 +27,28 @@ function Register() {
     const password = formData.get("password") as string;
 
     dispatch(setAuthData({ email, password }));
+
+    console.log("sdsd");
+
+    // Пример с axios
+
+    // Используем fetch для отправки POST-запроса
+    axios
+      .post(
+        "/api/auth/register",
+        {
+          email,
+          password,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      .then((response) => {
+        console.log("Response:", response.data);
+      });
   };
 
   return (

@@ -15,7 +15,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   console.log(hashedPassword)
   // Создаем пользователя
   const user = await createUser({ email, password: hashedPassword });
-  res.status(201).json({ user });
+  res.status(201).json( user );
   
 }
 

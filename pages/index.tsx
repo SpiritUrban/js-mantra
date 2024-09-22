@@ -19,7 +19,7 @@ const Main = styled.main`
 `;
 
 const ParallaxSection = styled.section.attrs<StyledProps>({ 'data-component': 'ParallaxSection' })`
-  background-image: url('/img/a-team-of-developers-riding-a-rocket.webp');
+  background-image: url('/img/team-of-developers-riding-a-rocket.webp');
   height: 500px;
   background-attachment: fixed;
   background-position: top;

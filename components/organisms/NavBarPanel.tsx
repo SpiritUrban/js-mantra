@@ -107,6 +107,7 @@ function NavBarPanel() {
             style={{
               filter: "invert(100%)",
               width: "2rem",
+              height: "2rem",
               marginRight: ".7rem",
             }}
           />

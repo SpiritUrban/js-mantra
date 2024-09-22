@@ -1,4 +1,5 @@
-import bcrypt from 'bcryptjs'; 
+declare module 'bcryptjs';
+import bcrypt from 'bcryptjs';
 import { createUser } from '@/lib/services/user';
 import { NextApiRequest, NextApiResponse } from "next";
 

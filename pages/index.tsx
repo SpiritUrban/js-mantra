@@ -1,3 +1,10 @@
+/*
+ * The main page. 
+ * 
+ * Local  : <http://http://localhost:3000/>.
+ * Remote : <https://js-mantra.vercel.app/>.
+ */
+
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import { Container } from "react-bootstrap";

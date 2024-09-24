@@ -6,7 +6,8 @@ import { useDispatch } from "react-redux";
 import { setAuthData } from "@/lib/RTK/slices/authSlice";
 import React, { FormEvent } from "react";
 import axios from "axios";
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer, toast } from "react-toastify";
+import { playSound } from "@/utils";
 
 const Container = styled.div`
   display: flex;
@@ -31,9 +32,6 @@ function Register() {
 
     console.log("sdsd");
 
-    // Пример с axios
-
-    // Используем fetch для отправки POST-запроса
     axios
       .post(
         "/api/auth/register",
@@ -53,19 +51,18 @@ function Register() {
   };
 
   const errorToast = (message: string) => {
-   // playSound('/sound/error.mp3');
+    playSound("/sound/noInternet.mp3");
     toast.error(message, {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "colored",
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
     });
-   
-}
+  };
 
   return (
     <Container>
@@ -105,21 +102,30 @@ function Register() {
       </Card>
 
       <ToastContainer
-                    position="top-right"
-                    autoClose={5000}
-                    hideProgressBar={false}
-                    newestOnTop={false}
-                    closeOnClick
-                    rtl={false}
-                    pauseOnFocusLoss
-                    draggable
-                    pauseOnHover
-                    theme="colored"
-                />
-                <Button onClick={(()=>{errorToast("the toast")})}>button</Button>
-
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+      />
+      <Button
+        style={{ width: " 91px", marginLeft: "370px" }}
+        variant="primary"
+        onClick={() => {
+          errorToast("the toast");
+        }}
+      >
+        button
+      </Button>
     </Container>
   );
 }
+
+//https://fkhadra.github.io/react-toastify/introduction/
 
 export default Register;

@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import { setAuthData } from "@/lib/RTK/slices/authSlice";
 import React, { FormEvent } from "react";
 import axios from "axios";
+import { ToastContainer, toast } from 'react-toastify';
 
 const Container = styled.div`
   display: flex;
@@ -51,6 +52,21 @@ function Register() {
       });
   };
 
+  const errorToast = (message: string) => {
+   // playSound('/sound/error.mp3');
+    toast.error(message, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+    });
+   
+}
+
   return (
     <Container>
       <Card style={{ width: "25rem", margin: "auto" }}>
@@ -87,6 +103,21 @@ function Register() {
           </Form>
         </Card.Body>
       </Card>
+
+      <ToastContainer
+                    position="top-right"
+                    autoClose={5000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover
+                    theme="colored"
+                />
+                <Button onClick={(()=>{errorToast("the toast")})}>button</Button>
+
     </Container>
   );
 }

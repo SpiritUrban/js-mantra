@@ -1,3 +1,10 @@
+/*
+ * The main page. 
+ * 
+ * Local  : <http://http://localhost:3000/>.
+ * Remote : <https://js-mantra.vercel.app/>.
+ */
+
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import { Container } from "react-bootstrap";
@@ -19,7 +26,7 @@ const Main = styled.main`
 `;
 
 const ParallaxSection = styled.section.attrs<StyledProps>({ 'data-component': 'ParallaxSection' })`
-  background-image: url('/img/a-team-of-developers-riding-a-rocket.webp');
+  background-image: url('/img/team-of-developers-riding-a-rocket.webp');
   height: 500px;
   background-attachment: fixed;
   background-position: top;

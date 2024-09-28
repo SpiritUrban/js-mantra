@@ -8,6 +8,8 @@ import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import Link from "next/link";
 import A from "@/components/atoms/A";
+import Image from 'next/image';
+
 
 interface LinkItem {
   name: string;
@@ -98,12 +100,14 @@ function NavBarPanel() {
     >
       <Container fluid>
         <Navbar.Brand href="https://js-mantra.vercel.app/">
-          <img
+          <Image
+            width={500} height={500}
             src="/logo.svg"
             alt="logo"
             style={{
               filter: "invert(100%)",
               width: "2rem",
+              height: "2rem",
               marginRight: ".7rem",
             }}
           />
@@ -148,7 +152,7 @@ function NavBarPanel() {
             )}
           </Nav>
           {/* SEARCH !!! */}
-         {/* <Form className="d-flex">
+          {/* <Form className="d-flex">
             <Form.Control
               type="search"
               placeholder="Search"

@@ -1,6 +1,5 @@
-
-import bcrypt from "bcryptjs";
-import { createUser } from "@/lib/services/user";
+//import bcrypt from "bcryptjs";
+import { login } from "@/lib/services/user";
 import { NextApiRequest, NextApiResponse } from "next";
 
 export default async function handler(
@@ -13,8 +12,8 @@ export default async function handler(
     return res.status(405).end(`Method ${req.method} Not Allowed`);
   }
   const { email, password } = req.body;
-  //const hashedPassword = await bcrypt.hash(password, 10);
+  // const hashedPassword = await bcrypt.hash(password, 10);
   // console.log(hashedPassword);
-  const result = await createUser({ email, password });
+  const result = await login({ email, password });
   res.status(201).json(result);
 }

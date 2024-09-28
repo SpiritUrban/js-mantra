@@ -1,3 +1,5 @@
+import bcrypt from "bcryptjs";
+
 const mongoose = require("mongoose");
 mongoose.connect("mongodb://127.0.0.1:27017/js-mantra");
 
@@ -17,13 +19,45 @@ export const createUser = async ({
 }) => {
   try {
     const existedUser = await User.findOne({ email });
-    console.log(existedUser,!!existedUser)
+    console.log(existedUser, !!existedUser);
     if (existedUser) {
       return { ok: false, message: "the email is engaged" };
     } else {
-      const user = new User({ email, password });
+      const hashedPassword = await bcrypt.hash(password, 10);
+      console.log("register", password, hashedPassword);
+      const user = new User({ email, password: hashedPassword });
       await user.save();
-      return user;
+      return { user, ok: true, message: "User is successful created" };
+    }
+  } catch (error: any) {
+    return { error: "An error occurred while creating user" };
+  }
+};
+// $2a$10$a61ldDGQNe54l/TAiYiwI.rQ5u82BJicNk4RE96f5chcNRYSFF5Xe
+
+export const login = async ({
+  email,
+  password,
+}: {
+  email: string;
+  password: string;
+}) => {
+  try {
+    const existedUser = await User.findOne({ email });
+    // console.log(existedUser, !!existedUser);
+    if (existedUser) {
+      const isPasswordCorrect = await bcrypt.compare(
+        password,
+        existedUser.password
+      );
+      console.log("login", password, existedUser.password, isPasswordCorrect);
+      if (isPasswordCorrect) {
+        return { ok: true, user: existedUser };
+      } else {
+        return { ok: false, message: "wrong password " };
+      }
+    } else {
+      return { ok: false, message: "the user no existed" };
     }
   } catch (error: any) {
     return { error: "An error occurred while creating user" };

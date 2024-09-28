@@ -19,7 +19,7 @@ const Container = styled.div`
   margin: 0 auto;
 `;
 
-function Register() {
+function Login() {
   const dispatch = useDispatch();
   const router = useRouter();
 
@@ -35,7 +35,7 @@ function Register() {
     console.log("sdsd");
 
     const response = await axios.post(
-      "/api/auth/register",
+      "/api/auth/login",
       {
         email,
         password,
@@ -49,10 +49,9 @@ function Register() {
     console.log("Response:", response.data);
     if (response.data.ok) {
       successToast(response.data.message);
-      router.push('/auth/login');
+      router.push("/auth/login");
     } else {
       errorToast(response.data.message);
-
     }
   };
 
@@ -87,7 +86,7 @@ function Register() {
     <Container>
       <Card style={{ width: "25rem", margin: "auto" }}>
         <Card.Body>
-          <Card.Title>Register</Card.Title>
+          <Card.Title>Login</Card.Title>
 
           <Form onSubmit={submit}>
             <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -98,9 +97,8 @@ function Register() {
                 placeholder="Enter email"
               />
               <Form.Text className="text-muted">
-                We&apos;ll never share your email with anyone else.
+                We'll never share your email with anyone else.
               </Form.Text>
-
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="formBasicPassword">
@@ -156,6 +154,4 @@ function Register() {
   );
 }
 
-//https://fkhadra.github.io/react-toastify/introduction/
-
-export default Register;
+export default Login;

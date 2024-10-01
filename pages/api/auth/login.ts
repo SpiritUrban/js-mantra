@@ -1,6 +1,7 @@
 //import bcrypt from "bcryptjs";
 import { login } from "@/lib/services/user";
 import { NextApiRequest, NextApiResponse } from "next";
+import {setLoginSession} from "@/lib/services/auth";
 
 export default async function handler(
   req: NextApiRequest,
@@ -15,5 +16,6 @@ export default async function handler(
   // const hashedPassword = await bcrypt.hash(password, 10);
   // console.log(hashedPassword);
   const result = await login({ email, password });
+  if(result.ok ) await setLoginSession(res, { userId: result.user._id });
   res.status(201).json(result);
 }

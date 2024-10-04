@@ -23,6 +23,17 @@ function Login() {
   const dispatch = useDispatch();
   const router = useRouter();
 
+  const chackSession = async () => {
+    const response = await fetch("/api/auth/check-session");
+    const data = await response.json();
+
+    if (response.ok) {
+      console.log("User session:", data.user);
+    } else {
+      console.log("Session not found or expired");
+    }
+  };
+
   const submit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -34,24 +45,29 @@ function Login() {
 
     console.log("sdsd");
 
-    const response = await axios.post(
-      "/api/auth/login",
-      {
-        email,
-        password,
-      },
-      {
-        headers: {
-          "Content-Type": "application/json",
+    try {
+      const response = await axios.post(
+        "/api/auth/login",
+        {
+          email,
+          password,
         },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      console.log("Response:", response.data);
+      if (response.data.ok) {
+        successToast(response.data.message);
+        router.push("/auth/login");
+      } else {
+        errorToast(response.data.message);
       }
-    );
-    console.log("Response:", response.data);
-    if (response.data.ok) {
-      successToast(response.data.message);
-      router.push("/auth/login");
-    } else {
-      errorToast(response.data.message);
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -149,6 +165,14 @@ function Login() {
         }}
       >
         Button
+      </Button>
+
+      <Button
+        onClick={() => {
+          chackSession();
+        }}
+      >
+        Chack-Session
       </Button>
     </Container>
   );

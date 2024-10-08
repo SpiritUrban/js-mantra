@@ -33,7 +33,6 @@ export const createUser = async ({
     return { error: "An error occurred while creating user" };
   }
 };
-// $2a$10$a61ldDGQNe54l/TAiYiwI.rQ5u82BJicNk4RE96f5chcNRYSFF5Xe
 
 export const login = async ({
   email,
@@ -44,13 +43,13 @@ export const login = async ({
 }) => {
   try {
     const existedUser = await User.findOne({ email });
-    // console.log(existedUser, !!existedUser);
+    console.log(existedUser);
     if (existedUser) {
       const isPasswordCorrect = await bcrypt.compare(
         password,
         existedUser.password
       );
-      console.log("login", password, existedUser.password, isPasswordCorrect);
+      console.log("user service: login process - get user", password, existedUser.password, isPasswordCorrect);
       if (isPasswordCorrect) {
         return { ok: true, user: existedUser };
       } else {
@@ -63,6 +62,17 @@ export const login = async ({
     return { error: "An error occurred while creating user" };
   }
 };
+
+// get user by any fields
+export const getUser = async (userFields: any) => {
+  try {
+    console.log('userFields: ',userFields);
+    const user = await User.findOne(userFields);
+    return user;
+  } catch (error: any) {
+    return { error: "An error occurred while getting user" };
+  }
+}
 
 //mongodb://mongo:egYemlCbHfDOGFoVyMSevwsYEVpfloCU@mongodb.railway.internal:27017
 

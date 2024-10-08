@@ -20,7 +20,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     const result = await login({ email, password });
 
     if (result.ok) {
-      await setLoginSession(req, res, { userId: result.user._id });
+      await setLoginSession(req, res, { _id: result.user._id });
       return res.status(201).json(result);
     } else {
       return res.status(401).json({ error: "Invalid credentials" });

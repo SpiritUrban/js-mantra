@@ -1,14 +1,17 @@
 import bcrypt from "bcryptjs";
+import User from "@/models/User";
+import dbConnect from '@/lib/services/db';
+import { UpdateQuery } from "mongoose";
 
-const mongoose = require("mongoose");
-mongoose.connect("mongodb://127.0.0.1:27017/js-mantra");
+// const mongoose = require("mongoose");
+// mongoose.connect("mongodb://127.0.0.1:27017/js-mantra");
 
-const userSchema = new mongoose.Schema({
-  email: { type: String, unique: true, required: true },
-  password: { type: String, required: true },
-});
+// const userSchema = new mongoose.Schema({
+//   email: { type: String, unique: true, required: true },
+//   password: { type: String, required: true },
+// });
 
-const User = mongoose.models.User || mongoose.model("User", userSchema);
+// const User = mongoose.models.User || mongoose.model("User", userSchema);
 
 export const createUser = async ({
   email,
@@ -18,6 +21,9 @@ export const createUser = async ({
   password: string;
 }) => {
   try {
+
+    await dbConnect();
+
     const existedUser = await User.findOne({ email });
     console.log(existedUser, !!existedUser);
     if (existedUser) {
@@ -33,6 +39,58 @@ export const createUser = async ({
     return { error: "An error occurred while creating user" };
   }
 };
+
+
+
+
+
+
+
+
+// lib/user.js
+
+// import dbConnect from './db';
+// import User from '../models/User';
+
+// Функция для создания пользователя
+// export async function createUser({ username, password }) {
+//   await dbConnect();
+
+//   const user = new User({ username, password });
+//   await user.save();
+//   return user;
+// }
+
+// Функция для поиска пользователя по имени пользователя
+export async function findUser({ username }: { username: string }) {
+  await dbConnect();
+
+  const user = await User.findOne({ username });
+  return user;
+}
+
+// Функция для обновления данных пользователя
+export async function updateUser(userId: string, updateData: UpdateQuery<any> | undefined) {
+  await dbConnect();
+
+  const user = await User.findByIdAndUpdate(userId, updateData, { new: true });
+  return user;
+}
+
+// Функция для удаления пользователя
+export async function deleteUser(userId: string) {
+  await dbConnect();
+
+  await User.findByIdAndDelete(userId);
+}
+
+
+
+
+
+
+
+
 
 export const login = async ({
   email,
@@ -66,7 +124,7 @@ export const login = async ({
 // get user by any fields
 export const getUser = async (userFields: any) => {
   try {
-    console.log('userFields: ',userFields);
+    console.log('userFields: ', userFields);
     const user = await User.findOne(userFields);
     return user;
   } catch (error: any) {

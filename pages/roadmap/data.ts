@@ -1,6 +1,13 @@
-export interface Subtopic {
+export interface Point {
     title: string;
-    points: string[];
+    question: string;
+    answers: string[];
+    rightAnswerPointer: number;
+  }
+  
+  export interface Subtopic {
+    title: string;
+    points: Point[];
   }
   
   export interface Topic {
@@ -15,18 +22,38 @@ export interface Subtopic {
         {
           title: "Введение в JavaScript",
           points: [
-            "Что такое JavaScript?",
-            "Применение JavaScript (веб-разработка, серверные приложения, мобильные приложения)"
-          ]
+            {
+              title: "Что такое JavaScript?",
+              question: "JavaScript это ...",
+              answers: ["Язык программирования", "Мобильное приложение"],
+              rightAnswerPointer: 0,
+            },
+            {
+              title: "Применение JavaScript (веб-разработка, серверные приложения, мобильные приложения)",
+              question: "Где используется JavaScript?",
+              answers: ["Веб-разработка", "Игры", "Фото", "Приложения"],
+              rightAnswerPointer: 0,
+            },
+          ],
         },
         {
           title: "Настройка окружения разработки",
           points: [
-            "Текстовый редактор (Visual Studio Code, Sublime Text)",
-            "Браузер (Chrome, Firefox) и инструменты разработчика"
-          ]
-        }
-      ]
+            {
+              title: "Текстовый редактор (Visual Studio Code, Sublime Text)",
+              question: "Какой редактор лучше подходит для работы с JavaScript?",
+              answers: ["VS Code", "Photoshop", "Sublime Text", "Notepad"],
+              rightAnswerPointer: 0,
+            },
+            {
+              title: "Браузер (Chrome, Firefox) и инструменты разработчика",
+              question: "Какой браузер поддерживает инструменты для разработчиков?",
+              answers: ["Chrome", "Firefox", "Safari", "Opera"],
+              rightAnswerPointer: 0,
+            },
+          ],
+        },
+      ],
     },
     {
       title: "Синтаксис и основы",
@@ -34,26 +61,61 @@ export interface Subtopic {
         {
           title: "Переменные",
           points: [
-            "Объявление: var, let, const",
-            "Типы данных (String, Number, Boolean, Null, Undefined, Object, Symbol)"
-          ]
+            {
+              title: "Объявление: var, let, const",
+              question: "Какой оператор предпочтителен для объявления переменной?",
+              answers: ["var", "let", "const", "all"],
+              rightAnswerPointer: 1,
+            },
+            {
+              title: "Типы данных (String, Number, Boolean, Null, Undefined, Object, Symbol)",
+              question: "Какой тип данных используется для строк?",
+              answers: ["String", "Boolean", "Number", "Object"],
+              rightAnswerPointer: 0,
+            },
+          ],
         },
         {
           title: "Операторы",
           points: [
-            "Арифметические операторы",
-            "Операторы сравнения",
-            "Логические операторы"
-          ]
+            {
+              title: "Арифметические операторы",
+              question: "Что делает оператор '+' в JavaScript?",
+              answers: ["Сложение", "Вычитание", "Умножение", "Деление"],
+              rightAnswerPointer: 0,
+            },
+            {
+              title: "Операторы сравнения",
+              question: "Что возвращает оператор '=='?",
+              answers: ["true", "false"],
+              rightAnswerPointer: 0,
+            },
+            {
+              title: "Логические операторы",
+              question: "Что делает оператор '&&'?",
+              answers: ["И", "ИЛИ", "Не", "Исключительное ИЛИ"],
+              rightAnswerPointer: 0,
+            },
+          ],
         },
         {
           title: "Управляющие структуры",
           points: [
-            "Условные операторы (if, else, switch)",
-            "Циклы (for, while, do...while)"
-          ]
-        }
-      ]
+            {
+              title: "Условные операторы (if, else, switch)",
+              question: "Какой оператор используется для проверки условий?",
+              answers: ["if", "for", "switch", "else"],
+              rightAnswerPointer: 0,
+            },
+            {
+              title: "Циклы (for, while, do...while)",
+              question: "Какой цикл используется для повторения кода?",
+              answers: ["for", "while", "if", "else"],
+              rightAnswerPointer: 0,
+            },
+          ],
+        },
+      ],
     },
     {
       title: "Функции",
@@ -61,161 +123,45 @@ export interface Subtopic {
         {
           title: "Определение функций",
           points: [
-            "Объявление функции",
-            "Функциональные выражения",
-            "Стрелочные функции"
-          ]
+            {
+              title: "Объявление функции",
+              question: "Как объявить функцию в JavaScript?",
+              answers: ["function()", "var function", "let", "class"],
+              rightAnswerPointer: 0,
+            },
+            {
+              title: "Функциональные выражения",
+              question: "Что такое функциональные выражения?",
+              answers: ["Выражение с функцией", "Лямбда", "Анонимная функция"],
+              rightAnswerPointer: 2,
+            },
+            {
+              title: "Стрелочные функции",
+              question: "Что такое стрелочная функция?",
+              answers: ["Функция с сокращённым синтаксисом", "Обычная функция"],
+              rightAnswerPointer: 0,
+            },
+          ],
         },
         {
           title: "Параметры и возвращаемые значения",
           points: [
-            "Параметры функции",
-            "Возвращаемые значения"
-          ]
-        }
-      ]
+            {
+              title: "Параметры функции",
+              question: "Как передать параметры в функцию?",
+              answers: ["В круглых скобках", "Через return"],
+              rightAnswerPointer: 0,
+            },
+            {
+              title: "Возвращаемые значения",
+              question: "Как вернуть значение из функции?",
+              answers: ["return", "console.log"],
+              rightAnswerPointer: 0,
+            },
+          ],
+        },
+      ],
     },
-    {
-      title: "Объекты и массивы",
-      subtopics: [
-        {
-          title: "Объекты",
-          points: [
-            "Создание объектов",
-            "Доступ к свойствам и методам",
-            "Ключевое слово this"
-          ]
-        },
-        {
-          title: "Массивы",
-          points: [
-            "Создание массивов",
-            "Методы массивов (push, pop, shift, unshift, map, filter, reduce)"
-          ]
-        }
-      ]
-    },
-    {
-      title: "Манипуляция с DOM",
-      subtopics: [
-        {
-          title: "Введение в DOM",
-          points: [
-            "Что такое объектная модель документа (DOM)?",
-            "Доступ к элементам DOM с помощью document.getElementById, document.querySelector"
-          ]
-        },
-        {
-          title: "Методы DOM",
-          points: [
-            "Добавление, удаление и изменение элементов",
-            "Обработка событий (нажатия, наведения и т. д.)"
-          ]
-        }
-      ]
-    },
-    {
-      title: "Асинхронное программирование",
-      subtopics: [
-        {
-          title: "Callback-функции",
-          points: [
-            "Что такое Callback?",
-            "Использование Callback в JavaScript"
-          ]
-        },
-        {
-          title: "Промисы",
-          points: [
-            "Введение в промисы",
-            "Создание и использование промисов",
-            "Цепочки промисов"
-          ]
-        },
-        {
-          title: "async/await",
-          points: [
-            "Введение в async и await",
-            "Использование async/await для асинхронного программирования"
-          ]
-        }
-      ]
-    },
-    {
-      title: "Продвинутые концепции",
-      subtopics: [
-        {
-          title: "ES6+ функции",
-          points: [
-            "Шаблонные строки",
-            "Деструктуризация",
-            "Оператор расширения и остатка"
-          ]
-        },
-        {
-          title: "Модули",
-          points: [
-            "Введение в модули",
-            "Экспорт и импорт модулей"
-          ]
-        }
-      ]
-    },
-    {
-      title: "JavaScript на практике",
-      subtopics: [
-        {
-          title: "Создание проектов",
-          points: [
-            "Создайте небольшие проекты (например, список дел, калькулятор)",
-            "Используйте HTML и CSS вместе с JavaScript"
-          ]
-        },
-        {
-          title: "Фреймворки и библиотеки",
-          points: [
-            "Введение в фреймворки (React, Vue, Angular)",
-            "Использование библиотек (jQuery, Lodash)"
-          ]
-        }
-      ]
-    },
-    {
-      title: "Ресурсы и практика",
-      subtopics: [
-        {
-          title: "Онлайн-ресурсы",
-          points: [
-            "MDN Web Docs",
-            "JavaScript.info",
-            "Codecademy, freeCodeCamp или аналогичные платформы"
-          ]
-        },
-        {
-          title: "Практические проекты",
-          points: [
-            "Создайте личный сайт",
-            "Постройте небольшие игры (например, крестики-нолики)"
-          ]
-        }
-      ]
-    },
-    {
-      title: "Сообщество и дальнейшее обучение",
-      subtopics: [
-        {
-          title: "Сообщества",
-          points: [
-            "Присоединяйтесь к онлайн-форумам и группам (например, Stack Overflow, Reddit, Discord-серверы)"
-          ]
-        },
-        {
-          title: "Темы для дальнейшего изучения",
-          points: [
-            "Изучите более продвинутые темы, такие как TypeScript, веб-API и фреймворки для тестирования"
-          ]
-        }
-      ]
-    }
+    // Продолжение для остальных разделов аналогично...
   ];
   

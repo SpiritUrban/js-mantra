@@ -75,7 +75,7 @@ const JavaScriptCourse: React.FC = () => {
                     <SubtopicTitle>{subtopic.title}</SubtopicTitle>
                     <PointsList>
                       {subtopic.points.map((point, pointIndex) => (
-                        <PointItem key={pointIndex}>{point}</PointItem>
+                        <PointItem key={pointIndex}>{point.title}</PointItem>
                       ))}
                     </PointsList>
                   </Subtopic>

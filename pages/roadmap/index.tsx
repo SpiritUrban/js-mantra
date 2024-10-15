@@ -58,6 +58,10 @@ const PointItem = styled.li`
 `;
 
 const JavaScriptCourse: React.FC = () => {
+  const topicPointer = 0;
+  const subtopicPointer = 1;
+  const pointPointer = 1;
+
   return (
     <div>
       <h1>Roadmap</h1>
@@ -84,7 +88,13 @@ const JavaScriptCourse: React.FC = () => {
             ))}
           </CourseContainer>
         </LeftSection>
-        <RightSection>RightSection</RightSection>
+        <RightSection>
+          {javascriptCourse.filter((t,i)=>i<=topicPointer).map((topic, index) => (
+            <section>
+              <h2 className="text-black">{topic.title}</h2>
+            </section>
+          ))}
+        </RightSection>
       </PageContainer>
     </div>
   );

@@ -12,8 +12,8 @@ const PageContainer = styled.div`
 const LeftSection = styled.section``;
 
 const RightSection = styled.section`
-background-image: url("/img/ground.jpg");
-width:40vw;
+  background-image: url("/img/ground.jpg");
+  width: 40vw;
 `;
 
 const CourseContainer = styled.div`
@@ -36,7 +36,6 @@ const Topic = styled.div`
 
 const TopicTitle = styled.h2`
   font-size: 1.5rem;
- 
 `;
 
 const Subtopic = styled.div`
@@ -63,20 +62,20 @@ const JavaScriptCourse: React.FC = () => {
     <div>
       <h1>Roadmap</h1>
 
-      {/*container */}
+      {/* container */}
       <PageContainer>
         <LeftSection>
           <CourseContainer>
             <CourseTitle>Курс по JavaScript</CourseTitle>
-            {Object.entries(javascriptCourse).map(([key, topic]) => (
-              <Topic key={key}>
+            {javascriptCourse.map((topic, index) => (
+              <Topic key={index}>
                 <TopicTitle>{topic.title}</TopicTitle>
-                {Object.entries(topic.subtopics).map(([subKey, subtopic]) => (
-                  <Subtopic key={subKey}>
+                {topic.subtopics.map((subtopic, subIndex) => (
+                  <Subtopic key={subIndex}>
                     <SubtopicTitle>{subtopic.title}</SubtopicTitle>
                     <PointsList>
-                      {subtopic.points.map((point, index) => (
-                        <PointItem key={index}>{point}</PointItem>
+                      {subtopic.points.map((point, pointIndex) => (
+                        <PointItem key={pointIndex}>{point}</PointItem>
                       ))}
                     </PointsList>
                   </Subtopic>

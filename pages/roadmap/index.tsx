@@ -1,6 +1,11 @@
+"use client";
+
 import { javascriptCourse } from "@/pages/roadmap/data";
 import styled from "styled-components";
 import React from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { next } from "@/lib/RTK/slices/roadMapSlice";
+import { RootState } from "@/lib/RTK/store";
 
 const PageContainer = styled.div`
   display: flex;
@@ -58,9 +63,12 @@ const PointItem = styled.li`
 `;
 
 const JavaScriptCourse: React.FC = () => {
-  const topicPointer = 0;
-  const subtopicPointer = 1;
-  const pointPointer = 1;
+  const dispatch = useDispatch();
+  const topicPointer = useSelector((state: RootState) => state.roadMap.topicPointer);
+  const subtopicPointer = useSelector((state: RootState) => state.roadMap.subtopicPointer);
+  const pointPointer = useSelector((state: RootState) => state.roadMap.pointPointer);
+
+
 
   return (
     <div>
@@ -89,11 +97,16 @@ const JavaScriptCourse: React.FC = () => {
           </CourseContainer>
         </LeftSection>
         <RightSection>
-          {javascriptCourse.filter((t,i)=>i<=topicPointer).map((topic, index) => (
-            <section>
-              <h2 className="text-black">{topic.title}</h2>
-            </section>
-          ))}
+          {javascriptCourse
+            .filter((t, i) => i <= topicPointer)
+            .map((topic, index) => (
+              <section>
+                <h2 className="text-black">{topic.title}</h2>
+              </section>
+            ))}
+          <button className="" onClick={() =>dispatch(next())}>
+            button
+          </button>
         </RightSection>
       </PageContainer>
     </div>

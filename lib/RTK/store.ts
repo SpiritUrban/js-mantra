@@ -3,6 +3,7 @@ import { createWrapper } from "next-redux-wrapper";
 import todosSlice from "./slices/todosSlice";
 import counterSlice from "./slices/counterSlice";
 import authSlice from "./slices/authSlice";
+import roadMapSlice from "./slices/roadMapSlice"
 
 export const makeStore = () =>
   configureStore({
@@ -10,6 +11,7 @@ export const makeStore = () =>
       todos: todosSlice,
       counter: counterSlice,
       auth: authSlice,
+      roadMap:roadMapSlice
     },
     middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware({

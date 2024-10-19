@@ -59,7 +59,7 @@ const Subtopic = styled.div`
 
 const SubtopicRight = styled.div`
   margin-top: 10px;
-  color: gray;
+  color: green;
 `;
 
 const SubtopicTitle = styled.h3`
@@ -94,6 +94,36 @@ const JavaScriptCourse: React.FC = () => {
   const pointPointer = useSelector(
     (state: RootState) => state.roadMap.pointPointer
   );
+
+  const maxTopics = javascriptCourse.length;
+  const maxSubtopics = javascriptCourse[topicPointer]?.subtopics.length || 0;
+  const maxPoints =
+    javascriptCourse[topicPointer]?.subtopics[subtopicPointer]?.points.length ||
+    0;
+
+  const handleNextTopic = () => {
+    if (topicPointer + 1 < maxTopics) {
+      dispatch(next());
+    } else {
+      console.log("Keine weiteren Topics verfügbar.");
+    }
+  };
+
+  const handleNextSubtopic = () => {
+    if (subtopicPointer + 1 < maxSubtopics) {
+      dispatch(next2());
+    } else {
+      console.log("Keine weiteren Subtopics verfügbar.");
+    }
+  };
+
+  const handleNextPoint = () => {
+    if (pointPointer + 1 < maxPoints) {
+      dispatch(next3());
+    } else {
+      console.log("Keine weiteren Points verfügbar.");
+    }
+  };
 
   return (
     <div>
@@ -138,9 +168,11 @@ const JavaScriptCourse: React.FC = () => {
                         {subtopic.points
                           .filter((t, i) => i <= pointPointer)
                           .map((point, index) => (
-
-                            <div> The end Pointer {index == pointPointer ? "yes" : "no"}
-                            <PointItem key={index}>{point.title}</PointItem>
+                            <div>
+                              {" "}
+                              The end Pointer{" "}
+                              {index == pointPointer ? "yes" : "no"}
+                              <PointItem key={index}>{point.title}</PointItem>
                             </div>
                           ))}
                       </PointsListRight>
@@ -149,11 +181,11 @@ const JavaScriptCourse: React.FC = () => {
               </TopicRight>
             ))}
           <div style={{ display: "flex", gap: "1rem", padding: "1rem" }}>
-            <Button onClick={() => dispatch(next())}>Button 1</Button>
+            <Button onClick={handleNextTopic}>Next Topic</Button>
 
-            <Button onClick={() => dispatch(next2())}>Button 2</Button>
+            <Button onClick={handleNextSubtopic}>Next Subtopic</Button>
 
-            <Button onClick={() => dispatch(next3())}>Button 3</Button>
+            <Button onClick={handleNextPoint}>Next Point</Button>
           </div>
         </RightSection>
       </PageContainer>

@@ -157,21 +157,23 @@ const JavaScriptCourse: React.FC = () => {
             .map((topic, index) => (
               <TopicRight key={index}>
                 <h2>{topic.title}</h2>
-                The end Topic {index == topicPointer ? "yes" : "no"}
+                {index == topicPointer ? "+" : "-"}
                 {topic.subtopics
-                  .filter((t, i) => i <= subtopicPointer)
+                  .filter(
+                    (t, i) => i <= subtopicPointer || index !== topicPointer
+                  )
                   .map((subtopic, index) => (
                     <SubtopicRight key={index}>
                       <h3>{subtopic.title}</h3>
-                      The end SubTopic {index == subtopicPointer ? "yes" : "no"}
+                      {index == subtopicPointer ? "+" : "-"}
                       <PointsListRight>
                         {subtopic.points
                           .filter((t, i) => i <= pointPointer)
                           .map((point, index) => (
                             <div>
-                              {" "}
-                              The end Pointer{" "}
-                              {index == pointPointer ? "yes" : "no"}
+                             
+                             
+                              {index == pointPointer ?  "+" : "-"}
                               <PointItem key={index}>{point.title}</PointItem>
                             </div>
                           ))}

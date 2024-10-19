@@ -8,8 +8,8 @@ interface RoadMap {
 
 const initialState: RoadMap = {
   topicPointer: 0,
-  subtopicPointer: 1,
-  pointPointer: 1,
+  subtopicPointer: 0,
+  pointPointer: 0,
 };
 
 const counterSlice = createSlice({
@@ -17,13 +17,14 @@ const counterSlice = createSlice({
   initialState,
   reducers: {
     next: (state) => {
-
-        console.log("next")
-
       state.topicPointer++;
     },
-
-    
+    next2: (state) => {
+      state.subtopicPointer++;
+    },
+    next3: (state) => {
+      state.pointPointer++;
+    },
 
     /*
     setColor:(state,action:PayloadAction<string>)=>{
@@ -34,5 +35,5 @@ const counterSlice = createSlice({
   },
 });
 
-export const { next } = counterSlice.actions;
+export const { next, next2, next3 } = counterSlice.actions;
 export default counterSlice.reducer;

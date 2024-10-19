@@ -4,8 +4,9 @@ import { javascriptCourse } from "@/pages/roadmap/data";
 import styled from "styled-components";
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { next } from "@/lib/RTK/slices/roadMapSlice";
+import { next, next2, next3 } from "@/lib/RTK/slices/roadMapSlice";
 import { RootState } from "@/lib/RTK/store";
+import Button from "react-bootstrap/Button";
 
 const PageContainer = styled.div`
   display: flex;
@@ -39,12 +40,26 @@ const Topic = styled.div`
   background-color: #111;
 `;
 
+const TopicRight = styled.div`
+  margin-bottom: 1.5rem;
+  border: 1px solid #222;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: #0000009e;
+  color: white;
+`;
+
 const TopicTitle = styled.h2`
   font-size: 1.5rem;
 `;
 
 const Subtopic = styled.div`
   margin-top: 10px;
+`;
+
+const SubtopicRight = styled.div`
+  margin-top: 10px;
+  color: gray;
 `;
 
 const SubtopicTitle = styled.h3`
@@ -57,6 +72,12 @@ const PointsList = styled.ul`
   margin-left: 20px;
 `;
 
+const PointsListRight = styled.ul`
+  list-style-type: disc;
+  margin-left: 20px;
+  color: pink;
+`;
+
 const PointItem = styled.li`
   margin: 5px 0;
   color: #aaa;
@@ -64,11 +85,15 @@ const PointItem = styled.li`
 
 const JavaScriptCourse: React.FC = () => {
   const dispatch = useDispatch();
-  const topicPointer = useSelector((state: RootState) => state.roadMap.topicPointer);
-  const subtopicPointer = useSelector((state: RootState) => state.roadMap.subtopicPointer);
-  const pointPointer = useSelector((state: RootState) => state.roadMap.pointPointer);
-
-
+  const topicPointer = useSelector(
+    (state: RootState) => state.roadMap.topicPointer
+  );
+  const subtopicPointer = useSelector(
+    (state: RootState) => state.roadMap.subtopicPointer
+  );
+  const pointPointer = useSelector(
+    (state: RootState) => state.roadMap.pointPointer
+  );
 
   return (
     <div>
@@ -100,13 +125,31 @@ const JavaScriptCourse: React.FC = () => {
           {javascriptCourse
             .filter((t, i) => i <= topicPointer)
             .map((topic, index) => (
-              <section>
-                <h2 className="text-black">{topic.title}</h2>
-              </section>
+              <TopicRight key={index}>
+                <h2>{topic.title}</h2>
+                {topic.subtopics
+                  .filter((t, i) => i <= subtopicPointer)
+                  .map((subtopic, index) => (
+                    <SubtopicRight key={index}>
+                      <h3>{subtopic.title}</h3>
+                      <PointsListRight>
+                        {subtopic.points
+                          .filter((t, i) => i <= pointPointer)
+                          .map((point, index) => (
+                            <PointItem key={index}>{point.title}</PointItem>
+                          ))}
+                      </PointsListRight>
+                    </SubtopicRight>
+                  ))}
+              </TopicRight>
             ))}
-          <button className="" onClick={() =>dispatch(next())}>
-            button
-          </button>
+          <div style={{display:"flex",gap:"1rem",padding:"1rem"}}>
+            <Button onClick={() => dispatch(next())}>Button 1</Button>
+
+            <Button onClick={() => dispatch(next2())}>Button 2</Button>
+
+            <Button onClick={() => dispatch(next3())}>Button 3</Button>
+          </div>
         </RightSection>
       </PageContainer>
     </div>

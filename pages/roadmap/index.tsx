@@ -118,28 +118,28 @@ const JavaScriptCourse: React.FC = () => {
   };
 
   const handleNextPoint = () => {
-    /*   */
-
     const currentSubtopicList = javascriptCourse[topicPointer].subtopics;
     const currentPointList = currentSubtopicList[subtopicPointer].points;
-    console.log(currentPointList, pointPointer + 1, currentPointList.length);
+
     if (pointPointer + 1 < currentPointList.length) {
       dispatch(next3());
-    } else {
-      if (subtopicPointer + 1 < currentSubtopicList.length) {
-        dispatch(next2());
-        dispatch(set3(0));
-      } else {
-        if (topicPointer + 1 < javascriptCourse.length) {
-          dispatch(next());
-          dispatch(set2(0));
-          dispatch(set3(0));
-        } else {
-          alert("finito");
-        }
-      }
-      console.log("Keine weiteren Points verfügbar.");
+      return;
     }
+
+    if (subtopicPointer + 1 < currentSubtopicList.length) {
+      dispatch(next2());
+      dispatch(set3(0));
+      return;
+    }
+
+    if (topicPointer + 1 < javascriptCourse.length) {
+      dispatch(next());
+      dispatch(set2(0));
+      dispatch(set3(0));
+      return;
+    }
+
+    alert("finito");
   };
 
   return (

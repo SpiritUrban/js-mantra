@@ -154,27 +154,25 @@ const JavaScriptCourse: React.FC = () => {
         <RightSection>
           {javascriptCourse
             .filter((t, i) => i <= topicPointer)
-            .map((topic, index) => (
-              <TopicRight key={index}>
+            .map((topic, index1) => (
+              <TopicRight key={index1}>
                 <h2>{topic.title}</h2>
-                {index == topicPointer ? "+" : "-"}
+                {index1 == topicPointer ? "+" : "-"}
                 {topic.subtopics
                   .filter(
-                    (t, i) => i <= subtopicPointer || index !== topicPointer
+                    (t, i) => i <= subtopicPointer || index1 < topicPointer
                   )
-                  .map((subtopic, index) => (
-                    <SubtopicRight key={index}>
+                  .map((subtopic, index2) => (
+                    <SubtopicRight key={index2}>
                       <h3>{subtopic.title}</h3>
-                      {index == subtopicPointer ? "+" : "-"}
+                      {index2 == subtopicPointer ? "+" : "-"}
                       <PointsListRight>
                         {subtopic.points
-                          .filter((t, i) => i <= pointPointer)
-                          .map((point, index) => (
+                          .filter((t, i) => i <= pointPointer  || index1 < topicPointer || index2 < subtopicPointer)
+                          .map((point, index3) => (
                             <div>
-                             
-                             
-                              {index == pointPointer ?  "+" : "-"}
-                              <PointItem key={index}>{point.title}</PointItem>
+                              {index3 == pointPointer ? "+" : "-"}
+                              <PointItem key={index3}>{point.title}</PointItem>
                             </div>
                           ))}
                       </PointsListRight>

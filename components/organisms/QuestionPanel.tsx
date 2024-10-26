@@ -1,13 +1,19 @@
 import React from "react";
 import styled, { css } from "styled-components";
+import { Point } from "@/pages/roadmap/data";
+
+interface PanelProps {
+  backgroundColor?: string; // Optionaler Hintergrundfarbparameter
+  borderColor?: string; // Optionaler Rahmenfarbparameter
+}
 
 interface ItemProps {
   isLit?: boolean | "on" | "off";
 }
 
-const Panel = styled.div`
+const Panel = styled.div<PanelProps>`
   background: linear-gradient(145deg, #b0bec5, #90a4ae);
-  border: 1px solid #8c9ea3;
+  border: 1px solid ${({ borderColor }) => borderColor || "#8c9ea3"};
   border-radius: 10px;
   padding: 20px;
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.15),
@@ -33,15 +39,16 @@ const Panel = styled.div`
     pointer-events: none;
   }
 `;
+
 const Item = styled.div<ItemProps>`
   width: 1rem;
   height: 1rem;
-  background-color: #111; /* Цвет самого объекта */
-  border-radius: 50%; /* Закругленные края, создающие эффект отверстия */
-  box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.8); /* Внутренняя тень, создающая глубину */
+  background-color: #111; /* Farbe des Objekts */
+  border-radius: 50%; /* Rundungen, die den Effekt eines Lochs erzeugen */
+  box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.8); /* Innenschatten, der Tiefe erzeugt */
   position: relative;
 
-  /* Псевдо-элемент для света внутри отверстия */
+  /* Pseudo-Element für das Licht innerhalb des Lochs */
   &::before {
     content: "";
     position: absolute;
@@ -51,39 +58,39 @@ const Item = styled.div<ItemProps>`
     height: 0.6rem;
     border-radius: 50%;
     transform: translate(-50%, -50%);
-    background-color: transparent; /* Изначально свет не виден */
+    background-color: transparent; /* Licht ist zunächst nicht sichtbar */
     box-shadow: none;
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
   }
 
-  /* Если передано свойство isLit, включается зеленый свет */
+  /* Wenn die Eigenschaft isLit übergeben wird, wird das grüne Licht eingeschaltet */
   ${({ isLit }) =>
     isLit &&
     css`
       &::before {
-        background-color: rgba(0, 255, 0, 1); /* Зеленый свет */
-        box-shadow: 0 0 1px 1px rgba(0, 255, 0, 0.7); /* Эффект светящегося света */
+        background-color: rgba(0, 255, 0, 1); /* Grünes Licht */
+        box-shadow: 0 0 1px 1px rgba(0, 255, 0, 0.7); /* Leuchtender Licht-Effekt */
       }
     `}
 `;
 
-function QuestionPanel() {
+const ItemContainer = styled.div`
+  display: flex;
+  gap: 0.5rem;
+`;
+
+interface QuestionPanelProps {
+  point: Point;
+}
+
+function QuestionPanel({ point }: QuestionPanelProps) {
   return (
-    <Panel>
-      {" "}
-      <div>
-        {/* Вариант использования с булевым значением */}
-        <Item isLit={true}>Булевый свет включен</Item>
-
-        {/* Вариант использования со строкой "on" */}
-        <Item isLit="on">Строковый свет включен ("on")</Item>
-
-        {/* Вариант использования со строкой "off", свет будет выключен */}
-        <Item isLit="off">Свет выключен ("off")</Item>
-
-        {/* Вариант без передачи isLit, по умолчанию свет также выключен */}
-        <Item>Свет по умолчанию выключен</Item>
-      </div>
+    <Panel backgroundColor="#f0f0f0" borderColor="#ccc">
+      <ItemContainer>
+        {point.questions.map(() => (
+          <Item isLit={true}></Item>
+        ))}
+      </ItemContainer>
     </Panel>
   );
 }

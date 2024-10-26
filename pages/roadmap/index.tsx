@@ -80,9 +80,10 @@ const PointsListRight = styled.ul`
 `;
 
 const PointItem = styled.li`
-  margin: 5px 0;
-  color: #aaa;
+margin: 5px 0;
+color: #aaa;
 `;
+
 
 const JavaScriptCourse: React.FC = () => {
   const dispatch = useDispatch();
@@ -95,6 +96,11 @@ const JavaScriptCourse: React.FC = () => {
   const pointPointer = useSelector(
     (state: RootState) => state.roadMap.pointPointer
   );
+  
+  const currentPoint =()=> {
+    return javascriptCourse[topicPointer].subtopics[subtopicPointer].points[pointPointer];
+
+  }
 
   const handleNextPoint = () => {
     const currentSubtopicList = javascriptCourse[topicPointer].subtopics;
@@ -120,6 +126,7 @@ const JavaScriptCourse: React.FC = () => {
 
     alert("finito");
   };
+
 
   return (
     <div>
@@ -186,7 +193,7 @@ const JavaScriptCourse: React.FC = () => {
                   ))}
               </TopicRight>
             ))}
-            <QuestionPanel />
+            <QuestionPanel point={currentPoint()} />
 
           <div style={{ display: "flex", gap: "1rem", padding: "1rem" }}>
             <Button onClick={handleNextPoint}>Next Point</Button>

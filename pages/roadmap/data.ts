@@ -34,6 +34,11 @@ export const javascriptCourse: Topic[] = [
                 answers: ["Язык программирования", "Мобильное приложение"],
                 rightAnswerPointer: 0,
               },
+              {
+                question: "JavaScript это ...",
+                answers: ["Язык программирования", "Мобильное приложение"],
+                rightAnswerPointer: 0,
+              },
             ],
           },
           {

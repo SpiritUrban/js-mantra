@@ -7,6 +7,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { next, next2, next3, set2, set3 } from "@/lib/RTK/slices/roadMapSlice";
 import { RootState } from "@/lib/RTK/store";
 import Button from "react-bootstrap/Button";
+import QuestionPanel from "@/components/organisms/QuestionPanel";
 
 const PageContainer = styled.div`
   display: flex;
@@ -79,9 +80,10 @@ const PointsListRight = styled.ul`
 `;
 
 const PointItem = styled.li`
-  margin: 5px 0;
-  color: #aaa;
+margin: 5px 0;
+color: #aaa;
 `;
+
 
 const JavaScriptCourse: React.FC = () => {
   const dispatch = useDispatch();
@@ -94,28 +96,11 @@ const JavaScriptCourse: React.FC = () => {
   const pointPointer = useSelector(
     (state: RootState) => state.roadMap.pointPointer
   );
+  
+  const currentPoint =()=> {
+    return javascriptCourse[topicPointer].subtopics[subtopicPointer].points[pointPointer];
 
-  const maxTopics = javascriptCourse.length;
-  const maxSubtopics = javascriptCourse[topicPointer]?.subtopics.length || 0;
-  const maxPoints =
-    javascriptCourse[topicPointer]?.subtopics[subtopicPointer]?.points.length ||
-    0;
-
-  const handleNextTopic = () => {
-    if (topicPointer + 1 < maxTopics) {
-      dispatch(next());
-    } else {
-      console.log("Keine weiteren Topics verfügbar.");
-    }
-  };
-
-  const handleNextSubtopic = () => {
-    if (subtopicPointer + 1 < maxSubtopics) {
-      dispatch(next2());
-    } else {
-      console.log("Keine weiteren Subtopics verfügbar.");
-    }
-  };
+  }
 
   const handleNextPoint = () => {
     const currentSubtopicList = javascriptCourse[topicPointer].subtopics;
@@ -142,6 +127,7 @@ const JavaScriptCourse: React.FC = () => {
     alert("finito");
   };
 
+
   return (
     <div>
       <h1>Roadmap</h1>
@@ -151,15 +137,19 @@ const JavaScriptCourse: React.FC = () => {
         <LeftSection>
           <CourseContainer>
             <CourseTitle>Курс по JavaScript</CourseTitle>
-            {javascriptCourse.map((topic, index) => (
-              <Topic key={index}>
+            {javascriptCourse.map((topic, topicIndex) => (
+              <Topic key={`topic-${topicIndex}`}>
                 <TopicTitle>{topic.title}</TopicTitle>
                 {topic.subtopics.map((subtopic, subIndex) => (
-                  <Subtopic key={subIndex}>
+                  <Subtopic key={`subtopic-${topicIndex}-${subIndex}`}>
                     <SubtopicTitle>{subtopic.title}</SubtopicTitle>
                     <PointsList>
                       {subtopic.points.map((point, pointIndex) => (
-                        <PointItem key={pointIndex}>{point.title}</PointItem>
+                        <PointItem
+                          key={`point-${topicIndex}-${subIndex}-${pointIndex}`}
+                        >
+                          {point.title}
+                        </PointItem>
                       ))}
                     </PointsList>
                   </Subtopic>
@@ -171,41 +161,41 @@ const JavaScriptCourse: React.FC = () => {
         <RightSection>
           {javascriptCourse
             .filter((t, i) => i <= topicPointer)
-            .map((topic, index1) => (
-              <TopicRight key={index1}>
+            .map((topic, topicIndex) => (
+              <TopicRight key={`right-topic-${topicIndex}`}>
                 <h2>{topic.title}</h2>
-                {/*                {index1 == topicPointer ? "+" : "-"} */}
                 {topic.subtopics
                   .filter(
-                    (t, i) => i <= subtopicPointer || index1 < topicPointer
+                    (t, i) => i <= subtopicPointer || topicIndex < topicPointer
                   )
-                  .map((subtopic, index2) => (
-                    <SubtopicRight key={index2}>
+                  .map((subtopic, subIndex) => (
+                    <SubtopicRight
+                      key={`right-subtopic-${topicIndex}-${subIndex}`}
+                    >
                       <h3>{subtopic.title}</h3>
-                      {/*     {index2 == subtopicPointer ? "+" : "-"} */}
                       <PointsListRight>
                         {subtopic.points
                           .filter(
                             (t, i) =>
                               i <= pointPointer ||
-                              index1 < topicPointer ||
-                              index2 < subtopicPointer
+                              topicIndex < topicPointer ||
+                              subIndex < subtopicPointer
                           )
-                          .map((point, index3) => (
-                            <div>
-                              {/* {index3 == pointPointer ? "+" : "-"} */}
-                              <PointItem key={index3}>{point.title}</PointItem>
-                            </div>
+                          .map((point, pointIndex) => (
+                            <PointItem
+                              key={`right-point-${topicIndex}-${subIndex}-${pointIndex}`}
+                            >
+                              {point.title}
+                            </PointItem>
                           ))}
                       </PointsListRight>
                     </SubtopicRight>
                   ))}
               </TopicRight>
             ))}
-          <div style={{ display: "flex", gap: "1rem", padding: "1rem" }}>
-            {/*          <Button onClick={handleNextTopic}>Next Topic</Button>
-   <Button onClick={handleNextSubtopic}>Next Subtopic</Button> */}
+            <QuestionPanel point={currentPoint()} />
 
+          <div style={{ display: "flex", gap: "1rem", padding: "1rem" }}>
             <Button onClick={handleNextPoint}>Next Point</Button>
           </div>
         </RightSection>

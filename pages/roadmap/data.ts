@@ -30,12 +30,17 @@ export const javascriptCourse: Topic[] = [
             title: "Что такое JavaScript?",
             questions: [
               {
-                question: "JavaScript это ...",
+                question: "JavaScript это1 ...",
                 answers: ["Язык программирования", "Мобильное приложение"],
                 rightAnswerPointer: 0,
               },
               {
-                question: "JavaScript это ...",
+                question: "JavaScript это2 ...",
+                answers: ["Язык программирования", "Мобильное приложение"],
+                rightAnswerPointer: 0,
+              },
+              {
+                question: "JavaScript это 3...",
                 answers: ["Язык программирования", "Мобильное приложение"],
                 rightAnswerPointer: 0,
               },

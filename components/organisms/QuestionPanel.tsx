@@ -1,10 +1,12 @@
 import React from "react";
 import styled, { css } from "styled-components";
 import { Point } from "@/pages/roadmap/data";
+import { useState } from "react";
+import Button from "react-bootstrap/Button";
 
 interface PanelProps {
-  backgroundColor?: string; // Optionaler Hintergrundfarbparameter
-  borderColor?: string; // Optionaler Rahmenfarbparameter
+  backgroundColor?: string;
+  borderColor?: string;
 }
 
 interface ItemProps {
@@ -79,11 +81,38 @@ const ItemContainer = styled.div`
   gap: 0.5rem;
 `;
 
+const AnswersContainer = styled.div`
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+`;
+
 interface QuestionPanelProps {
   point: Point;
+  onNextPoint: () => void;
 }
 
-function QuestionPanel({ point }: QuestionPanelProps) {
+function QuestionPanel({ point, onNextPoint }: QuestionPanelProps) {
+  const [questionPointer, setQuestionPointer] = useState(0);
+
+  console.log(point);
+
+  const checkAnswer = (i: number) => {
+    console.log(i);
+    if (i == point.questions[questionPointer].rightAnswerPointer) {
+      if (questionPointer + 1 < point.questions.length) {
+        console.log(questionPointer + 1, point.questions.length);
+        setQuestionPointer(questionPointer + 1);
+      } else {
+        setQuestionPointer(0);
+         onNextPoint()
+        console.log("next")
+      }
+    } else {
+      alert("false");
+    }
+  };
+
   return (
     <Panel backgroundColor="#f0f0f0" borderColor="#ccc">
       <ItemContainer>
@@ -91,6 +120,18 @@ function QuestionPanel({ point }: QuestionPanelProps) {
           <Item isLit={true}></Item>
         ))}
       </ItemContainer>
+      <div>{point.questions[questionPointer].question}</div>
+      <AnswersContainer>
+        {point.questions[questionPointer].answers.map((answer, i) => (
+          <Button
+            variant="secondary"
+            onClick={() => checkAnswer(i)}
+            key={i + answer}
+          >
+            {answer}
+          </Button>
+        ))}
+      </AnswersContainer>
     </Panel>
   );
 }

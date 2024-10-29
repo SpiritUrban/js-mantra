@@ -193,7 +193,7 @@ const JavaScriptCourse: React.FC = () => {
                   ))}
               </TopicRight>
             ))}
-            <QuestionPanel point={currentPoint()} />
+            <QuestionPanel onNextPoint={handleNextPoint}point={currentPoint()} />
 
           <div style={{ display: "flex", gap: "1rem", padding: "1rem" }}>
             <Button onClick={handleNextPoint}>Next Point</Button>

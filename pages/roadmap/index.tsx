@@ -8,6 +8,8 @@ import { next, next2, next3, set2, set3 } from "@/lib/RTK/slices/roadMapSlice";
 import { RootState } from "@/lib/RTK/store";
 import Button from "react-bootstrap/Button";
 import QuestionPanel from "@/components/organisms/QuestionPanel";
+import Link from "next/link";
+import { TiLink } from "react-icons/ti";
 
 const PageContainer = styled.div`
   display: flex;
@@ -80,10 +82,13 @@ const PointsListRight = styled.ul`
 `;
 
 const PointItem = styled.li`
-margin: 5px 0;
-color: #aaa;
+  margin: 5px 0;
+  color: #aaa;
+  a {
+    font-size: 1.3rem;
+    margin-left: 1rem;
+  }
 `;
-
 
 const JavaScriptCourse: React.FC = () => {
   const dispatch = useDispatch();
@@ -96,11 +101,12 @@ const JavaScriptCourse: React.FC = () => {
   const pointPointer = useSelector(
     (state: RootState) => state.roadMap.pointPointer
   );
-  
-  const currentPoint =()=> {
-    return javascriptCourse[topicPointer].subtopics[subtopicPointer].points[pointPointer];
 
-  }
+  const currentPoint = () => {
+    return javascriptCourse[topicPointer].subtopics[subtopicPointer].points[
+      pointPointer
+    ];
+  };
 
   const handleNextPoint = () => {
     const currentSubtopicList = javascriptCourse[topicPointer].subtopics;
@@ -127,7 +133,6 @@ const JavaScriptCourse: React.FC = () => {
     alert("finito");
   };
 
-
   return (
     <div>
       <h1>Roadmap</h1>
@@ -149,6 +154,11 @@ const JavaScriptCourse: React.FC = () => {
                           key={`point-${topicIndex}-${subIndex}-${pointIndex}`}
                         >
                           {point.title}
+                          {point.link && (
+                            <Link href={point.link} passHref target="_black">
+                              <TiLink />
+                            </Link>
+                          )}
                         </PointItem>
                       ))}
                     </PointsList>
@@ -193,7 +203,7 @@ const JavaScriptCourse: React.FC = () => {
                   ))}
               </TopicRight>
             ))}
-            <QuestionPanel onNextPoint={handleNextPoint}point={currentPoint()} />
+          <QuestionPanel onNextPoint={handleNextPoint} point={currentPoint()} />
 
           <div style={{ display: "flex", gap: "1rem", padding: "1rem" }}>
             <Button onClick={handleNextPoint}>Next Point</Button>

@@ -7,6 +7,7 @@ export interface Question {
 export interface Point {
   title: string;
   questions: Question[];
+  link?:string;
 }
 
 export interface Subtopic {
@@ -28,6 +29,7 @@ export const javascriptCourse: Topic[] = [
         points: [
           {
             title: "Statements (инструкции)",
+            link:"/tutorials/js/statements",
             questions: [
               {
                 question: " что такое инструкция? ",

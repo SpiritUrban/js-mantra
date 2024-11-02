@@ -2,7 +2,7 @@ import React from "react";
 import CodeBlock from "@/components/organisms/CodeBlock";
 import styled from "styled-components";
 
-function statements() {
+function Statements() {
   const Tag = styled.span`
     background-color: #222;
     color: #aaa;
@@ -12,17 +12,17 @@ function statements() {
 
   const content = {
     title: "Statements",
-    description: ` В JavaScript инструкции (или Statements) — это команды, которые
-        выполняют определённые действия. Они являются основными строительными
-        блоками программы и пишутся по одной инструкции на строку. Вот ключевые
-        инструкции в JavaScript:`,
+    description: `In JavaScript sind Anweisungen (oder Statements) Kommandos, die 
+        bestimmte Aktionen ausführen. Sie sind die grundlegenden Bausteine eines 
+        Programms und werden Zeile für Zeile geschrieben. Hier sind die wichtigsten 
+        Anweisungen in JavaScript:`,
     items: [
       {
-        title: "Объявление переменных:",
+        title: "Variablendeklaration:",
         description: (
           <>
-            <Tag>let</Tag>, <Tag>const</Tag>, <Tag>var</Tag> — используются для
-            создания переменных
+            <Tag>let</Tag>, <Tag>const</Tag>, <Tag>var</Tag> — werden verwendet,
+            um Variablen zu erstellen.
           </>
         ),
         code: `
@@ -31,18 +31,19 @@ function statements() {
         `,
       },
       {
-        title: "Условные инструкции:",
+        title: "Bedingte Anweisungen:",
         description: (
           <>
-            <Tag>if</Tag>, <Tag>else if</Tag>, <Tag>else</Tag>— проверяют
-            условия и выполняют блоки кода, если условия истинны или ложны.
+            <Tag>if</Tag>, <Tag>else if</Tag>, <Tag>else</Tag> — überprüfen
+            Bedingungen und führen Codeblöcke aus, wenn die Bedingungen wahr
+            oder falsch sind.
           </>
         ),
         code: `
          if (age > 18) {
-            console.log("Взрослый")
+            console.log("Erwachsener");
          } else {  
-            console.log("Несовершеннолетний");
+            console.log("Minderjährig");
          }  
         `,
       },
@@ -58,13 +59,47 @@ function statements() {
     margin: 0 auto;
   `;
 
+  const ImageWrapper = styled.div`
+    position: relative;
+    display: inline-block;
+    width: 450px;
+    height: 450px;
+    margin-left: 70%;
+  `;
+
+  const Star = styled.div`
+    width: 0;
+    height: 0;
+    border-right: 100px solid transparent;
+    border-bottom: 200px solid gold;
+    border-left: 100px solid transparent;
+    position: relative;
+
+    &::before {
+      width: 0;
+      height: 0;
+      border-top: 200px solid gold;
+      border-right: 100px solid transparent;
+      border-bottom: 0 solid transparent;
+      border-left: 100px solid transparent;
+      position: absolute;
+      content: "";
+      top: 75px;
+      left: -100px;
+    }
+  `;
+
   return (
     <Container>
+      <ImageWrapper>
+        <Star/>
+      </ImageWrapper>
+
       <h1>{content.title}</h1>
       <p>{content.description}</p>
       {content.items.map((item, i) => (
         <div key={i + item.title}>
-          <h2>{item.title} </h2>
+          <h2>{item.title}</h2>
           <p>{item.description}</p>
           <CodeBlock code={item.code} language="typescript" />
         </div>
@@ -73,109 +108,4 @@ function statements() {
   );
 }
 
-export default statements;
-
-/*
-
-
-В JavaScript инструкции (или Statements) — это команды, которые выполняют определённые действия. Они являются основными строительными блоками программы и пишутся по одной инструкции на строку. Вот ключевые инструкции в JavaScript:
-
-    Объявление переменных:
-        let, const, var — используются для создания переменных.
-
-    javascript
-
-let age = 25;
-const name = "Alice";
-
-Условные инструкции:
-
-    if, else if, else — проверяют условия и выполняют блоки кода, если условия истинны или ложны.
-
-javascript
-
-if (age > 18) {
-  console.log("Взрослый");
-} else {
-  console.log("Несовершеннолетний");
-}
-
-    switch — выбирает выполнение одного из нескольких блоков кода в зависимости от значения переменной.
-
-javascript
-
-switch (day) {
-  case "Monday":
-    console.log("Сегодня понедельник");
-    break;
-  default:
-    console.log("Другой день");
-}
-
-Циклы:
-
-    for — используется для выполнения кода несколько раз с заданными условиями.
-
-javascript
-
-for (let i = 0; i < 5; i++) {
-  console.log(i);
-}
-
-    while и do...while — выполняют код, пока условие истинно.
-
-javascript
-
-let i = 0;
-while (i < 5) {
-  console.log(i);
-  i++;
-}
-
-Инструкции управления потоком:
-
-    break — прерывает выполнение цикла или оператора switch.
-    continue — пропускает одну итерацию цикла и переходит к следующей.
-
-javascript
-
-for (let i = 0; i < 5; i++) {
-  if (i === 2) continue; // пропустит значение 2
-  console.log(i);
-}
-
-Функции:
-
-    function — определяет функцию, которую можно вызывать в других частях программы.
-
-javascript
-
-function greet(name) {
-  return `Привет, ${name}`;
-}
-
-Возврат значения:
-
-    return — завершает выполнение функции и возвращает значение.
-
-javascript
-
-function add(a, b) {
-  return a + b;
-}
-
-Инструкция try...catch:
-
-    Используется для обработки ошибок.
-
-javascript
-
-    try {
-      // код, который может вызвать ошибку
-    } catch (error) {
-      console.log("Произошла ошибка", error);
-    }
-
-Эти инструкции позволяют управлять логикой и потоком выполнения кода, делать программы динамичными и отвечающими на различные условия.
-
-*/
+export default Statements;

@@ -24,23 +24,33 @@ export const javascriptCourse: Topic[] = [
     title: "Основы JavaScript",
     subtopics: [
       {
+        title: "Основы",
+        points: [
+          {
+            title: "Statements (инструкции)",
+            questions: [
+              {
+                question: " что такое инструкция? ",
+                answers: ["базовая единица кода", "HTML-теги"],
+                rightAnswerPointer: 0,
+              },
+              {
+                question: " Каким знаком обозначаем конец инструкции?",
+                answers: [";",".,","_"],
+                rightAnswerPointer: 0,
+              },
+            ],
+          },
+        ],
+      },
+      {
         title: "Введение в JavaScript",
         points: [
           {
             title: "Что такое JavaScript?",
             questions: [
               {
-                question: "JavaScript это1 ...",
-                answers: ["Язык программирования", "Мобильное приложение"],
-                rightAnswerPointer: 0,
-              },
-              {
-                question: "JavaScript это2 ...",
-                answers: ["Язык программирования", "Мобильное приложение"],
-                rightAnswerPointer: 0,
-              },
-              {
-                question: "JavaScript это 3...",
+                question: "JavaScript это ...",
                 answers: ["Язык программирования", "Мобильное приложение"],
                 rightAnswerPointer: 0,
               },

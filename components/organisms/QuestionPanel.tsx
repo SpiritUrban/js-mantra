@@ -105,8 +105,8 @@ function QuestionPanel({ point, onNextPoint }: QuestionPanelProps) {
         setQuestionPointer(questionPointer + 1);
       } else {
         setQuestionPointer(0);
-         onNextPoint()
-        console.log("next")
+        onNextPoint();
+        console.log("next");
       }
     } else {
       alert("false");

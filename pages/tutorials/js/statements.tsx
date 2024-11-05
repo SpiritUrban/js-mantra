@@ -2,7 +2,7 @@ import React from "react";
 import CodeBlock from "@/components/organisms/CodeBlock";
 import styled from "styled-components";
 
-function statements() {
+function Statements() {
   const Tag = styled.span`
     background-color: #222;
     color: #aaa;
@@ -10,45 +10,149 @@ function statements() {
     padding: 0 0.5rem;
   `;
 
-  const content = {
-    title: "Statements",
-    description: ` В JavaScript инструкции (или Statements) — это команды, которые
-        выполняют определённые действия. Они являются основными строительными
-        блоками программы и пишутся по одной инструкции на строку. Вот ключевые
-        инструкции в JavaScript:`,
+  interface Content {
+    title: string;
+    description: string;
+    items: any;
+  }
+
+  const content: Content = {
+    title: "Операторы",
+    description: `В JavaScript операторы (или Statements) представляют собой команды, 
+        которые выполняют определенные действия. Они являются основными строительными 
+        блоками программы и пишутся построчно. Вот основные операторы в JavaScript:`,
     items: [
       {
         title: "Объявление переменных:",
         description: (
           <>
             <Tag>let</Tag>, <Tag>const</Tag>, <Tag>var</Tag> — используются для
-            создания переменных
+            создания переменных.
           </>
         ),
-        code: `
-        let age = 25;
-        const name = "Alice";
+        subItems: [
+          {
+            code: `
+          let age = 25;
+          const name = "Alice";
         `,
+          },
+        ],
       },
       {
-        title: "Условные инструкции:",
+        title: "Условные операторы:",
         description: (
           <>
-            <Tag>if</Tag>, <Tag>else if</Tag>, <Tag>else</Tag>— проверяют
+            <Tag>if</Tag>, <Tag>else if</Tag>, <Tag>else</Tag> — проверяют
             условия и выполняют блоки кода, если условия истинны или ложны.
           </>
         ),
-        code: `
-         if (age > 18) {
-            console.log("Взрослый")
-         } else {  
-            console.log("Несовершеннолетний");
-         }  
+        subItems: [
+          {
+            code: `
+           if (age > 18) {
+              console.log("Взрослый");
+           } else {  
+              console.log("Несовершеннолетний");
+           }  
         `,
+          },
+        ],
+      },
+      {
+        title: "  Тернарный оператор",
+        description: (
+          <>
+            Тернарный оператор <Tag>? :</Tag> — сокращенный способ записи
+            условий.
+          </>
+        ),
+        subItems: [
+          {
+            code: `
+          let возраст = 20; 
+          let сообщение = (возраст >= 18) ? "Взрослый" : "Несовершеннолетний";
+          console.log(сообщение);`,
+          },
+        ],
+      },
+      {
+        title: (
+          <>
+            Оператор <Tag>switch</Tag>
+          </>
+        ),
+        description: (
+          <>
+            Оператор <Tag>switch</Tag> используется для выбора одного из
+            нескольких блоков кода в зависимости от значения переменной.
+          </>
+        ),
+        subItems: [
+          {
+            code: `
+          let день = 3;
+
+          switch (день) {
+          case 1:
+            console.log("Понедельник");
+            break;
+          case 2:
+            console.log("Вторник");
+            break;
+          case 3:
+            console.log("Среда");
+            break;
+          default:
+            console.log("Неизвестный день");
+            }
+            `,
+          },
+        ],
+      },
+      {
+        title: "Циклы",
+        description: (
+          <>
+            Циклы позволяют выполнять блок кода несколько раз: <Tag>for</Tag>,{" "}
+            <Tag>while</Tag>, и <Tag>do...while</Tag>.
+          </>
+        ),
+        subItems: [
+          {
+            subTitle: (
+              <>
+                Цикл <Tag>for</Tag>
+              </>
+            ),
+            code: `
+            for (let i = 0; i < 5; i++) {
+              console.log("Итерация номер", i);
+              }
+                   `,
+          },
+        ],
+      },
+      {
+        title: "",
+        description: <></>,
+        subItems: [{ code: `` }],
       },
     ],
   };
 
+  /*
+  
+  3. Тернарный оператор
+
+Тернарный оператор ? : — сокращенный способ записи условий.
+
+javascript
+
+let возраст = 20;
+let сообщение = (возраст >= 18) ? "Взрослый" : "Несовершеннолетний";
+console.log(сообщение);
+  */
   const Container = styled.div`
     display: flex;
     flex-direction: column;
@@ -58,124 +162,211 @@ function statements() {
     margin: 0 auto;
   `;
 
+  const ImageWrapper = styled.div`
+    position: relative;
+    display: inline-block;
+    width: 450px;
+    height: 450px;
+    margin-left: 70%;
+  `;
+
+  const Star = styled.div`
+    width: 0;
+    height: 0;
+    border-right: 100px solid transparent;
+    border-bottom: 200px solid gold;
+    border-left: 100px solid transparent;
+    position: relative;
+
+    &::before {
+      width: 0;
+      height: 0;
+      border-top: 200px solid gold;
+      border-right: 100px solid transparent;
+      border-bottom: 0 solid transparent;
+      border-left: 100px solid transparent;
+      position: absolute;
+      content: "";
+      top: 75px;
+      left: -100px;
+    }
+  `;
+
   return (
     <Container>
+      <ImageWrapper>
+        <Star />
+      </ImageWrapper>
+
       <h1>{content.title}</h1>
       <p>{content.description}</p>
       {content.items.map((item, i) => (
         <div key={i + item.title}>
-          <h2>{item.title} </h2>
+          <h2>
+            {i + 1}. {item.title}
+          </h2>
           <p>{item.description}</p>
-          <CodeBlock code={item.code} language="typescript" />
+          {item.subItems.map((subItem, i2) => (
+            <div key={i + i2 + `subItem`}>
+              {subItem.subTitle && <h3>{subItem.subTitle}</h3>}
+              <CodeBlock code={subItem.code} language="typescript" />
+            </div>
+          ))}
         </div>
       ))}
     </Container>
   );
 }
 
-export default statements;
+export default Statements;
+
 
 /*
 
+Вот примеры для всех операторов на JavaScript с пояснениями на русском языке:
+1. Объявление переменных
 
-В JavaScript инструкции (или Statements) — это команды, которые выполняют определённые действия. Они являются основными строительными блоками программы и пишутся по одной инструкции на строку. Вот ключевые инструкции в JavaScript:
-
-    Объявление переменных:
-        let, const, var — используются для создания переменных.
-
-    javascript
-
-let age = 25;
-const name = "Alice";
-
-Условные инструкции:
-
-    if, else if, else — проверяют условия и выполняют блоки кода, если условия истинны или ложны.
+Операторы для создания переменных: let, const, и var.
 
 javascript
 
-if (age > 18) {
+let возраст = 25;   // можно изменять значение
+const имя = "Алиса"; // постоянное значение, не изменяется
+var город = "Москва"; // более старый способ объявления переменной
+
+2. Условные операторы
+
+Используются для выполнения кода при выполнении определенных условий: if, else if, и else.
+
+javascript
+
+let возраст = 18;
+
+if (возраст >= 18) {
   console.log("Взрослый");
 } else {
   console.log("Несовершеннолетний");
 }
 
-    switch — выбирает выполнение одного из нескольких блоков кода в зависимости от значения переменной.
+3. Тернарный оператор
+
+Тернарный оператор ? : — сокращенный способ записи условий.
 
 javascript
 
-switch (day) {
-  case "Monday":
-    console.log("Сегодня понедельник");
+let возраст = 20;
+let сообщение = (возраст >= 18) ? "Взрослый" : "Несовершеннолетний";
+console.log(сообщение);
+
+4. Оператор switch
+
+Оператор switch используется для выбора одного из нескольких блоков кода в зависимости от значения переменной.
+
+javascript
+
+let день = 3;
+
+switch (день) {
+  case 1:
+    console.log("Понедельник");
+    break;
+  case 2:
+    console.log("Вторник");
+    break;
+  case 3:
+    console.log("Среда");
     break;
   default:
-    console.log("Другой день");
+    console.log("Неизвестный день");
 }
 
-Циклы:
+5. Циклы
 
-    for — используется для выполнения кода несколько раз с заданными условиями.
+Циклы позволяют выполнять блок кода несколько раз: for, while, и do...while.
+Цикл for
 
 javascript
 
 for (let i = 0; i < 5; i++) {
-  console.log(i);
+  console.log("Итерация номер", i);
 }
 
-    while и do...while — выполняют код, пока условие истинно.
+Цикл while
 
 javascript
 
 let i = 0;
 while (i < 5) {
-  console.log(i);
+  console.log("Итерация номер", i);
   i++;
 }
 
-Инструкции управления потоком:
-
-    break — прерывает выполнение цикла или оператора switch.
-    continue — пропускает одну итерацию цикла и переходит к следующей.
+Цикл do...while
 
 javascript
 
-for (let i = 0; i < 5; i++) {
-  if (i === 2) continue; // пропустит значение 2
-  console.log(i);
+let i = 0;
+do {
+  console.log("Итерация номер", i);
+  i++;
+} while (i < 5);
+
+6. Оператор return
+
+return завершает выполнение функции и возвращает значение.
+
+javascript
+
+function приветствие(имя) {
+  return `Привет, ${имя}`;
 }
 
-Функции:
+console.log(приветствие("Алексей"));
 
-    function — определяет функцию, которую можно вызывать в других частях программы.
+7. Оператор try...catch
+
+Используется для обработки ошибок в коде. Блок try содержит код, который может вызвать ошибку, а catch — блок обработки этой ошибки.
 
 javascript
 
-function greet(name) {
-  return `Привет, ${name}`;
+try {
+  // Код, который может вызвать ошибку
+  let результат = несуществующаяФункция();
+} catch (ошибка) {
+  console.log("Произошла ошибка", ошибка);
 }
 
-Возврат значения:
+8. Функции с параметрами по умолчанию
 
-    return — завершает выполнение функции и возвращает значение.
+Позволяет задавать значения параметрам по умолчанию, если они не переданы.
 
 javascript
 
-function add(a, b) {
-  return a + b;
+function приветствие(имя = "гость") {
+  return `Привет, ${имя}`;
 }
 
-Инструкция try...catch:
+console.log(приветствие()); // Привет, гость
+console.log(приветствие("Алексей")); // Привет, Алексей
 
-    Используется для обработки ошибок.
+9. Логические операторы
+
+&& (И), || (ИЛИ) и ! (НЕ) используются для работы с логическими значениями.
 
 javascript
 
-    try {
-      // код, который может вызвать ошибку
-    } catch (error) {
-      console.log("Произошла ошибка", error);
-    }
+let возраст = 20;
+let студент = true;
 
-Эти инструкции позволяют управлять логикой и потоком выполнения кода, делать программы динамичными и отвечающими на различные условия.
+if (возраст > 18 && студент) {
+  console.log("Студент-совершеннолетний");
+}
 
+if (возраст > 18 || студент) {
+  console.log("Либо совершеннолетний, либо студент");
+}
+
+console.log(!студент); // Ложь, так как переменная студент = true
+
+Эти операторы позволяют управлять потоком выполнения кода и делают программы гибкими и адаптируемыми под разные условия.
 */

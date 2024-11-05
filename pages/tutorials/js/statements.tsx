@@ -10,46 +10,149 @@ function Statements() {
     padding: 0 0.5rem;
   `;
 
-  const content = {
-    title: "Statements",
-    description: `In JavaScript sind Anweisungen (oder Statements) Kommandos, die 
-        bestimmte Aktionen ausführen. Sie sind die grundlegenden Bausteine eines 
-        Programms und werden Zeile für Zeile geschrieben. Hier sind die wichtigsten 
-        Anweisungen in JavaScript:`,
+  interface Content {
+    title: string;
+    description: string;
+    items: any;
+  }
+
+  const content: Content = {
+    title: "Операторы",
+    description: `В JavaScript операторы (или Statements) представляют собой команды, 
+        которые выполняют определенные действия. Они являются основными строительными 
+        блоками программы и пишутся построчно. Вот основные операторы в JavaScript:`,
     items: [
       {
-        title: "Variablendeklaration:",
+        title: "Объявление переменных:",
         description: (
           <>
-            <Tag>let</Tag>, <Tag>const</Tag>, <Tag>var</Tag> — werden verwendet,
-            um Variablen zu erstellen.
+            <Tag>let</Tag>, <Tag>const</Tag>, <Tag>var</Tag> — используются для
+            создания переменных.
           </>
         ),
-        code: `
-        let age = 25;
-        const name = "Alice";
+        subItems: [
+          {
+            code: `
+          let age = 25;
+          const name = "Alice";
         `,
+          },
+        ],
       },
       {
-        title: "Bedingte Anweisungen:",
+        title: "Условные операторы:",
         description: (
           <>
-            <Tag>if</Tag>, <Tag>else if</Tag>, <Tag>else</Tag> — überprüfen
-            Bedingungen und führen Codeblöcke aus, wenn die Bedingungen wahr
-            oder falsch sind.
+            <Tag>if</Tag>, <Tag>else if</Tag>, <Tag>else</Tag> — проверяют
+            условия и выполняют блоки кода, если условия истинны или ложны.
           </>
         ),
-        code: `
-         if (age > 18) {
-            console.log("Erwachsener");
-         } else {  
-            console.log("Minderjährig");
-         }  
+        subItems: [
+          {
+            code: `
+           if (age > 18) {
+              console.log("Взрослый");
+           } else {  
+              console.log("Несовершеннолетний");
+           }  
         `,
+          },
+        ],
+      },
+      {
+        title: "  Тернарный оператор",
+        description: (
+          <>
+            Тернарный оператор <Tag>? :</Tag> — сокращенный способ записи
+            условий.
+          </>
+        ),
+        subItems: [
+          {
+            code: `
+          let возраст = 20; 
+          let сообщение = (возраст >= 18) ? "Взрослый" : "Несовершеннолетний";
+          console.log(сообщение);`,
+          },
+        ],
+      },
+      {
+        title: (
+          <>
+            Оператор <Tag>switch</Tag>
+          </>
+        ),
+        description: (
+          <>
+            Оператор <Tag>switch</Tag> используется для выбора одного из
+            нескольких блоков кода в зависимости от значения переменной.
+          </>
+        ),
+        subItems: [
+          {
+            code: `
+          let день = 3;
+
+          switch (день) {
+          case 1:
+            console.log("Понедельник");
+            break;
+          case 2:
+            console.log("Вторник");
+            break;
+          case 3:
+            console.log("Среда");
+            break;
+          default:
+            console.log("Неизвестный день");
+            }
+            `,
+          },
+        ],
+      },
+      {
+        title: "Циклы",
+        description: (
+          <>
+            Циклы позволяют выполнять блок кода несколько раз: <Tag>for</Tag>,{" "}
+            <Tag>while</Tag>, и <Tag>do...while</Tag>.
+          </>
+        ),
+        subItems: [
+          {
+            subTitle: (
+              <>
+                Цикл <Tag>for</Tag>
+              </>
+            ),
+            code: `
+            for (let i = 0; i < 5; i++) {
+              console.log("Итерация номер", i);
+              }
+                   `,
+          },
+        ],
+      },
+      {
+        title: "",
+        description: <></>,
+        subItems: [{ code: `` }],
       },
     ],
   };
 
+  /*
+  
+  3. Тернарный оператор
+
+Тернарный оператор ? : — сокращенный способ записи условий.
+
+javascript
+
+let возраст = 20;
+let сообщение = (возраст >= 18) ? "Взрослый" : "Несовершеннолетний";
+console.log(сообщение);
+  */
   const Container = styled.div`
     display: flex;
     flex-direction: column;
@@ -92,16 +195,23 @@ function Statements() {
   return (
     <Container>
       <ImageWrapper>
-        <Star/>
+        <Star />
       </ImageWrapper>
 
       <h1>{content.title}</h1>
       <p>{content.description}</p>
       {content.items.map((item, i) => (
         <div key={i + item.title}>
-          <h2>{item.title}</h2>
+          <h2>
+            {i + 1}. {item.title}
+          </h2>
           <p>{item.description}</p>
-          <CodeBlock code={item.code} language="typescript" />
+          {item.subItems.map((subItem, i2) => (
+            <div key={i + i2 + `subItem`}>
+              {subItem.subTitle && <h3>{subItem.subTitle}</h3>}
+              <CodeBlock code={subItem.code} language="typescript" />
+            </div>
+          ))}
         </div>
       ))}
     </Container>

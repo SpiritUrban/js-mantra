@@ -10,6 +10,14 @@ function Statements() {
     padding: 0 0.5rem;
   `;
 
+  const LiTags = styled.div`
+    padding: 0.67rem;
+    list-style: 1rem;
+
+    li {
+      margin-bottom: 0.5rem;
+    }
+  `;
   interface Content {
     title: string;
     description: string;
@@ -114,8 +122,18 @@ function Statements() {
         title: "Циклы",
         description: (
           <>
-            Циклы позволяют выполнять блок кода несколько раз: <Tag>for</Tag>,
-            <Tag>while</Tag>, и <Tag>do...while</Tag>.
+            Циклы позволяют выполнять блок кода несколько раз:
+            <LiTags>
+              <li>
+                <Tag>for</Tag>,
+              </li>
+              <li>
+                <Tag>while</Tag>,
+              </li>
+              <li>
+                <Tag>do...while</Tag>.
+              </li>
+            </LiTags>
           </>
         ),
         subItems: [
@@ -156,14 +174,18 @@ function Statements() {
           },
           {
             subTitle: (
-                      <li>
-                      <Tag>while</Tag> — цикл, который выполняется, пока условие
-                      истинно
-                    </li>
+              <li>
+                <Tag>while</Tag> — цикл, который выполняется, пока условие
+                истинно
+              </li>
             ),
           },
           {
-            subTitle: <>Цикл <Tag>do...while</Tag></>,
+            subTitle: (
+              <>
+                Цикл <Tag>do...while</Tag>
+              </>
+            ),
             code: `
             let i = 0;
             do {
@@ -174,19 +196,31 @@ function Statements() {
                    `,
           },
           {
-            subTitle: <><Tag>do...while</Tag> — цикл, который выполняется хотя бы один раз, даже если условие сразу ложно.</>,
-            
+            subTitle: (
+              <>
+                <Tag>do...while</Tag> — цикл, который выполняется хотя бы один
+                раз, даже если условие сразу ложно.
+              </>
+            ),
           },
         ],
       },
       {
         subItems: [
           {
-            subTitle: <>Оператор <Tag>return</Tag></>,
-           
+            subTitle: (
+              <>
+                Оператор <Tag>return</Tag>
+              </>
+            ),
           },
           {
-            subTitle: <><Tag>return</Tag> завершает выполнение функции и возвращает значение</>,
+            subTitle: (
+              <>
+                <Tag>return</Tag> завершает выполнение функции и возвращает
+                значение
+              </>
+            ),
             code: `
             function приветствие(имя) {
             return "Привет, ($){имя}};
@@ -195,20 +229,32 @@ function Statements() {
             `,
           },
           {
-            subTitle: <><Tag>return</Tag> завершает выполнение функции и может возвращать значения.</>,
-           
+            subTitle: (
+              <>
+                <Tag>return</Tag> завершает выполнение функции и может
+                возвращать значения.
+              </>
+            ),
           },
-          
         ],
       },
       {
         subItems: [
           {
-            subTitle: <>Оператор <Tag>try...catch</Tag></>,
-            
+            subTitle: (
+              <>
+                Оператор <Tag>try...catch</Tag>
+              </>
+            ),
           },
           {
-            subTitle: <>Используется для обработки ошибок в коде. Блок <Tag>try</Tag> содержит код, который может вызвать ошибку, а <Tag>catch</Tag>  — блок обработки этой ошибки.</>,
+            subTitle: (
+              <>
+                Используется для обработки ошибок в коде. Блок <Tag>try</Tag>{" "}
+                содержит код, который может вызвать ошибку, а <Tag>catch</Tag> —
+                блок обработки этой ошибки.
+              </>
+            ),
             code: `
                     try {
           // Код, который может вызвать ошибку
@@ -221,10 +267,13 @@ function Statements() {
                    `,
           },
           {
-            subTitle: <>Используется для безопасного выполнения кода и перехвата исключений.</>,
-          
+            subTitle: (
+              <>
+                Используется для безопасного выполнения кода и перехвата
+                исключений.
+              </>
+            ),
           },
-        
         ],
       },
       {
@@ -264,6 +313,7 @@ let возраст = 20;
 let сообщение = (возраст >= 18) ? "Взрослый" : "Несовершеннолетний";
 console.log(сообщение);
   */
+
   const Container = styled.div`
     display: flex;
     flex-direction: column;

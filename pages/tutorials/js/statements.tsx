@@ -10,6 +10,14 @@ function Statements() {
     padding: 0 0.5rem;
   `;
 
+  const LiTags = styled.div`
+    padding: 0.67rem;
+    list-style: 1rem;
+
+    li {
+      margin-bottom: 0.5rem;
+    }
+  `;
   interface Content {
     title: string;
     description: string;
@@ -114,8 +122,8 @@ function Statements() {
         title: "Циклы",
         description: (
           <>
-            Циклы позволяют выполнять блок кода несколько раз: <Tag>for</Tag>,{" "}
-            <Tag>while</Tag>, и <Tag>do...while</Tag>.
+            Циклы позволяют выполнять блок кода несколько раз: &nbsp;
+            <Tag>for</Tag>, <Tag>while</Tag>, <Tag>do...while</Tag>.
           </>
         ),
         subItems: [
@@ -126,33 +134,74 @@ function Statements() {
               </>
             ),
             code: `
-            for (let i = 0; i < 5; i++) {
+             for (let i = 0; i < 5; i++) {
               console.log("Итерация номер", i);
-              }
+              }`,
+            subDescription: (
+              <>
+                <Tag>for</Tag> — цикл с известным числом итераций.
+              </>
+            ),
+          },
+          {
+            subTitle: (
+              <>
+                Цикл <Tag>while</Tag>
+              </>
+            ),
+            code: `
+            let i = 0;
+            while (i < 5) {
+              console.log("Итерация номер", i);
+              i++;
+            }
                    `,
+          },
+          {
+            subTitle: (
+              <>
+                Цикл <Tag>do...while</Tag>
+              </>
+            ),
+            code: `
+            let i = 0;
+            do {
+              console.log("Итерация номер", i);
+              i++;
+            } while (i < 5);
+
+                   `,
+            subDescription: (
+              <>
+                <Tag>do...while</Tag> — цикл, который выполняется хотя бы один
+                раз, даже если условие сразу ложно.
+              </>
+            ),
           },
         ],
       },
       {
-        title: "",
-        description: <></>,
-        subItems: [{ code: `` }],
+        title: (
+          <>
+            Оператор <Tag>return</Tag>
+          </>
+        ),
+        description: (
+          <>
+            <Tag>return</Tag> завершает выполнение функции и возвращает значение
+          </>
+        ),
+        code: `
+        function приветствие(имя) {
+        return "Привет, ($){имя}};
+         }
+         console.log(приветствие("Алексей"));
+        `,
+        subItems: [],
       },
     ],
   };
 
-  /*
-  
-  3. Тернарный оператор
-
-Тернарный оператор ? : — сокращенный способ записи условий.
-
-javascript
-
-let возраст = 20;
-let сообщение = (возраст >= 18) ? "Взрослый" : "Несовершеннолетний";
-console.log(сообщение);
-  */
   const Container = styled.div`
     display: flex;
     flex-direction: column;
@@ -210,6 +259,7 @@ console.log(сообщение);
             <div key={i + i2 + `subItem`}>
               {subItem.subTitle && <h3>{subItem.subTitle}</h3>}
               <CodeBlock code={subItem.code} language="typescript" />
+              {subItem.subDescription && <p>{subItem.subDescription}</p>}
             </div>
           ))}
         </div>
@@ -219,7 +269,6 @@ console.log(сообщение);
 }
 
 export default Statements;
-
 
 /*
 

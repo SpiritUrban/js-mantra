@@ -10,15 +10,6 @@ function Statements() {
     padding: 0 0.5rem;
   `;
 
-  const LiTags = styled.div`
-    padding: 0.67rem;
-    list-style: 1rem;
-
-    li {
-      margin-bottom: 0.5rem;
-    }
-  `;
-
   interface Content {
     title: string;
     description: string;
@@ -262,16 +253,6 @@ function Statements() {
       `,
         subItems: [],
       },
-      {
-        code: `
-          
-            Эти операторы и конструкции являются основными средствами для
-            управления потоком выполнения программы в JavaScript. Они позволяют
-            создавать гибкие и адаптируемые приложения, выполняющие различные
-            действия в зависимости от условий и логики. 
-          
-        `,
-      },
     ],
   };
 
@@ -284,41 +265,19 @@ function Statements() {
     margin: 0 auto;
   `;
 
-  const ImageWrapper = styled.div`
-    position: relative;
-    display: inline-block;
-    width: 450px;
-    height: 450px;
-    margin-left: 70%;
+  const TextHighlight = styled.p`
+    background-color: #1e1e1e;
+    color:#cacaca;
+    padding: 1rem;
+    border-left: 5px solid #222;
+    font-size: 1.2rem;
+    font-style: italic;
+    border-radius:7px;
   `;
 
-  const Star = styled.div`
-    width: 0;
-    height: 0;
-    border-right: 100px solid transparent;
-    border-bottom: 200px solid gold;
-    border-left: 100px solid transparent;
-    position: relative;
-
-    &::before {
-      width: 0;
-      height: 0;
-      border-top: 200px solid gold;
-      border-right: 100px solid transparent;
-      border-bottom: 0 solid transparent;
-      border-left: 100px solid transparent;
-      position: absolute;
-      content: "";
-      top: 75px;
-      left: -100px;
-    }
-  `;
-
+ 
   return (
     <Container>
-      <ImageWrapper>
-        <Star />
-      </ImageWrapper>
 
       <h1>{content.title}</h1>
       <p>{content.description}</p>
@@ -336,15 +295,23 @@ function Statements() {
                   {subItem.subDescription && <p>{subItem.subDescription}</p>}
                 </div>
               ))
-            : // If no subItems, just render the code directly
+            : 
               item.code && <CodeBlock code={item.code} language="typescript" />}
         </div>
       ))}
+      
+      <TextHighlight>
+        Эти операторы и конструкции являются основными средствами для
+        управления потоком выполнения программы в JavaScript. Они позволяют
+        создавать гибкие и адаптируемые приложения, выполняющие различные
+        действия в зависимости от условий и логики.
+      </TextHighlight>
     </Container>
   );
 }
 
 export default Statements;
+
 
 /*
  Нет, управляющие конструкции (такие как if, switch, циклы и т. д.) не являются операторами в JavaScript, хотя они тоже влияют на поведение программы. Давайте разберемся, чем они отличаются и почему их нельзя считать операторами.

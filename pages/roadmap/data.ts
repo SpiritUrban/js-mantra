@@ -7,7 +7,7 @@ export interface Question {
 export interface Point {
   title: string;
   questions: Question[];
-  link?:string;
+  link?: string;
 }
 
 export interface Subtopic {
@@ -33,23 +33,33 @@ export const javascriptCourse: Topic[] = [
             questions: [
               {
                 question: "Что такое оператор в JavaScript?",
-                answers: ["Команда для выполнения действий с переменными и значениями", "Тип переменной", "Функция"],
-                rightAnswerPointer: 0,
+                answers: [
+                  "Функция",
+                  "Команда для выполнения действий с переменными и значениями",
+                  "Тип переменной",
+                ],
+                rightAnswerPointer: 1,
               },
               {
-                question: "Какой оператор используется для присваивания значения переменной?",
+                question:
+                  "Какой оператор используется для присваивания значения переменной?",
                 answers: ["=", "==", "==="],
                 rightAnswerPointer: 0,
               },
               {
-                question: "Какой оператор используется для проверки равенства в JavaScript?",
-                answers: ["==", "=", "=>"],
-                rightAnswerPointer: 0,
+                question:
+                  "Какой оператор используется для проверки равенства в JavaScript?",
+                answers: ["=", "=>", "=="],
+                rightAnswerPointer: 2,
               },
               {
                 question: "Что делает тернарный оператор?",
-                answers: ["Сокращает запись условного оператора", "Преобразует тип данных", "Прерывает выполнение программы"],
-                rightAnswerPointer: 0,
+                answers: [
+                  "Преобразует тип данных",
+                  "Прерывает выполнение программы",
+                  "Сокращает запись условного оператора",
+                ],
+                rightAnswerPointer: 2,
               },
               {
                 question: "Какой из этих операторов является логическим?",
@@ -57,70 +67,94 @@ export const javascriptCourse: Topic[] = [
                 rightAnswerPointer: 0,
               },
               {
-                question: "Какой оператор используется для проверки типа переменной?",
-                answers: ["typeof", "instanceof", "in"],
-                rightAnswerPointer: 0,
+                question:
+                  "Какой оператор используется для проверки типа переменной?",
+                answers: ["in", "typeof", "instanceof"],
+                rightAnswerPointer: 1,
               },
               {
                 question: "Что делает оператор `delete` в JavaScript?",
-                answers: ["Удаляет свойство из объекта", "Сравнивает два значения", "Создает новый объект"],
-                rightAnswerPointer: 0,
+                answers: [
+                  "Сравнивает два значения",
+                  "Удаляет свойство из объекта",
+                  "Создает новый объект",
+                ],
+                rightAnswerPointer: 1,
               },
               {
-                question: "Какой оператор используется для создания нового экземпляра объекта?",
-                answers: ["new", "constructor", "Object.create"],
-                rightAnswerPointer: 0,
+                question:
+                  "Какой оператор используется для создания нового экземпляра объекта?",
+                answers: ["Object.create", "new", "constructor"],
+                rightAnswerPointer: 1,
               },
             ],
           },
-          
+          /*Statements */
           {
             title: "Statements (инструкции)",
             link: "/tutorials/js/statements",
             questions: [
               {
                 question: "Что такое инструкция в JavaScript?",
-                answers: ["Базовая единица кода, которая выполняется в программе", "Тип переменной", "Тип функции"],
-                rightAnswerPointer: 0,
+                answers: [
+                  "Тип функции",
+                  "Базовая единица кода, которая выполняется в программе",
+                  "Тип переменной",
+                ],
+                rightAnswerPointer: 1,
               },
               {
-                question: "Какой символ обозначает конец инструкции в JavaScript?",
+                question:
+                  "Какой символ обозначает конец инструкции в JavaScript?",
                 answers: [";", ".", ":"],
                 rightAnswerPointer: 0,
               },
               {
                 question: "Что делает инструкция `if`?",
-                answers: ["Проверяет условие и выполняет код, если условие истинно", "Определяет тип переменной", "Создает новый объект"],
+                answers: [
+                  "Проверяет условие и выполняет код, если условие истинно",
+                  "Определяет тип переменной",
+                  "Создает новый объект",
+                ],
                 rightAnswerPointer: 0,
               },
               {
-                question: "Какой тип инструкций используется для повторения кода несколько раз?",
+                question:
+                  "Какой тип инструкций используется для повторения кода несколько раз?",
                 answers: ["Циклы", "Функции", "Константы"],
                 rightAnswerPointer: 0,
               },
               {
                 question: "Что делает инструкция `return`?",
-                answers: ["Завершает выполнение функции и возвращает значение", "Выводит информацию в консоль", "Создает новый объект"],
-                rightAnswerPointer: 0,
+                answers: [
+                  "Выводит информацию в консоль",
+                  "Завершает выполнение функции и возвращает значение",
+                  "Создает новый объект",
+                ],
+                rightAnswerPointer: 1,
               },
               {
                 question: "Что делает инструкция `try...catch`?",
-                answers: ["Обрабатывает ошибки в коде", "Перезапускает программу", "Завершает выполнение цикла"],
-                rightAnswerPointer: 0,
+                answers: [
+                  "Завершает выполнение цикла",
+                  "Перезапускает программу",
+                  "Обрабатывает ошибки в коде",
+                ],
+                rightAnswerPointer: 2,
               },
               {
-                question: "Какая инструкция используется для выбора между несколькими вариантами?",
-                answers: ["switch", "if...else", "for"],
-                rightAnswerPointer: 0,
+                question:
+                  "Какая инструкция используется для выбора между несколькими вариантами?",
+                answers: ["for", "switch", "if...else"],
+                rightAnswerPointer: 1,
               },
               {
                 question: "Какая инструкция используется для завершения цикла?",
-                answers: ["break", "continue", "return"],
-                rightAnswerPointer: 0,
+                answers: ["return", "continue", "break"],
+                rightAnswerPointer: 2,
               },
             ],
-          }
-          
+          },
         ],
       },
       {

@@ -157,7 +157,7 @@ const JavaScriptCourse: React.FC = () => {
                           {point.link && (
                             <Link href={point.link} passHref target="_black">
                               <TiLink />
-                            </Link>
+                              </Link>
                           )}
                         </PointItem>
                       ))}

@@ -19,7 +19,7 @@ function Statements() {
   const content: Content = {
     title: "Операторы",
     description: `В JavaScript операторы (или Statements) представляют собой команды, 
-        которые выполняют определенные действия. Они являются основными операторами в программе.`,
+          которые выполняют определенные действия. Они являются основными операторами в программе.`,
     items: [
       {
         title: "Объявление переменных:",
@@ -32,9 +32,9 @@ function Statements() {
         subItems: [
           {
             code: `
-          let age = 25;
-          const name = "Alice";
-        `,
+            let age = 25;
+            const name = "Alice";
+          `,
           },
         ],
       },
@@ -49,12 +49,12 @@ function Statements() {
         subItems: [
           {
             code: `
-           if (age > 18) {
-              console.log("Взрослый");
-           } else {  
-              console.log("Несовершеннолетний");
-           }  
-        `,
+             if (age > 18) {
+                console.log("Взрослый");
+             } else {  
+                console.log("Несовершеннолетний");
+             }  
+          `,
           },
         ],
       },
@@ -69,9 +69,9 @@ function Statements() {
         subItems: [
           {
             code: `
-          let возраст = 20; 
-          let сообщение = (возраст >= 18) ? "Взрослый" : "Несовершеннолетний";
-          console.log(сообщение);`,
+            let возраст = 20; 
+            let сообщение = (возраст >= 18) ? "Взрослый" : "Несовершеннолетний";
+            console.log(сообщение);`,
           },
         ],
       },
@@ -90,22 +90,22 @@ function Statements() {
         subItems: [
           {
             code: `
-          let день = 3;
-
-          switch (день) {
-          case 1:
-            console.log("Понедельник");
-            break;
-          case 2:
-            console.log("Вторник");
-            break;
-          case 3:
-            console.log("Среда");
-            break;
-          default:
-            console.log("Неизвестный день");
+            let день = 3;
+  
+            switch (день) {
+            case 1:
+              console.log("Понедельник");
+              break;
+            case 2:
+              console.log("Вторник");
+              break;
+            case 3:
+              console.log("Среда");
+              break;
+            default:
+              console.log("Неизвестный день");
             }
-            `,
+              `,
           },
         ],
       },
@@ -125,9 +125,9 @@ function Statements() {
               </>
             ),
             code: `
-             for (let i = 0; i < 5; i++) {
-              console.log("Итерация номер", i);
-              }`,
+               for (let i = 0; i < 5; i++) {
+                console.log("Итерация номер", i);
+                }`,
             subDescription: (
               <>
                 <Tag>for</Tag> — цикл с известным числом итераций.
@@ -141,12 +141,12 @@ function Statements() {
               </>
             ),
             code: `
-            let i = 0;
-            while (i < 5) {
-              console.log("Итерация номер", i);
-              i++;
-            }
-                   `,
+              let i = 0;
+              while (i < 5) {
+                console.log("Итерация номер", i);
+                i++;
+              }
+                     `,
           },
           {
             subTitle: (
@@ -155,12 +155,12 @@ function Statements() {
               </>
             ),
             code: `
-            let i = 0;
-            do {
-              console.log("Итерация номер", i);
-              i++;
-            } while (i < 5);
-                   `,
+              let i = 0;
+              do {
+                console.log("Итерация номер", i);
+                i++;
+              } while (i < 5);
+                     `,
             subDescription: (
               <>
                 <Tag>do...while</Tag> — цикл, который выполняется хотя бы один
@@ -182,11 +182,11 @@ function Statements() {
           </>
         ),
         code: `
-      function приветствие(имя) {
-      return \`Привет, \${имя}\`; // Correct string interpolation
-    }
-    console.log(приветствие("Алексей"));
-        `,
+        function приветствие(имя) {
+        return \`Привет, \${имя}\`; // Correct string interpolation
+      }
+      console.log(приветствие("Алексей"));
+          `,
         subItems: [],
       },
       {
@@ -203,12 +203,12 @@ function Statements() {
           </>
         ),
         code: `
-        try {
-        let результат = несуществующаяФункция();
-        } catch (ошибка) {
-         console.log("Произошла ошибка", ошибка);
-         }
-      `,
+          try {
+          let результат = несуществующаяФункция();
+          } catch (ошибка) {
+           console.log("Произошла ошибка", ошибка);
+           }
+        `,
         subItems: [],
       },
       {
@@ -221,12 +221,12 @@ function Statements() {
           </>
         ),
         code: `
-        function приветствие(имя = "гость") {
-         return \`Привет, \${имя}\`;
-         }
-         console.log(приветствие()); // Привет, гость
-         console.log(приветствие("Алексей")); // Привет, Алексей
-      `,
+          function приветствие(имя = "гость") {
+           return \`Привет, \${имя}\`;
+           }
+           console.log(приветствие()); // Привет, гость
+           console.log(приветствие("Алексей")); // Привет, Алексей
+        `,
         subItems: [],
       },
       {
@@ -238,23 +238,97 @@ function Statements() {
           </>
         ),
         code: `
-        let возраст = 20;
-        let студент = true;
-
-        if (возраст > 18 && студент) {
-        console.log("Студент-совершеннолетний");
-        }
-
-        if (возраст > 18 || студент) {
-        console.log("Либо совершеннолетний, либо студент");
-        }
-        console.log(!студент); // Ложь, так как переменная студент = true
-
-      `,
+          let возраст = 20;
+          let студент = true;
+  
+          if (возраст > 18 && студент) {
+          console.log("Студент-совершеннолетний");
+          }
+  
+          if (возраст > 18 || студент) {
+          console.log("Либо совершеннолетний, либо студент");
+          }
+          console.log(!студент); // Ложь, так как переменная студент = true
+  
+        `,
         subItems: [],
+      },
+      {
+        title: <>Дополнительные операторы</>,
+        description: (
+          <>
+            Следующие операторы также часто используются в JavaScript, но были
+            пропущены в предыдущем объяснении. Мы добавляем их сюда для более
+            полного понимания.
+          </>
+        ),
+        subItems: [
+          {
+            subTitle: "Оператор typeof",
+            description: (
+              <>
+                Оператор <Tag>typeof</Tag> используется для определения типа
+                переменной.
+              </>
+            ),
+            code: `
+              let number = 42;
+              console.log(typeof number); // "number"
+  
+              let str = "Hello, world!";
+              console.log(typeof str); // "string"
+            `,
+          },
+          {
+            subTitle: "Оператор in",
+            description: (
+              <>
+                Оператор <Tag>in</Tag> используется для проверки, существует ли
+                свойство в объекте.
+              </>
+            ),
+            code: `
+              let person = { name: "Alice", age: 25 };
+              console.log("name" in person); // true
+              console.log("gender" in person); // false
+            `,
+          },
+          {
+            subTitle: "Оператор delete",
+            description: (
+              <>
+                Оператор <Tag>delete</Tag> удаляет свойство из объекта.
+              </>
+            ),
+            code: `
+              let person = { name: "Alice", age: 25 };
+              delete person.age;
+              console.log(person); // { name: "Alice" }
+            `,
+          },
+          {
+            subTitle: "Оператор new",
+            description: (
+              <>
+                Оператор <Tag>new</Tag> используется для создания нового
+                экземпляра объекта, используя функцию-конструктор.
+              </>
+            ),
+            code: `
+              function Person(name, age) {
+                this.name = name;
+                this.age = age;
+              }
+  
+              const john = new Person("John", 30);
+              console.log(john); // Person { name: "John", age: 30 }
+            `,
+          },
+        ],
       },
     ],
   };
+  
 
   const Container = styled.div`
     display: flex;

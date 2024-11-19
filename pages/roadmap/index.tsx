@@ -1,6 +1,6 @@
 "use client";
 
-import { javascriptCourse } from "@/pages/roadmap/data";
+import { javascriptCourse } from "@/pages/roadmap/data/_data";
 import styled from "styled-components";
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";

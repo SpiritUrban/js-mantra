@@ -1,6 +1,6 @@
 "use client";
 
-import { javascriptCourse } from "@/pages/roadmap/data";
+import { javascriptCourse } from "@/pages/roadmap/data/_data";
 import styled from "styled-components";
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
@@ -157,7 +157,7 @@ const JavaScriptCourse: React.FC = () => {
                           {point.link && (
                             <Link href={point.link} passHref target="_black">
                               <TiLink />
-                            </Link>
+                              </Link>
                           )}
                         </PointItem>
                       ))}

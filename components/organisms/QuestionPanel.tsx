@@ -95,7 +95,7 @@ interface QuestionPanelProps {
 function QuestionPanel({ point, onNextPoint }: QuestionPanelProps) {
   const [questionPointer, setQuestionPointer] = useState(0);
 
-  console.log(point);
+  console.log(questionPointer,"String");
 
   const checkAnswer = (i: number) => {
     console.log(i);
@@ -105,7 +105,11 @@ function QuestionPanel({ point, onNextPoint }: QuestionPanelProps) {
         setQuestionPointer(questionPointer + 1);
       } else {
         setQuestionPointer(0);
+
+       setTimeout(()=>{
         onNextPoint();
+       },2000) 
+       
         console.log("next");
       }
     } else {
@@ -116,8 +120,8 @@ function QuestionPanel({ point, onNextPoint }: QuestionPanelProps) {
   return (
     <Panel backgroundColor="#f0f0f0" borderColor="#ccc">
       <ItemContainer>
-        {point.questions.map(() => (
-          <Item isLit={true}></Item>
+        {point.questions.map((el,i) => (
+          <Item isLit={questionPointer > i}></Item>
         ))}
       </ItemContainer>
       <div>{point.questions[questionPointer].question}</div>

@@ -1,11 +1,14 @@
 export const basics = {
   title: "Основы JavaScript",
+
   subtopics: [
     {
       title: "Введение в JavaScript",
+      
       points: [
         {
           title: "Что такое JavaScript?",
+          link: "/tutorials/js/about-js",
           questions: [
             {
               question: "JavaScript это ...",
@@ -33,6 +36,7 @@ export const basics = {
         {
           title:
             "Применение JavaScript (веб-разработка, серверные приложения, мобильные приложения)",
+            link: "/tutorials/js/using-js",
           questions: [
             {
               question: "Где используется JavaScript?",
@@ -196,6 +200,7 @@ export const basics = {
       points: [
         {
           title: "Текстовый редактор (Visual Studio Code, Sublime Text)",
+          link: "/tutorials/js/editors",
           questions: [
             {
               question:

@@ -12,6 +12,7 @@
     "test:watch": "jest --watch"
   },
   "dependencies": {
+    
     "@babel/preset-env": "^7.25.0",
     "@babel/preset-react": "^7.24.7",
     "@monaco-editor/react": "^4.6.0",

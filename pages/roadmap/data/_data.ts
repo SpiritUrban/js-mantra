@@ -10,4 +10,5 @@ export const javascriptCourse: Topic[] = [
   introduction,
   functions,
   arraysAndObjects,
+  
 ];

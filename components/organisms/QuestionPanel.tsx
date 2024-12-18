@@ -95,42 +95,39 @@ interface QuestionPanelProps {
 function QuestionPanel({ point, onNextPoint }: QuestionPanelProps) {
   const [questionPointer, setQuestionPointer] = useState(0);
 
-  console.log(questionPointer,"String");
+  if (!point || !point.questions || point.questions.length === 0) {
+    return <div>Вопросы отсутствуют</div>;
+  }
 
   const checkAnswer = (i: number) => {
-    console.log(i);
-    if (i == point.questions[questionPointer].rightAnswerPointer) {
+    if (i === point.questions[questionPointer].rightAnswerPointer) {
       if (questionPointer + 1 < point.questions.length) {
-        console.log(questionPointer + 1, point.questions.length);
         setQuestionPointer(questionPointer + 1);
       } else {
         setQuestionPointer(0);
-
-       setTimeout(()=>{
-        onNextPoint();
-       },2000) 
-       
-        console.log("next");
+        setTimeout(() => {
+          onNextPoint();
+        }, 2000);
       }
     } else {
-      alert("false");
+      alert("Неправильный ответ");
     }
   };
 
   return (
     <Panel backgroundColor="#f0f0f0" borderColor="#ccc">
       <ItemContainer>
-        {point.questions.map((el,i) => (
-          <Item key={i+Math.random()} isLit={questionPointer > i}></Item>
+        {point.questions.map((el, i) => (
+          <Item key={i} isLit={questionPointer > i}></Item>
         ))}
       </ItemContainer>
-      <div>{point.questions[questionPointer].question}</div>
+      <div>{point.questions[questionPointer]?.question || "Вопрос отсутствует"}</div>
       <AnswersContainer>
-        {point.questions[questionPointer].answers.map((answer, i) => (
+        {point.questions[questionPointer]?.answers?.map((answer, i) => (
           <Button
             variant="secondary"
             onClick={() => checkAnswer(i)}
-            key={i + answer}
+            key={i}
           >
             {answer}
           </Button>

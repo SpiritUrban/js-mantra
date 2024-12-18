@@ -1,5 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  compiler: {
+    styledComponents: true, // Включение поддержки styled-components
+  },
   async headers() {
     return [
       {

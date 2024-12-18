@@ -25,19 +25,12 @@ const counterSlice = createSlice({
     next3: (state) => {
       state.pointPointer++;
     },
-    set3: (state, action) => {
+    set3: (state, action: PayloadAction<number>) => {
       state.pointPointer = action.payload;
     },
-    set2: (state, action) => {
+    set2: (state, action: PayloadAction<number>) => {
       state.subtopicPointer = action.payload;
     },
-
-    /*
-    setColor:(state,action:PayloadAction<string>)=>{
-      state.color=action.payload
-
-      setColor 
-    } */
   },
 });
 

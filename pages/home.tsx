@@ -6,6 +6,12 @@ import { addTodo, toggleTodo } from "@/lib/RTK/slices/todosSlice";
 import { RootState } from "@/lib/RTK/store";
 import { Counter } from "@/components/organisms/Counter";
 
+interface Todo {
+  id: number;
+  text: string;
+  completed: boolean;
+}
+
 const Home: React.FC = () => {
   const [text, setText] = useState("");
   const todos = useSelector((state: RootState) => state.todos);
@@ -34,7 +40,7 @@ const Home: React.FC = () => {
       />
       <button onClick={handleAddTodo}>Add Todo</button>
       <ul>
-        {todos.map((todo) => (
+        {todos.map((todo: Todo) => (
           <li
             key={todo.id}
             onClick={() => dispatch(toggleTodo(todo.id))}

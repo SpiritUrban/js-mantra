@@ -1,6 +1,6 @@
 import React from "react";
 import styled, { css } from "styled-components";
-import { Point } from "@/pages/roadmap/data/_interfaces";
+import { Point } from "@/data/roadmap/_interfaces";
 import { useState } from "react";
 import Button from "react-bootstrap/Button";
 

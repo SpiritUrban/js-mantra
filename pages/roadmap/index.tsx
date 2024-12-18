@@ -1,6 +1,6 @@
 "use client";
 
-import { javascriptCourse } from "@/pages/roadmap/data/_data";
+import { javascriptCourse } from "@/data/roadmap/_data";
 import styled from "styled-components";
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
@@ -92,15 +92,19 @@ const PointItem = styled.li`
 
 const JavaScriptCourse: React.FC = () => {
   const dispatch = useDispatch();
+  const isClient = typeof window !== "undefined";
+
   const topicPointer = useSelector(
-    (state: RootState) => state.roadMap.topicPointer
+    (state: RootState) => (isClient ? state.roadMap?.topicPointer : 0)
   );
   const subtopicPointer = useSelector(
-    (state: RootState) => state.roadMap.subtopicPointer
+    (state: RootState) => (isClient ? state.roadMap?.subtopicPointer : 0)
   );
   const pointPointer = useSelector(
-    (state: RootState) => state.roadMap.pointPointer
+    (state: RootState) => (isClient ? state.roadMap?.pointPointer : 0)
   );
+  
+  
 
   const currentPoint = () => {
     return javascriptCourse[topicPointer].subtopics[subtopicPointer].points[
@@ -142,7 +146,7 @@ const JavaScriptCourse: React.FC = () => {
         <LeftSection>
           <CourseContainer>
             <CourseTitle>Курс по JavaScript</CourseTitle>
-            {javascriptCourse.map((topic, topicIndex) => (
+            { javascriptCourse?.map((topic, topicIndex) => (
               <Topic key={`topic-${topicIndex}`}>
                 <TopicTitle>{topic.title}</TopicTitle>
                 {topic.subtopics.map((subtopic, subIndex) => (

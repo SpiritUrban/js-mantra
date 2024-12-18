@@ -1,6 +1,6 @@
-import { introduction } from "./introduction";
+import { introduction } from "@/data/roadmap/introduction";
 import { basics } from "./basics";
-import { functions } from "./functions";
+import { functions } from "@/data/roadmap/functions";
 import { arraysAndObjects } from "./arraysAndObjects";
 import { Topic } from "./_interfaces";
 

@@ -25,6 +25,6 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
   }
 }
 
-export default async function (req: NextApiRequest, res: NextApiResponse) {
+export default async function chekSession (req: NextApiRequest, res: NextApiResponse) {
   return withSession(req, res, handler);
 }

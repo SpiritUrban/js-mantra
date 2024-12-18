@@ -6,6 +6,7 @@
     "game-ui.tsx",
     "index.tsx",
     "other.tsx",
+    "sounds.tsx",
     "tools.tsx"
   ]
 }

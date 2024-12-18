@@ -1,6 +1,6 @@
 import React from "react";
 import styled, { css } from "styled-components";
-import { Point } from "@/pages/roadmap/data";
+import { Point } from "@/pages/roadmap/data/_interfaces";
 import { useState } from "react";
 import Button from "react-bootstrap/Button";
 
@@ -121,7 +121,7 @@ function QuestionPanel({ point, onNextPoint }: QuestionPanelProps) {
     <Panel backgroundColor="#f0f0f0" borderColor="#ccc">
       <ItemContainer>
         {point.questions.map((el,i) => (
-          <Item isLit={questionPointer > i}></Item>
+          <Item key={i+Math.random()} isLit={questionPointer > i}></Item>
         ))}
       </ItemContainer>
       <div>{point.questions[questionPointer].question}</div>

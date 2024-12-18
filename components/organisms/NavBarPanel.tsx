@@ -46,6 +46,7 @@ function NavBarPanel() {
       links: [{ name: "Issues", href: "/health/issues" }],
     },
     { name: "Training", href: "/training" },
+    { name: "Roadmap", href: "/roadmap" },
     { name: "CheatSheets", href: "/cheatsheets" },
   ]);
 

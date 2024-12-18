@@ -2,10 +2,15 @@ import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import { createWrapper, HYDRATE } from "next-redux-wrapper";
 import todosSlice from "./slices/todosSlice";
 import counterSlice from "./slices/counterSlice";
+import authSlice from "./slices/authSlice";
+import roadMapSlice from "./slices/roadMapSlice"
 
 const combinedReducer = combineReducers({
   todos: todosSlice,
   counter: counterSlice,
+  auth: authSlice,
+  roadMap:roadMapSlice
+
 });
 
 const reducer = (state: ReturnType<typeof combinedReducer> | undefined, action: any) => {

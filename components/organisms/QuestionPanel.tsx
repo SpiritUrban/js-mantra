@@ -93,6 +93,9 @@ interface QuestionPanelProps {
 }
 
 function QuestionPanel({ point, onNextPoint }: QuestionPanelProps) {
+
+  console.log('point', point);
+  
   const [questionPointer, setQuestionPointer] = useState(0);
 
   if (!point || !point.questions || point.questions.length === 0) {

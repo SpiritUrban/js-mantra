@@ -212,6 +212,7 @@ export const basics = {
         },
         {
           title: "Браузер (Chrome, Firefox) и инструменты разработчика",
+          link:"/tutorials/js/developer-tools",
           questions: [
             {
               question:

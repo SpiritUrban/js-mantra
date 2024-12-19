@@ -135,8 +135,8 @@ export default function Home() {
         </ContentSection>
 
 
+        <ParallaxSection height="15rem" />
 
-        <ParallaxSection height="10rem" />
 
         <ContentSection>
 
@@ -177,7 +177,7 @@ export default function Home() {
         </ContentSection>
 
 
-
+        <ParallaxSection height="10rem" />
 
 
         {/* <Image

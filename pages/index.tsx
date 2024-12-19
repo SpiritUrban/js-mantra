@@ -152,7 +152,7 @@ export default function Home() {
                 Your journey with JS Mantra begins with a single step—explore new horizons in web development.
               </p>
               <p>
-                For any questions, join our Telegram channel: <a href="https://t.me/t.me/oooclanoooo">JS-Clan</a>
+                For any questions, join our Telegram channel: <a href="https://t.me/oooclanoooo">JS-Clan</a>
               </p>
             </Card.Body>
           </Card>
@@ -170,7 +170,7 @@ export default function Home() {
                 Путь на JS Mantra начинается с вашего первого шага – откройте для себя новые горизонты веб-разработки.
               </p>
               <p>
-                Все вопросы в телеграм канале: <a href="https://t.me/t.me/oooclanoooo">JS-Clan</a>
+                Все вопросы в телеграм канале: <a href="https://t.me/oooclanoooo">JS-Clan</a>
               </p>
             </Card.Body>
           </Card>

@@ -88,14 +88,16 @@ const TrainingPage = () => {
 
     useEffect(() => {
         const run = async () => {
+            if (!router.isReady) return;
             if (!id) return console.log('No id provided');
-            else console.log('id:', id);
+
+            console.log('id:', id);
 
             try {
                 const data = await import(`@/data/training/${id}`);
                 setPageData(data.default);
             } catch (err) {
-                console.error("Failed to load JSON by [id]:", err);
+                console.error("Failed to load training data for [id]:", err);
             }
 
             try {
@@ -113,7 +115,7 @@ const TrainingPage = () => {
             }
         };
         run();
-    }, [id]);
+    }, [router.isReady, id]);
 
     useEffect(() => {
         console.log('pageData', pageData);

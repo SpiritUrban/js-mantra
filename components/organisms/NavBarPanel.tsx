@@ -162,13 +162,6 @@ function NavBarPanel() {
             />
             <Button variant="outline-success">Search</Button>
           </Form>*/}
-          <Link href="/auth/register" passHref>
-            Register
-          </Link>
-          |
-          <Link href="/auth/login" passHref>
-            Login
-          </Link>
         </Navbar.Collapse>
       </Container>
     </Navbar>
